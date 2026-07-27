@@ -1,0 +1,164 @@
+aid: eia
+url: https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/apis.yml
+name: EIA
+kind: company
+description: The U.S. Energy Information Administration (EIA) is the independent statistical
+  and analytical agency within the U.S. Department of Energy, created by the Department of
+  Energy Organization Act of 1977, that collects, analyzes, and disseminates energy information
+  for the United States. EIA sits at the measurement layer of the American energy value chain
+  rather than the operating layer - it does not generate, transmit, distribute, or retail
+  energy, and it does not regulate anyone. Instead it compels the industry to report through
+  mandatory survey forms (EIA-860, EIA-861, EIA-923, EIA-176, EIA-914, EIA-930 and dozens
+  more) and then publishes the result as the reference statistics for electricity, natural
+  gas, petroleum, coal, nuclear, renewables, emissions, and international energy. EIA's API
+  posture is the strongest of any organization in this sector and a genuine benchmark for
+  government data anywhere. The Open Data APIv2 at api.eia.gov/v2 is a fully RESTful, self-documenting,
+  hierarchically routed API covering more than two million time series, described by a real
+  downloadable OpenAPI 3.0.0 contract carrying 225 paths and 278 operations, opened by a free
+  API key that is emailed automatically from a public registration form with no review, no
+  accreditation, and no licence to sign. A companion bulk download facility at api.eia.gov/bulk
+  serves the same data as manifest-indexed zip archives and requires no key at all. The split
+  that defines this sector is absolute here. EIA's market, system, and grid data is wide open
+  - hourly balancing-authority demand and interchange, wholesale and spot prices, generator-level
+  capacity and operations - while EIA publishes no consumer energy data API of any kind. There
+  is no Green Button, no ESPI, no Download My Data, no Connect My Data, no consent flow, and
+  no customer usage or billing endpoint, because individual customer data is never collected
+  by EIA in the first place; its surveys arrive already aggregated from utilities and are
+  further protected by statutory confidentiality. EIA is therefore the clearest instance of
+  the recurring finding in this series - a federal data agency that publishes a far better
+  documented, far more accessible API than the regulated utilities whose numbers it reports.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+tags:
+- Energy
+- United States
+- Energy Markets
+- Electricity
+- Natural Gas
+- Petroleum
+- Coal
+- Nuclear
+- Renewables
+- Grid
+- Emissions
+- Government
+- Open Data
+- Energy Statistics
+created: '2026-07-27'
+modified: '2026-07-27'
+specificationVersion: '0.19'
+apis:
+- aid: eia:eia-open-data-api-v2
+  name: EIA Open Data API (APIv2)
+  description: EIA's public, fully RESTful open data API covering more than two million energy
+    time series. Datasets are arranged in a discoverable tree - request a parent route such
+    as /v2/electricity and the API returns its child routes, available frequencies, facets,
+    and data columns as metadata; append /data to retrieve values, with facets, column selection,
+    date range, sort, offset, and length all expressed as query parameters. Route families
+    cover electricity (including hourly RTO and balancing-authority operating data), natural
+    gas, petroleum, coal, nuclear outages, densified biomass, CO2 emissions, international
+    energy, the State Energy Data System, state electricity profiles, and the Short-Term,
+    Annual, and International Energy Outlook projections. Responses are JSON by default or
+    XML with out=xml, capped at 5,000 rows per request with an explicit pagination warning
+    returned in the payload. The legacy APIv1 series interface is deprecated but its identifiers
+    remain reachable through the /v2/seriesid/{id} route. Verified live 2026-07-27 - an unauthenticated
+    GET returns HTTP 403 with API_KEY_MISSING and a bogus key returns HTTP 403 with API_KEY_INVALID.
+    Published API version at the time of review is 2.1.12 (March 2026).
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - Open Data
+  - Electricity
+  - Natural Gas
+  - Petroleum
+  - Coal
+  - Nuclear
+  - Emissions
+  - Energy Statistics
+  - Time Series
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-api-v2-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: Signup
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+- aid: eia:eia-bulk-download-facility
+  name: EIA Bulk Download Facility
+  description: EIA's bulk data distribution surface, served from the same api.eia.gov host
+    as APIv2 but requiring no API key whatsoever. A single manifest at /bulk/manifest.txt
+    returns a JSON catalog of every bulk dataset with Project Open Data style metadata - identifier,
+    title, description, keyword, publisher, person, mbox, accessLevel, accessURL, and last_updated
+    - and each dataset is then downloadable as a zip archive of newline-delimited JSON, for
+    example /bulk/ELEC.zip. Datasets include U.S. Electric System Operating Data (661,461
+    series), Electricity (285,080), Petroleum (53,464), Annual Energy Outlook releases back
+    to 2014, International, SEDS, STEO, Coal, Natural Gas, CO2 Emissions, Crude Oil Imports,
+    Nuclear Outages, and Total Energy. Updated twice daily at 5 a.m. and 3 p.m. Eastern. Verified
+    live 2026-07-27 - GET /bulk/manifest.txt returned HTTP 200 anonymously and GET /bulk/ELEC.zip
+    returned HTTP 200 with a 291,920,911-byte zip payload, both without a key.
+  humanURL: https://www.eia.gov/opendata/bulkfiles.php
+  baseURL: https://api.eia.gov/bulk
+  tags:
+  - Open Data
+  - Bulk Data
+  - Energy Statistics
+  - Electricity
+  - Time Series
+  properties:
+  - type: Documentation
+    url: https://www.eia.gov/opendata/bulkfiles.php
+  - type: DataCatalog
+    url: https://api.eia.gov/bulk/manifest.txt
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+common:
+- type: Website
+  url: https://www.eia.gov
+- type: Portal
+  url: https://www.eia.gov/opendata/
+- type: Documentation
+  url: https://www.eia.gov/opendata/documentation.php
+- type: Signup
+  url: https://www.eia.gov/opendata/register.php
+- type: Console
+  url: https://www.eia.gov/opendata/browser/
+- type: PrivacyPolicy
+  url: https://www.eia.gov/about/privacy_security_policy.php
+- type: GitHubOrganization
+  url: https://github.com/EIAgov
+  name: EIAgov - a GitHub USER account, not an organization; 4 public repos (NEMS, BlueSky,
+    dash-benchmark, EIAgov). No API client libraries or SDKs published.
+- type: DataCatalog
+  url: https://www.energy.gov/data.json
+  name: DOE Project Open Data catalog - 342 of its 483 datasets are published by EIA
+- type: Tools
+  url: https://www.eia.gov/tools/
+- type: Documentation
+  url: https://www.eia.gov/opendata/excel/
+  name: EIA Excel Add-in - spreadsheet client for APIv2
+- type: Documentation
+  url: https://www.eia.gov/electricity/gridmonitor/
+  name: Hourly Electric Grid Monitor - web tool over the /v2/electricity/rto routes
+- type: Documentation
+  url: https://www.eia.gov/electricity/wholesalemarkets/
+  name: Wholesale Electricity Markets - link hub to the seven ISO/RTO data surfaces, not an
+    EIA API
+- type: Documentation
+  url: https://www.eia.gov/survey/
+  name: EIA survey forms - the mandatory industry reporting that feeds every API route
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

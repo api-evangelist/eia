@@ -1,0 +1,436 @@
+aid: eia
+name: EIA
+review:
+  question: >-
+    Does the U.S. Energy Information Administration publish a real, documented,
+    publicly accessible API — and does any consumer energy data mandate apply to
+    or originate from it?
+  answer: true
+  date: '2026-07-27'
+  reviewer: API Evangelist
+  homeMarket: United States
+  tier: regulator
+findings:
+  summary: |
+    EIA publishes the strongest public API in this entire energy series. The Open
+    Data APIv2 at https://api.eia.gov/v2 is a genuine, fully RESTful, hierarchically
+    self-documenting API over more than two million energy time series, described by
+    a real, downloadable OpenAPI 3.0.0 document (225 paths, 278 operations, 16 tags)
+    that EIA itself publishes as a zip at
+    https://www.eia.gov/opendata/eia-api-swagger.zip. Access is free and self-serve:
+    complete a short form at https://www.eia.gov/opendata/register.php and the key
+    arrives by email automatically. A second surface, the Bulk Download Facility at
+    https://api.eia.gov/bulk, needs no key at all — the manifest and every dataset
+    zip are retrievable anonymously.
+
+    EIA publishes NO consumer energy data API. There is no Green Button, no ESPI, no
+    Download My Data, no Connect My Data, no consent or authorization flow, and no
+    customer usage or billing endpoint anywhere in its surface. This is structural,
+    not an omission: EIA never holds individual customer data. Its statutory surveys
+    collect data from utilities, producers, and plants in already-aggregated form,
+    and respondent-level data is further protected by confidentiality provisions.
+    Retail customer usage data sits with the utilities and their state public utility
+    commissions, not with a federal statistical agency.
+
+    The consequence is the sharpest instance yet of this series' recurring finding: a
+    federal data agency with no operating role publishes a better documented, better
+    contracted, more openly accessible API than the investor-owned utilities whose
+    numbers it reports.
+mandateAndAccess:
+  homeMarket: United States
+  mandateRegime: other
+  mandateRegimeVerbatim: |
+    NO consumer energy data mandate applies to EIA. Explicitly: not cdr-energy (that
+    is Australian statute), not green-button-ontario (that is an Ontario Energy Board
+    regulation), not green-button-voluntary (EIA has neither adopted nor referenced
+    Green Button / ESPI anywhere — https://www.eia.gov/search/?q=green%20button
+    returned HTTP 404 and no Green Button or ESPI reference appears in the Open Data
+    portal, the technical documentation, or the published OpenAPI), and not
+    smart-meter-infrastructure (EIA operates no metering infrastructure and is not a
+    DCC-equivalent).
+
+    Two DIFFERENT obligations do genuinely apply to EIA, and neither is a consumer
+    data right:
+
+    (1) EIA's own collection mandate, running OUTWARD to the industry. Under the
+    Federal Energy Administration Act of 1974 and the Department of Energy
+    Organization Act of 1977, EIA compels energy companies to report through
+    mandatory survey forms — EIA-860 (generator inventory), EIA-861 (electric power
+    sales, revenue, customers), EIA-923 (power plant operations), EIA-176 (natural
+    gas), EIA-914 (oil and gas production), EIA-930 (hourly electric system
+    operating data), and dozens more, catalogued at https://www.eia.gov/survey/
+    (HTTP 200). Every route in APIv2 is a publication of data collected under this
+    mandate. It is an obligation on the industry to REPORT, not an obligation on
+    anyone to expose an API to consumers.
+
+    (2) Federal open-data obligations running INWARD to EIA. The OPEN Government
+    Data Act (Title II of the Foundations for Evidence-Based Policymaking Act of
+    2018) and the preceding OMB Open Data Policy require federal agencies to publish
+    their data as open, machine-readable, and catalogued by default. This is the
+    obligation that the Open Data API and the bulk manifest actually discharge.
+  mandateStatus: live-implemented
+  mandateStatusEvidence: |
+    Verified against live endpoints, not press releases or compliance pages:
+
+    - GET https://api.eia.gov/v2/ (no key) returned HTTP 403 with the JSON body
+      {"error":{"code":"API_KEY_MISSING","message":"No api_key was supplied.  Please
+      register for one at https://www.eia.gov/opendata/register.php"}} — a live,
+      key-gated production API, not a landing page.
+    - GET https://api.eia.gov/v2/electricity/retail-sales?api_key=<40-char bogus key>
+      returned HTTP 403 with {"error":{"code":"API_KEY_INVALID",...}} — key
+      validation is real, so the gate is genuinely enforced.
+    - GET https://www.eia.gov/opendata/eia-api-swagger.zip returned HTTP 200,
+      6,702 bytes, Content-Type application/x-zip-compressed, Last-Modified
+      Thu, 01 Dec 2022 19:29:35 GMT. It contains eia-api-swagger.yaml (149,215
+      bytes), which parses as OpenAPI 3.0.0 with servers[0].url =
+      https://api.eia.gov, 225 paths, 278 operations, and 16 tags. Harvested
+      verbatim to openapi/eia-api-v2-openapi.yml.
+    - GET https://api.eia.gov/bulk/manifest.txt returned HTTP 200 ANONYMOUSLY —
+      a Project Open Data style JSON catalog with identifier, title, description,
+      keyword, publisher, person, mbox, accessLevel, accessURL, and last_updated
+      fields per dataset.
+    - GET https://api.eia.gov/bulk/ELEC.zip returned HTTP 200 with Content-Length
+      291,920,911 and Content-Type application/x-zip-compressed, again with no key.
+    - GET https://www.energy.gov/data.json returned HTTP 200, 873,897 bytes, parsing
+      to 483 datasets, of which 342 carry publisher "U.S. Energy Information
+      Administration" — the DOE Project Open Data catalog entry that evidences the
+      OPEN Government Data Act obligation being discharged in machine-readable form.
+    - GET https://www.eia.gov/opendata/register.php returned HTTP 200 and serves the
+      actual registration form (First Name, Last Name, Email, organization category,
+      reason for use) with EIA's API Terms of Service inline. Its own wording: "Your
+      API key will be sent to your email address" and "An API key is not required to
+      use the bulk download facility."
+
+    NOTHING here was taken on trust. The mandate that IS live-implemented is EIA's
+    open-data publication obligation and the survey collection behind it — NOT a
+    consumer data right, which does not exist here at all.
+  consumerDataApi: false
+  consumerDataEvidence: |
+    Absent, and probed for. There is no Green Button, no ESPI resource tree, no
+    Download My Data, no Connect My Data, no OAuth authorization or consent flow, no
+    accredited-recipient register, and no customer-level usage or billing endpoint
+    anywhere in EIA's surface.
+
+    Probed and found absent:
+    - The harvested OpenAPI (225 paths) contains no customer, consumer, account,
+      meter-point, or consent route. Every path is a statistical route family:
+      /v2/electricity/*, /v2/natural-gas/*, /v2/petroleum/*, /v2/coal/*,
+      /v2/nuclear-outages/*, /v2/co2-emissions/*, /v2/international/*, /v2/seds/*,
+      /v2/aeo/*, /v2/ieo/*, /v2/steo/*, /v2/total-energy/*, /v2/densified-biomass/*,
+      /v2/crude-oil-imports/*, /v2/state-electricity-profiles/*.
+    - securitySchemes declares exactly one scheme, api_key in query. There is no
+      OAuth2 flow, no scopes object, no authorizationUrl, no tokenUrl — the shape a
+      consumer-consent API would necessarily have.
+    - https://api.eia.gov/.well-known/openid-configuration returned HTTP 403 with the
+      same API_KEY_MISSING JSON body (the gateway intercepts every path), and
+      https://www.eia.gov/.well-known/openid-configuration returned HTTP 404. No OIDC
+      discovery document is served on either host.
+    - EIA's smallest published electricity unit is state-by-sector (EIA-861) or
+      plant-level (EIA-923) or balancing-authority-hourly (EIA-930). Nothing is
+      per-premises, per-meter, or per-customer, and by statute it cannot be.
+  marketDataOpen: true
+  marketDataEvidence: |
+    Wide open, and the best in this sector. EIA publishes genuinely open grid,
+    market, and system data anonymously in bulk and behind a free instant key through
+    the API:
+    - Hourly U.S. Electric System Operating Data under /v2/electricity/rto — demand,
+      demand forecast, net generation, generation by energy source, and interchange
+      between balancing authorities and sub-balancing-authorities. The Hourly
+      Electric Grid Monitor (https://www.eia.gov/electricity/gridmonitor/, HTTP 200)
+      is a web tool over these same routes; the bulk equivalent is "U.S. Electric
+      System Operating Data (2019-present)" at 661,461 series.
+    - Wholesale and spot prices, retail price/revenue/sales/customers by state and
+      sector, generator capacity, plant fuel receipts and costs, natural gas storage
+      and pipeline flows, weekly petroleum status, coal mine-level production, daily
+      nuclear outages pulled from NRC, CO2 emissions, international statistics, and
+      the AEO / IEO / STEO projection models.
+    - Bulk datasets by size: Electric System Operating Data 661,461 series;
+      Electricity 285,080; Petroleum 53,464; International 23,668; Annual Energy
+      Outlook 2018 89,505; SEDS 9,246. Refreshed twice daily at 5 a.m. and 3 p.m.
+      Eastern.
+    - Access is licence-free in practice. The Terms of Service require attribution
+      to "EIA" or "U.S. Energy Information Administration", forbid implying
+      endorsement and misusing the trademarked logo, and reserve a right to
+      rate-limit — but there is no signed data licence, no fee, and no eligibility
+      test.
+  consumerVsMarketDataSplit: |
+    Total and structural, and it runs the opposite way from the utilities in this
+    sector. Market and system data: open, contracted with a real OpenAPI, bulk
+    downloadable with no credential at all, and refreshed twice daily. Consumer data:
+    does not exist and cannot exist within EIA's statutory reach.
+
+    Read alongside the rest of this series, EIA is the benchmark that makes the
+    American Green Button story legible. The country's energy statistics are among
+    the most openly published in the world at the aggregate level, while the
+    individual customer's own usage data — the thing Green Button was written to
+    liberate — remains locked behind whichever utility happens to serve that address,
+    with nothing federal compelling its release. Open at the top, closed at the
+    bottom.
+  dataStandard: |
+    No energy data standard is implemented. There is no Green Button / ESPI, no
+    NAESB REQ Book 21, no IEC CIM 61968/61970, no IEEE 2030.5, no OpenADR, and no
+    OCPP/OCPI anywhere in the surface. What EIA does implement is:
+    - OpenAPI 3.0.0 as the machine-readable API contract (the published swagger zip).
+    - A proprietary EIA route / frequency / facet / data shape — datasets addressed
+      as tree routes, with facets as filter dimensions and named data columns each
+      carrying an alias and units.
+    - Project Open Data style catalog metadata on the bulk manifest (identifier,
+      title, description, keyword, publisher, person, mbox, accessLevel, accessURL),
+      matching the DOE data.json catalog at https://www.energy.gov/data.json.
+    - EIA's own survey form taxonomy (EIA-860, EIA-861, EIA-923, EIA-176, EIA-914,
+      EIA-930) as the de facto data model behind every route.
+  accessGate: self-serve
+  accessGateSteps: |
+    APIv2: (1) go to https://www.eia.gov/opendata/register.php; (2) complete the form
+    — First Name, Last Name, Email, a category describing you or your organization
+    (Business/Industry, Private citizen, Research/Consulting, Finance, Government,
+    Student, Teacher/Professor, Media, Trade Association/Nonprofit, Library, Other),
+    and an optional reason for use; (3) accept the inline API Terms of Service; (4)
+    the key is emailed automatically. There is no human review, no accreditation, no
+    organizational eligibility test, no licence to sign, and no fee. EIA's own
+    wording: "Your API key will be sent to your email address as well as any required
+    API notifications."
+
+    Bulk Download Facility: NO gate at all. EIA states plainly that "An API key is
+    not required to use the bulk download facility", and this was verified —
+    https://api.eia.gov/bulk/manifest.txt and https://api.eia.gov/bulk/ELEC.zip both
+    returned HTTP 200 anonymously.
+  authModel: |
+    API key only, passed as the api_key query parameter. The published OpenAPI
+    declares exactly one scheme:
+    components.securitySchemes.api_key: {type: apiKey, name: api_key, in: query},
+    applied globally via security: [{api_key: []}]. EIA's technical documentation is
+    explicit that the key must be in the URL and "will not be detected in the HTTP
+    headers", even though other query parameters may be sent as headers. There is no
+    OAuth2, no OpenID Connect, no mTLS, no bearer token, no client certificate, and
+    no accreditation regime of any kind. The bulk facility is unauthenticated.
+
+    Rate limiting is real but under-documented. The technical documentation warns
+    that recursive scrapers "must throttle the number of the requests they make per
+    second and per hour", that an exceeding key "will be automatically but
+    temporarily suspended", and that "More specific information about these throttles
+    are documented on our Open Data web pages" — but no numeric throttle was found on
+    https://www.eia.gov/opendata/ (searched for "throttle", "rate limit", "requests
+    per"; zero matches). The only published hard limit is the 5,000-row cap per JSON
+    response, surfaced in-payload as a warning: "The API can only return 5000 rows in
+    JSON format. Please consider constraining your request with facet, start, or end,
+    or using offset to paginate results."
+probes:
+- url: https://www.eia.gov/opendata/
+  status: 200
+  note: The Open Data portal. Public, anonymous, no login wall. Lists every route
+    family and links the API browser, bulk files, Excel add-in, and documentation.
+- url: https://www.eia.gov/opendata/documentation.php
+  status: 200
+  note: APIv2 technical documentation, 139,509 bytes. Carries the patch-note history
+    through v2.1.12 (March 2026) and the full query/facet/pagination reference.
+- url: https://www.eia.gov/opendata/register.php
+  status: 200
+  note: Self-serve API key registration form plus the API Terms of Service in full.
+- url: https://www.eia.gov/opendata/browser/
+  status: 200
+  note: Opendata Query Browser — interactive route/facet explorer over APIv2.
+- url: https://www.eia.gov/opendata/qb.php
+  status: 200
+  note: APIv1-to-APIv2 series ID translator.
+- url: https://www.eia.gov/opendata/bulkfiles.php
+  status: 200
+  note: Bulk File Downloads index with per-dataset series counts and the twice-daily
+    (5 a.m. / 3 p.m. Eastern) refresh schedule.
+- url: https://www.eia.gov/opendata/eia-api-swagger.zip
+  status: 200
+  note: 6,702-byte zip, Last-Modified 2022-12-01. Contains eia-api-swagger.yaml
+    (149,215 bytes), a real OpenAPI 3.0.0 document. Harvested and validated.
+- url: https://www.eia.gov/opendata/excel/
+  status: 200
+  note: EIA Excel Add-in — a first-party spreadsheet client for APIv2.
+- url: https://api.eia.gov/v2/
+  status: 403
+  note: '{"error":{"code":"API_KEY_MISSING",...}} — live production API confirmed.'
+- url: https://api.eia.gov/v2/electricity/retail-sales?api_key=<bogus>
+  status: 403
+  note: '{"error":{"code":"API_KEY_INVALID",...}} — key validation is real.'
+- url: https://api.eia.gov/
+  status: 403
+  note: Same API_KEY_MISSING JSON. The gateway intercepts the host root.
+- url: https://api.eia.gov/series/?series_id=ELEC.SALES.CO-RES.A
+  status: 403
+  note: Legacy APIv1 host path is still live and still key-gated. Deprecated; EIA
+    routes v1 series IDs through /v2/seriesid/{id}.
+- url: https://api.eia.gov/bulk/manifest.txt
+  status: 200
+  note: Anonymous, no key. Project Open Data style JSON dataset catalog.
+- url: https://api.eia.gov/bulk/ELEC.zip
+  status: 200
+  note: Anonymous, no key. Content-Length 291,920,911, application/x-zip-compressed.
+- url: https://www.energy.gov/data.json
+  status: 200
+  note: 873,897 bytes. 483 datasets, of which 342 are published by the U.S. Energy
+    Information Administration. EIA has no data.json of its own — its catalog entries
+    live in the parent DOE file.
+- url: https://www.eia.gov/electricity/gridmonitor/
+  status: 200
+  note: Hourly Electric Grid Monitor — web tool over the /v2/electricity/rto routes.
+- url: https://www.eia.gov/electricity/wholesalemarkets/
+  status: 200
+  note: A link hub pointing at the seven ISO/RTO data surfaces (ISO-NE, NYISO, PJM,
+    MISO, SPP, ERCOT, CAISO). Not an EIA API.
+- url: https://www.eia.gov/survey/
+  status: 200
+  note: The mandatory survey forms catalog — the collection obligation that produces
+    every API route.
+- url: https://www.eia.gov/tools/
+  status: 200
+- url: https://www.eia.gov/tools/open-source-code/
+  status: 200
+  note: Links exactly one destination, https://github.com/EIAgov.
+- url: https://github.com/EIAgov
+  status: 200
+  note: A GitHub USER account (type "User", not an organization), name "U.S. Energy
+    Information Administration", 4 public repos — NEMS, BlueSky, dash-benchmark,
+    EIAgov. No API SDKs or client libraries.
+- url: https://www.eia.gov/about/privacy_security_policy.php
+  status: 200
+  note: Privacy and security policy referenced from the API Terms of Service.
+- url: https://www.eia.gov/robots.txt
+  status: 200
+- url: https://api.eia.gov/robots.txt
+  status: 403
+  note: API_KEY_MISSING JSON — the gateway answers every path on this host.
+- url: https://api.eia.gov/.well-known/openid-configuration
+  status: 403
+  note: API_KEY_MISSING JSON. NOT an OIDC discovery document.
+- url: https://www.eia.gov/.well-known/openid-configuration
+  status: 404
+- url: https://api.eia.gov/openapi.json
+  status: 403
+  note: API_KEY_MISSING JSON, not a spec. The real spec is the zip on www.eia.gov.
+- url: https://api.eia.gov/swagger.json
+  status: 404
+- url: https://www.eia.gov/opendata/openapi.json
+  status: 404
+- url: https://www.eia.gov/opendata/swagger/
+  status: 404
+- url: https://www.eia.gov/opendata/swagger.php
+  status: 404
+- url: https://developer.eia.gov/
+  status: 000
+  note: Host does not resolve.
+- url: https://www.eia.gov/developer/
+  status: 200
+  note: FALSE POSITIVE — eia.gov returns a soft 200 for this path; it is not a
+    developer portal. The real portal is /opendata/.
+- url: https://www.eia.gov/data.json
+  status: 404
+  note: No agency-level Project Open Data catalog. EIA's entries sit in DOE's file.
+- url: https://www.eia.gov/apis.json
+  status: 404
+- url: https://www.eia.gov/.well-known/api-catalog
+  status: 404
+- url: https://www.eia.gov/llms.txt
+  status: 404
+- url: https://www.eia.gov/.well-known/security.txt
+  status: 404
+- url: https://www.eia.gov/vulnerability-disclosure-policy
+  status: 404
+- url: https://www.eia.gov/search/?q=green%20button
+  status: 404
+  note: No Green Button reference anywhere on eia.gov.
+specDefects:
+- spec: openapi/eia-api-v2-openapi.yml
+  issue: |
+    Stale. info.version declares 2.1.0 and the file inside the zip is dated
+    2022-11-30 (HTTP Last-Modified 2022-12-01), while EIA's own patch notes put the
+    running API at 2.1.12 as of March 2026. The documentation asserts "The YAML file
+    will now automatically reflect any additions/changes to the API" — the published
+    artifact does not bear that out. Routes added since 2022 (including the RTO
+    sub-balancing-authority data points noted in the v2.1.6 entry) may be missing.
+- spec: openapi/eia-api-v2-openapi.yml
+  issue: |
+    Distributed only as a ZIP archive at a hand-written path
+    (https://www.eia.gov/opendata/eia-api-swagger.zip), not served at a conventional
+    discoverable location. /openapi.json, /swagger.json, /api-docs, /.well-known/*
+    all return 404 or the gateway's API_KEY_MISSING. A machine cannot find this
+    contract without scraping the HTML of the Open Data landing page.
+- spec: openapi/eia-api-v2-openapi.yml
+  issue: |
+    Heavily parameterised paths. Whole product families collapse to
+    /v2/aeo/{route1} and /v2/ieo/{route1}, so the real dataset routes are not
+    enumerable from the contract — they are discoverable only by walking the live
+    API's metadata tree.
+- spec: openapi/eia-api-v2-openapi.yml
+  issue: |
+    Tag distribution is lopsided and undescriptive as a product map: COAL 67
+    operations and DBF (densified biomass) 41 against NG (natural gas) 7 and INTL 5,
+    despite natural gas and international being far larger data estates. The spec
+    covers the routes unevenly relative to the data behind them.
+- spec: openapi/eia-api-v2-openapi.yml
+  issue: |
+    The API key is declared only as a query parameter, which is what EIA documents,
+    but it means every request carries the credential in the URL and therefore into
+    server logs, proxies, and browser history. No header alternative is offered.
+artifacts:
+- path: openapi/eia-api-v2-openapi.yml
+  type: OpenAPI
+  sourceURL: https://www.eia.gov/opendata/eia-api-swagger.zip
+  httpStatus: 200
+  fetched: '2026-07-27'
+  bytes: 149215
+  parsed: true
+  note: |
+    Verbatim, unmodified, extracted from EIA's own published zip (inner filename
+    eia-api-swagger.yaml). OpenAPI 3.0.0, info.title "EIA APIv2", info.version
+    2.1.0, servers[0].url https://api.eia.gov, 225 paths, 278 operations, 16 tags
+    (SEDS, STEO, AEO, IEO, EMISS, COAL, CRUD_IMPORTS, DBF, ELEC, SEP, RTO, INTL,
+    NUC_STATUS, NG, TOTAL, Root), externalDocs pointing at
+    https://www.eia.gov/opendata/documentation.php.
+notFound:
+- Green Button / ESPI endpoint, reference, or mention of any kind
+- Consumer or customer-level usage or billing API
+- OAuth2, OpenID Connect, or any consent/authorization flow
+- OIDC discovery document on either www.eia.gov or api.eia.gov
+- GraphQL endpoint
+- AsyncAPI, webhooks, streaming, or event notification API
+- MCP server
+- llms.txt
+- apis.json or .well-known/api-catalog
+- Agency-level data.json (EIA's catalog entries live in DOE's file)
+- Published numeric rate limits (only the 5,000-row response cap is documented)
+- SDKs or client libraries published by EIA (the Excel add-in is the only client)
+- Status page for the API
+- Postman collection published by EIA
+- security.txt or a vulnerability disclosure policy on eia.gov
+sources:
+- url: https://www.eia.gov/opendata/
+  type: Portal
+  note: The Open Data portal and the entry point for every EIA API surface.
+- url: https://www.eia.gov/opendata/documentation.php
+  type: Documentation
+  note: APIv2 technical documentation — routes, facets, pagination, error codes,
+    key usage, patch notes through v2.1.12.
+- url: https://www.eia.gov/opendata/register.php
+  type: Signup
+  note: The self-serve key form and the API Terms of Service.
+- url: https://www.eia.gov/opendata/bulkfiles.php
+  type: Documentation
+  note: Bulk download index, series counts, refresh cadence, and the explicit
+    statement that no key is required.
+- url: https://www.eia.gov/opendata/eia-api-swagger.zip
+  type: OpenAPI
+  note: The machine-readable contract, harvested.
+- url: https://www.energy.gov/data.json
+  type: DataCatalog
+  note: DOE Project Open Data catalog; 342 of 483 datasets published by EIA.
+- url: https://www.eia.gov/survey/
+  type: Documentation
+  note: The mandatory survey forms that constitute EIA's collection mandate.
+actions:
+  openapiHarvested: true
+  specsCount: 1
+  apisYmlCreated: true
+  reason: |
+    EIA has a real, free, self-serve, well-documented public API with a genuine
+    downloadable OpenAPI 3.0.0 contract, plus an entirely ungated bulk download
+    facility. Both were probed live and the spec was harvested verbatim and
+    validated. No consumer energy data surface exists at EIA, no Green Button
+    reference exists anywhere on eia.gov, and nothing was invented to fill the gap.
