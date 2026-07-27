@@ -1,0 +1,50 @@
+generated: '2026-07-27'
+method: searched
+source: live HTTP probes, 2026-07-27
+summary: |
+  NO /.well-known/ discovery surface exists on either EIA host. api.eia.gov answers every
+  unrouted path - including every /.well-known/* path - with its global API-key gate
+  (HTTP 403, {"error":{"code":"API_KEY_MISSING"}}), so no well-known document is served
+  there. www.eia.gov returns its standard 404 page for every /.well-known/* path. No
+  security.txt, no OIDC/OAuth discovery metadata (EIA uses a query-string API key, not
+  OAuth - see authentication/eia-authentication.yml), no api-catalog, no ai-plugin.json.
+  Recorded as a negative result; nothing was saved because nothing returned 200.
+hosts:
+- host: https://api.eia.gov
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+    note: API_KEY_MISSING gate, not a document
+  - path: /.well-known/openid-configuration
+    status: 403
+    note: API_KEY_MISSING gate, not a document
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+    note: API_KEY_MISSING gate, not a document
+  - path: /.well-known/api-catalog
+    status: 403
+    note: API_KEY_MISSING gate, not a document
+  - path: /.well-known/ai-plugin.json
+    status: 403
+    note: API_KEY_MISSING gate, not a document
+- host: https://www.eia.gov
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /security.txt
+    status: 404
+  - path: /llms.txt
+    status: 404
+  - path: /robots.txt
+    status: 200
+    note: present but not a discovery document; not saved
+related:
+  vulnerability_disclosure: security/eia-vulnerability-disclosure.yml
+  data_catalog: https://www.energy.gov/data.json
+  bulk_manifest: https://api.eia.gov/bulk/manifest.txt

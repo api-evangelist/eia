@@ -1,0 +1,124 @@
+generated: '2026-07-27'
+method: searched
+source: https://www.eia.gov/opendata/documentation.php
+url: https://www.eia.gov/opendata/documentation.php
+title: APIv2 Patch Notes
+summary: |
+  EIA publishes a dated, versioned patch-note list at the top of its API technical
+  documentation page (in-page section "Changelog"), covering every APIv2 release from the
+  February 2022 community release to v2.1.12 in March 2026. There is no separate changelog
+  page, no RSS/Atom feed for API changes, and no machine-readable release feed - change
+  notification is by email opt-in on the registration form. Entries below are transcribed
+  from that page; the full history is captured because the list is short.
+scheme: semver-ish (major.minor.patch on the APIv2 line)
+current_version: 2.1.12
+current_version_date: '2026-03'
+feed: null
+notification: Email opt-in at https://www.eia.gov/opendata/register.php
+entries:
+- version: 2.1.12
+  date: '2026-03'
+  title: Performance improvements, bugfixes
+  breaking: false
+  highlights:
+  - Resolved a bug in the new to/from date series logic that returned the incorrect number of
+    rows in the total field.
+  - Optimized internal logic to improve load tolerance on specific API query routes.
+- version: 2.1.11
+  date: '2026-01'
+  title: Improved to/from dates and frequency logic
+  breaking: false
+  highlights:
+  - A query with identical start and end (e.g. a year) against a dataset with a smaller
+    periodicity (monthly) now returns all data inclusive of those bounds; previously it
+    returned 0 records.
+- version: 2.1.10
+  date: '2025-10'
+  title: More consistent HTTP status codes
+  breaking: false
+  highlights:
+  - HTTP status codes in the headers now match the error in the human-readable body.
+    Previously a bad parameter could produce a coherent 400 error in the body while the
+    transaction returned 200 or 404.
+- version: 2.1.9
+  date: '2025-09'
+  title: Default sorting, APIv1 404s, self-updating YAML
+  breaking: false
+  highlights:
+  - All returns now include a default sorting order if none is specified; previously paginated
+    requests without a sort could return rows in an unpredictable sequence.
+  - APIv1 requests now properly return 404 if the SeriesID is not found.
+  - The YAML file will now automatically reflect any additions/changes to the API.
+  - Miscellaneous minor bugfixes from 2.1.7 and 2.1.8, plus internal performance optimizations.
+- version: 2.1.6
+  date: '2024-01'
+  title: JSON data points standardized as strings
+  breaking: true
+  breaking_note: Data values changed type from JSON numbers to JSON strings across all routes.
+  highlights:
+  - Added new /electricity/rto data points (sub BAs), which required leading zeroes that could
+    not be expressed as JSON numbers.
+  - For data-type consistency across routes, the API was standardized to return data values as
+    strings.
+- version: 2.1.5
+  date: '2023-03'
+  title: Minor bug fixes
+  breaking: false
+  highlights:
+  - Include EIA Excel Add-in version in the data return from the core API function.
+- version: 2.1.4
+  date: '2023-02'
+  title: Minor bug fixes
+  breaking: false
+  highlights:
+  - Fix for Excel Add-in for International Series.
+  - OGIRS query fix to pull specific series for Petroleum/Natural Gas routes.
+- version: 2.1.3
+  date: '2023-02'
+  title: Minor bug fixes
+  breaking: false
+  highlights:
+  - Spelling fix; reorder default frequencies; address minor reported issues.
+- version: 2.1.2
+  date: '2023-01'
+  title: Minor bug fixes
+  breaking: false
+  highlights:
+  - Common data set fix for all data sets.
+- version: 2.1.1
+  date: '2023-01'
+  title: Minor bug fixes
+  breaking: false
+  highlights:
+  - New "Unit" column for the AEO/IEO controller.
+- version: 2.1.0
+  date: '2022-11'
+  title: 'Clementia: backward compatibility and migration features for APIv1'
+  breaking: false
+  highlights:
+  - Automatic translation for APIv1 series IDs via the v2 /seriesid path.
+  - Introduced in-return warning messages.
+- version: 2.0.4
+  date: '2022-11'
+  title: Performance tuning
+  breaking: false
+  highlights:
+  - Optimized the back-end route processor, especially under load.
+- version: 2.0.3
+  date: '2022-09'
+  title: Minor bug fixes
+  breaking: false
+  highlights:
+  - Eliminated a bug where the length parameter could return more than the 5,000-row maximum.
+- version: 2.0.2
+  date: '2022-05'
+  title: Public release
+  breaking: false
+  highlights:
+  - Added support for XML output with the out=xml parameter.
+- version: 2.0.1
+  date: '2022-02'
+  title: Community release
+  breaking: false
+  highlights:
+  - Released the first spec of APIv2; no changes.

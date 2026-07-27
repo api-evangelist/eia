@@ -1,0 +1,55 @@
+generated: '2026-07-27'
+method: searched
+source: https://www.eia.gov/opendata/faqs.php, https://www.eia.gov/opendata/documentation.php
+summary: |
+  EIA publishes throttle GUIDANCE rather than a hard published quota, and states plainly that
+  it will not release its exact firewall rules for cybersecurity reasons. The numbers below are
+  the ones EIA itself gives as safe under ideal network conditions. Enforcement is by automatic
+  temporary suspension of the API key, with automatic reactivation. No rate-limit response
+  headers are documented. Separately, the response-size cap (5,000 rows JSON / 300 rows XML) is
+  a payload limit rather than a rate limit and is captured in conventions/eia-conventions.yml.
+rate_limits:
+- name: Sustained request rate
+  scope: api key
+  limit_count: 9000
+  interval: hour
+  published: true
+  enforcement: soft guidance
+  note: '"if you keep your sustained rate less than ~9,000 per hour ... your key won''t be
+    throttled or temporarily disabled"'
+- name: Burst request rate
+  scope: api key
+  limit_count: 5
+  interval: second
+  published: true
+  enforcement: soft guidance
+  note: '"and your burst rate beneath 5 per second"'
+- name: Per-route limits
+  scope: route
+  limit_count: null
+  interval: null
+  published: false
+  note: '"Specific API routes may have slower restrictions due to their complexity."'
+factors:
+  documented: Throttling is based on the key's usage, current demand against that data series,
+    and requests from the originating IP.
+headers:
+  rate_limit_headers: none documented
+  retry_after: not documented
+breach_behaviour:
+  action: The API key is automatically but temporarily suspended.
+  recovery: Automatic reactivation after a cool-down.
+  duration: A few seconds to a number of minutes; EIA states key bans do not last beyond an
+    hour except in the most extreme circumstances.
+  signal: An error message informs the caller when the condition occurs.
+payload_limits:
+  max_rows_json: 5000
+  max_rows_xml: 300
+  truncation_warning: In-payload warning object plus a warning header since v2.1
+unmetered_alternative:
+  name: Bulk Download Facility
+  url: https://api.eia.gov/bulk/manifest.txt
+  api_key_required: false
+  note: EIA points recursive/bulk consumers at the zip archives rather than at scraping APIv2.
+  update_cadence: twice daily, 5 a.m. and 3 p.m. Eastern
+cost: free

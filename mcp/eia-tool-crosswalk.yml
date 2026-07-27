@@ -1,0 +1,177 @@
+generated: '2026-07-27'
+method: derived
+source: mcp/eia-mcp.yml + openapi/eia-api-v2-openapi.yml
+summary: |
+  Binds every published community MCP tool over EIA APIv2 to the OpenAPI operation(s) that
+  actually back it, so each tool inherits a real input contract from the spec instead of a
+  guessed one. EIA publishes no first-party MCP server, so both tool sets here are community
+  (see mcp/eia-mcp.yml). The OpenAPI has essentially no operationIds - only 6 of 278
+  operations carry one, and the single meaningful value is a PHP controller FQCN
+  (EIA\API\Controllers\Dataset\AeoIeo\IeoController::post_data) - so operations are bound by
+  METHOD + PATH, which is the only stable identifier the spec offers. That absence is itself
+  the headline governance finding for this API.
+surfaces:
+  openapi:
+    file: openapi/eia-api-v2-openapi.yml
+    version: 3.0.0
+    paths: 225
+    operations: 278
+    operation_ids: 6
+    gated: false
+    note: Spec is downloadable anonymously as https://www.eia.gov/opendata/eia-api-swagger.zip;
+      calling the API itself requires a free api_key query parameter.
+  graphql: null
+  mcp:
+    servers:
+    - "@cyanheads/eia-energy-mcp-server (stdio, community)"
+    - "@missionsquad/mcp-eia (stdio, community)"
+    remote_url: null
+    gated: true
+    note: Both servers are stdio-only npm packages - there is no hosted endpoint to run
+      tools/list against, so tool names and descriptions were transcribed from their
+      published READMEs and bound by semantics.
+crosswalk:
+- tool: eia_browse_routes
+  server: eia-energy-mcp-server
+  category: discovery
+  rest:
+  - GET /v2
+  - GET /v2/{route1}
+  - GET /v2/electricity
+  - GET /v2/natural-gas/{route1}
+  binding: rest
+  confidence: high
+  note: Maps to the metadata form of any route node - a request without a trailing /data
+    returns child routes, frequencies, facets and data columns.
+- tool: eia_describe_route
+  server: eia-energy-mcp-server
+  category: discovery
+  rest:
+  - GET /v2/electricity/retail-sales
+  - GET /v2/{route1}/facet
+  binding: rest
+  confidence: high
+  note: Same metadata operation as browse, plus the /facet listing on a leaf route.
+- tool: eia_search_routes
+  server: eia-energy-mcp-server
+  category: discovery
+  rest: []
+  binding: client-side
+  confidence: high
+  note: Fuzzy text search is performed in the server over a cached route taxonomy; APIv2
+    exposes no search operation.
+- tool: eia_query_route
+  server: eia-energy-mcp-server
+  category: data
+  rest:
+  - GET /v2/electricity/retail-sales/data
+  - POST /v2/electricity/retail-sales/data
+  - GET /v2/{route1}/data
+  binding: rest
+  confidence: high
+  note: 'Inherits the spec''s data parameters verbatim: data[], facets[], frequency, start,
+    end, sort, offset, length. The POST form takes the same fields as
+    components/requestBodies/dataParams (schema DataParams) - it is a read query with the
+    parameters in the body, not a write.'
+- tool: eia_dataframe_describe
+  server: eia-energy-mcp-server
+  category: server-side
+  rest: []
+  binding: none
+  confidence: high
+- tool: eia_dataframe_query
+  server: eia-energy-mcp-server
+  category: server-side
+  rest: []
+  binding: none
+  confidence: high
+- tool: eia_dataframe_drop
+  server: eia-energy-mcp-server
+  category: server-side
+  rest: []
+  binding: none
+  confidence: high
+- tool: getStateElectricityProfileSummary
+  server: mcp-eia
+  category: electricity
+  rest:
+  - GET /v2/electricity/state-electricity-profiles/summary/data
+  - POST /v2/electricity/state-electricity-profiles/summary/data
+  binding: rest
+  confidence: high
+- tool: getGenerationMixByState
+  server: mcp-eia
+  category: electricity
+  rest:
+  - GET /v2/electricity/electric-power-operational-data/data
+  binding: rest
+  confidence: medium
+  note: Bound by semantics from the README description; the server composes fuel-type
+    generation from the operational-data route.
+- tool: getCapacityAndUtilizationByState
+  server: mcp-eia
+  category: electricity
+  rest:
+  - GET /v2/electricity/operating-generator-capacity/data
+  - GET /v2/electricity/state-electricity-profiles/capability/data
+  binding: rest
+  confidence: medium
+- tool: compareRetailElectricityPrices
+  server: mcp-eia
+  category: electricity
+  rest:
+  - GET /v2/electricity/retail-sales/data
+  binding: rest
+  confidence: high
+  note: Fans out one request per region and compares the price column.
+- tool: discoverElectricityRouteMetadata
+  server: mcp-eia
+  category: discovery
+  rest:
+  - GET /v2/electricity/rto/region-data
+  - GET /v2/electricity/rto/region-data/facet/{facet_id}
+  binding: rest
+  confidence: high
+- tool: findHighPotentialEnergyStorageAreas
+  server: mcp-eia
+  category: composite
+  rest:
+  - GET /v2/electricity/retail-sales/data
+  - GET /v2/electricity/operating-generator-capacity/data
+  - GET /v2/electricity/rto/region-data/data
+  binding: composite
+  confidence: low
+  note: Server-side analytic composite over several routes; no single backing operation, and
+    the exact fan-out is an implementation detail of the community server.
+mcp_only:
+- tool: eia_search_routes
+  reason: No search operation exists in APIv2; the taxonomy is walked and indexed client-side.
+- tool: eia_dataframe_describe
+  reason: DataCanvas dataframe state is server-side only.
+- tool: eia_dataframe_query
+  reason: SQL over cached result sets is server-side only.
+- tool: eia_dataframe_drop
+  reason: Server-side memory management, not an API capability.
+- tool: findHighPotentialEnergyStorageAreas
+  reason: Analytic composite computed in the server from multiple routes.
+rest_only:
+- capability: Fuels and commodities other than electricity
+  operations: Every route under /v2/coal, /v2/natural-gas, /v2/petroleum (via {route1}),
+    /v2/crude-oil-imports, /v2/densified-biomass, /v2/nuclear-outages, /v2/co2-emissions,
+    /v2/total-energy
+  note: mcp-eia covers electricity only; eia-energy-mcp-server's generic tools reach these
+    but expose no named tool per family.
+- capability: Projections and outlooks
+  operations: /v2/aeo/*, /v2/ieo/*, /v2/steo/*
+- capability: International and state energy statistics
+  operations: /v2/international/*, /v2/seds/*, /v2/electricity/state-electricity-profiles/*
+- capability: Legacy series-ID translation
+  operations: 'Documented as /v2/seriesid/{APIv1-SERIESID} but absent from the OpenAPI'
+coverage:
+  tools_named: 13
+  tools_bound_to_rest: 8
+  mcp_only: 5
+  rest_operations_total: 278
+  rest_operations_named_by_a_tool: 21
+  note: The generic browse/describe/query tools reach all 278 operations by construction;
+    rest_operations_named_by_a_tool counts only operations a tool names explicitly.

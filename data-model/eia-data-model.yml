@@ -1,0 +1,166 @@
+generated: '2026-07-27'
+method: derived
+source: openapi/eia-api-v2-openapi.yml + https://www.eia.gov/opendata/documentation.php
+summary: |
+  EIA APIv2 has no business-object model in the CRUD sense - there are no customers, accounts
+  or orders and nothing is ever written. Its entity graph is a METADATA model: a recursive
+  tree of Routes, each leaf carrying Frequencies, Facets and named data columns, over which
+  Data rows are queried. The 18 component schemas in the spec describe that model plus the
+  envelope. Relationships below are derived from the spec's own $ref links; the tree recursion
+  and the route families are derived from the 225 paths and confirmed by EIA's documentation.
+entities:
+- name: Route
+  schema: Routes
+  description: A node in the dataset tree. A non-leaf node returns its child routes; the tree
+    is walked by appending path segments.
+  identifier: id (path segment, e.g. electricity, retail-sales)
+  fields: [id, name, description, routes]
+- name: FinalRoute
+  schema: FinalRoute
+  description: A leaf dataset. Carries the full contract for querying it - available
+    frequencies, facets, data columns with aliases and units, and the period range.
+  identifier: id
+  fields: [id, name, description, frequency, facets, data, startPeriod, endPeriod,
+    defaultDateFormat, defaultFrequency]
+- name: Frequency
+  schema: Frequency
+  description: A periodicity supported by a leaf dataset (monthly, quarterly, annual, hourly,
+    daily), with its query token and date format.
+  fields: [id, description, format, query]
+- name: FacetMetaData
+  schema: FacetMetaData
+  description: A filterable dimension declared by a leaf dataset (e.g. stateid, sectorid,
+    respondent, fueltype).
+  fields: [id, description]
+- name: Facet
+  schema: Facet
+  description: One valid value of a facet, returned by the /facet/{facet_id} route.
+  fields: [id, name, alias]
+- name: DataRow
+  schema: DataResponse.data
+  description: One observation - a period plus the dimension columns of the route plus each
+    requested measure and its <measure>-units companion field. Untyped in the spec ({}) because
+    columns vary per route; values are JSON strings since v2.1.6.
+  fields: [period, '<facet columns>', '<selected data columns>', '<column>-units']
+- name: DataParams
+  schema: DataParams
+  description: The query contract, accepted as URL parameters or as a JSON POST body.
+  fields: [data, facets, frequency, start, end, sort, length, offset]
+- name: Sort
+  schema: Sort
+  fields: [column, direction]
+- name: ResponseEnvelope
+  schema: DataResponseContainer / FinalRouteResponseContainer / FacetDetailsContainer /
+    FacetOptionListContainer / RouteResponseContainer
+  description: Every response is wrapped in apiVersion + request (the echoed command and
+    parsed params) + response.
+  fields: [apiVersion, request, response]
+relationships:
+- from: Route
+  to: Route
+  type: has_many
+  via: routes
+  note: Recursive - the tree is walked by appending the child id to the path.
+- from: Route
+  to: FinalRoute
+  type: has_many
+  via: routes
+  note: A leaf child is returned as a FinalRoute when requested directly.
+- from: FinalRoute
+  to: Frequency
+  type: has_many
+  via: frequency
+  spec_ref: FinalRoute.frequency -> Frequency
+- from: FinalRoute
+  to: FacetMetaData
+  type: has_many
+  via: facets
+  spec_ref: FinalRoute.facets -> FacetMetaData
+- from: FacetMetaData
+  to: Facet
+  type: has_many
+  via: /facet/{facet_id}
+  note: Values are not embedded in the route metadata; they are fetched from the facet route.
+  spec_ref: FacetDetails.facets -> Facet
+- from: FinalRoute
+  to: DataRow
+  type: has_many
+  via: /data
+  note: A DataRow's dimension columns are the facet ids of its FinalRoute.
+- from: DataRow
+  to: Facet
+  type: belongs_to
+  via: '<facetId> column (e.g. stateid, sectorid)'
+  confidence: high
+- from: DataParams
+  to: Sort
+  type: has_many
+  via: sort
+  spec_ref: DataParams.sort -> Sort
+- from: ResponseEnvelope
+  to: RouteRequest
+  type: has_one
+  via: request
+route_families:
+  note: The 16 OpenAPI tags map to the top-level route families; counts are path counts in the
+    spec.
+  families:
+  - tag: ELEC
+    root: "/v2/electricity"
+    description: "Retail sales, power operations, operating generator capacity, facility fuel"
+  - tag: RTO
+    root: "/v2/electricity/rto"
+    description: "Hourly and daily balancing-authority demand, interchange, fuel type, region and sub-BA data"
+  - tag: SEP
+    root: "/v2/electricity/state-electricity-profiles"
+    description: "State electricity profiles - capability, emissions, efficiency, meters, net metering, source-disposition, summary"
+  - tag: NG
+    root: "/v2/natural-gas"
+    description: "Natural gas routes addressed through the {route1}/{route2} path parameters"
+  - tag: COAL
+    root: "/v2/coal"
+    description: "Production, consumption and quality, exports and imports, market sales price, mine production, price by rank, reserves and capacity, shipments"
+  - tag: CRUD_IMPORTS
+    root: "/v2/crude-oil-imports"
+    description: "Crude oil import volumes by origin and destination"
+  - tag: DBF
+    root: "/v2/densified-biomass"
+    description: "Wood pellet capacity, characteristics, exports, feedstocks, inventories, production, sales and plants"
+  - tag: NUC_STATUS
+    root: "/v2/nuclear-outages"
+    description: "Facility, generator and US nuclear outages"
+  - tag: EMISS
+    root: "/v2/co2-emissions"
+    description: "CO2 emissions aggregates and carbon coefficients"
+  - tag: INTL
+    root: "/v2/international"
+    description: "International energy statistics"
+  - tag: SEDS
+    root: "/v2/seds"
+    description: "State Energy Data System"
+  - tag: TOTAL
+    root: "/v2/total-energy"
+    description: "Total energy"
+  - tag: STEO
+    root: "/v2/steo"
+    description: "Short-Term Energy Outlook projections"
+  - tag: AEO
+    root: "/v2/aeo"
+    description: "Annual Energy Outlook projections, addressed by year route"
+  - tag: IEO
+    root: "/v2/ieo"
+    description: "International Energy Outlook projections, addressed by year route"
+  - tag: Root
+    root: "/v2"
+    description: "Tree root listing the top-level families"
+operation_shapes:
+  note: Three shapes repeat across all 225 paths - this is why the API is walkable with four
+    generic tools (see mcp/eia-tool-crosswalk.yml).
+  shapes:
+  - pattern: "GET <route>"
+    returns: Route or FinalRoute metadata
+  - pattern: "GET <route>/facet and GET <route>/facet/{facet_id}"
+    returns: FacetDetails / FacetOptionList
+  - pattern: "GET|POST <route>/data"
+    returns: DataResponse
+render: null

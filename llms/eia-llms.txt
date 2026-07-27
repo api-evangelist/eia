@@ -1,0 +1,64 @@
+# U.S. Energy Information Administration (EIA)
+
+> The independent statistical and analytical agency within the U.S. Department of Energy. EIA collects energy data from industry under mandatory survey forms and publishes it as the reference statistics for U.S. electricity, natural gas, petroleum, coal, nuclear, renewables, emissions and international energy. Its Open Data APIv2 covers more than two million time series across 225 documented routes, is described by a real downloadable OpenAPI 3.0.0 contract, and is opened by a free API key emailed automatically from a public form with no review and no licence to sign. A companion bulk download facility serves the same data with no key at all.
+
+Generated 2026-07-27 by the API Evangelist enrichment pipeline. EIA publishes no llms.txt of its own (https://www.eia.gov/llms.txt returns 404), so this file is generated from the catalog entry at https://github.com/api-evangelist/eia and from EIA's own published documentation.
+
+Key facts an agent needs before calling:
+- Auth: free API key as the `api_key` QUERY parameter. It is never read from HTTP headers. Register at https://www.eia.gov/opendata/register.php - the key arrives by email automatically.
+- Read-only. All 278 operations are reads. The POST form of a `/data` route is a query with parameters in a JSON body, not a write. No idempotency contract exists because nothing is ever written.
+- Self-describing: request a route WITHOUT a trailing `/data` to get its child routes, frequencies, facets, data columns and units. Request `<route>/facet/{facet_id}` for a facet's valid values. Only then request `<route>/data`.
+- `data[]` is required to get measured values; without it you get dimension columns and no numbers.
+- Pagination is `offset` + `length`. Hard cap 5,000 rows JSON / 300 rows XML, with an in-payload `warning` object when truncated. `response.total` always reports the full responsive count.
+- Throttle guidance: stay under ~9,000 requests/hour sustained and 5/second burst or the key is temporarily suspended.
+- Bulk instead of scraping: https://api.eia.gov/bulk/manifest.txt needs no key.
+
+## APIs
+
+- [EIA Open Data API (APIv2)](https://www.eia.gov/opendata/documentation.php): RESTful, hierarchically routed API over 2M+ energy time series. Base URL https://api.eia.gov/v2
+- [EIA Bulk Download Facility](https://www.eia.gov/opendata/bulkfiles.php): Manifest-indexed zip archives of newline-delimited JSON, updated twice daily at 5 a.m. and 3 p.m. ET. Base URL https://api.eia.gov/bulk - no API key required
+
+## Specs
+
+- [OpenAPI 3.0.0 - EIA APIv2](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/openapi/eia-api-v2-openapi.yml): 225 paths, 278 operations, 16 tags. EIA's own copy: https://www.eia.gov/opendata/eia-api-swagger.zip
+- [OpenAPI Overlay - API Evangelist enhancements](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/overlays/eia-api-v2-overlay.yaml)
+
+## Docs
+
+- [API Technical Documentation](https://www.eia.gov/opendata/documentation.php): The full guide, plus the APIv2 patch notes
+- [FAQs](https://www.eia.gov/opendata/faqs.php): API keys, data updates, throttles, APIv1 migration
+- [Open Data portal](https://www.eia.gov/opendata/)
+- [Opendata Query Browser](https://www.eia.gov/opendata/browser/): Point-and-click query builder that emits the equivalent API URL
+- [Register for an API key](https://www.eia.gov/opendata/register.php): Also carries the API Terms of Service
+- [Excel & Google Sheets add-ins](https://www.eia.gov/opendata/excel/)
+- [Embeddable chart widget](https://www.eia.gov/opendata/embed.php)
+- [EIA survey forms](https://www.eia.gov/survey/): The mandatory industry reporting that feeds every route
+- [Today in Energy](https://www.eia.gov/todayinenergy/): EIA's daily analysis series
+
+## Route families
+
+- `/v2/electricity` - retail sales, electric power operations, operating generator capacity, facility fuel
+- `/v2/electricity/rto` - hourly and daily balancing-authority demand, interchange, fuel type, region and sub-BA
+- `/v2/electricity/state-electricity-profiles` - capability, emissions, efficiency, meters, net metering, source-disposition, summary
+- `/v2/natural-gas`, `/v2/coal`, `/v2/crude-oil-imports`, `/v2/densified-biomass`, `/v2/nuclear-outages`
+- `/v2/co2-emissions`, `/v2/international`, `/v2/seds`, `/v2/total-energy`
+- `/v2/steo`, `/v2/aeo`, `/v2/ieo` - Short-Term, Annual and International Energy Outlook projections
+
+## Artifacts
+
+- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/authentication/eia-authentication.yml)
+- [API conventions](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/conventions/eia-conventions.yml)
+- [Error catalog](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/errors/eia-problem-types.yml)
+- [Rate limits](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/rate-limits/eia-rate-limits.yml)
+- [Lifecycle and versioning](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/lifecycle/eia-lifecycle.yml)
+- [Changelog](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/changelog/eia-changelog.yml)
+- [Data model](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/data-model/eia-data-model.yml)
+- [Worked examples](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/examples/eia-api-v2-examples.yml)
+- [Conformance](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/conformance/eia-conformance.yml)
+- [MCP servers and tool crosswalk](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/mcp/eia-tool-crosswalk.yml)
+- [Agent skills](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/skills/_index.yml)
+- [Agentic access contracts](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/agentic-access/eia-agentic-access.yml)
+
+## Not available
+
+EIA publishes no consumer energy data API - no Green Button, no ESPI, no customer usage or billing endpoint, and no consent flow, because EIA never holds individual customer data. It also publishes no webhooks or event stream, no AsyncAPI, no GraphQL, no sandbox or test keys, no CLI, no first-party SDK on any package registry, no OAuth, and no API status page.

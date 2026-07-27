@@ -1,0 +1,120 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for EIA Open Data APIv2
+  version: 1.0.0
+extends: openapi/eia-api-v2-openapi.yml
+x-generated: '2026-07-27'
+x-method: generated
+x-source: https://www.eia.gov/opendata/documentation.php, https://www.eia.gov/opendata/faqs.php
+x-note: |
+  Non-destructive enhancements over EIA's published OpenAPI 3.0.0 (info.version 2.1.0, last
+  modified 2022-12-01). Every value added here is sourced from EIA's own documentation, FAQ,
+  patch notes or a live probe - nothing is invented. The original spec is never mutated.
+  The gaps this overlay annotates: 272 of 278 operations carry no operationId, the api-key
+  failure responses (403 API_KEY_MISSING / API_KEY_INVALID) are undeclared, error responses
+  carry no schema, and the spec trails the live release (2.1.12) by ten patch versions.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-slug: eia
+    x-apievangelist-reviewed: '2026-07-27'
+    x-live-api-version: 2.1.12
+    x-live-api-version-date: '2026-03'
+    x-spec-source: https://www.eia.gov/opendata/eia-api-swagger.zip
+    x-spec-last-modified: '2022-12-01'
+    x-changelog: https://www.eia.gov/opendata/documentation.php
+    x-terms-of-service: https://www.eia.gov/opendata/register.php
+    x-license-note: EIA data is provided free of charge and should be used in compliance with
+      EIA's Copyrights and Reuse Policy; attribution to "EIA" or "U.S. Energy Information
+      Administration" is required and the EIA logo may not be used.
+- target: $.info
+  update:
+    contact:
+      name: EIA Open Data
+      url: https://www.eia.gov/opendata/
+      email: developer@eia.gov
+- target: $.servers
+  update:
+  - url: https://api.eia.gov
+    description: Production - APIv2 (HTTPS only, api_key query parameter required)
+- target: $.components.securitySchemes.api_key
+  update:
+    description: |
+      Free API key, issued instantly by email from https://www.eia.gov/opendata/register.php.
+      Must be supplied in the URL query string - EIA states it will NOT be read from HTTP
+      headers. Missing key returns HTTP 403 API_KEY_MISSING; an invalid key returns HTTP 403
+      API_KEY_INVALID. Not required for the bulk download facility at https://api.eia.gov/bulk.
+    x-registration-url: https://www.eia.gov/opendata/register.php
+    x-cost: free
+    x-approval-required: false
+- target: $
+  update:
+    x-rate-limits:
+      sustained: ~9000 requests per hour per key
+      burst: 5 requests per second per key
+      published: https://www.eia.gov/opendata/faqs.php
+      enforcement: automatic temporary key suspension with automatic reactivation
+      headers: none
+    x-pagination:
+      style: offset-limit
+      parameters: [offset, length]
+      max_rows_json: 5000
+      max_rows_xml: 300
+      total_field: response.total
+      truncation_warning: '{"warning":"parameter out of range","description":"The API can only
+        return 5000 rows in JSON format..."}'
+    x-error-envelope:
+      gate: '{"error":{"code":"API_KEY_MISSING|API_KEY_INVALID","message":"..."}}'
+      parameter: '{"error":"<text>","code":<int>}'
+      problem_json: false
+    x-idempotency: not applicable - read-only API
+    x-undocumented-routes:
+    - path: /v2/seriesid/{APIv1-SERIESID}
+      note: Legacy APIv1 series-ID translation, documented at
+        https://www.eia.gov/opendata/documentation.php but absent from this spec.
+- target: $.components.parameters.data
+  update:
+    description: 'Columns of measured values to return, e.g. data[]=price&data[]=revenue.
+      Required to receive any values - without it the response contains dimension columns only.
+      Each selected column is accompanied by a <column>-units field. Valid column names come
+      from the route''s own metadata.'
+- target: $.components.parameters.facets
+  update:
+    description: 'Dimension filters, e.g. facets[stateid][]=CO&facets[sectorid][]=RES. Valid
+      facet ids come from the route metadata; valid values from GET <route>/facet/{facet_id}.
+      An unknown value is not an error - it returns zero rows.'
+- target: $.components.parameters.frequency
+  update:
+    description: Periodicity to return. Valid values are declared per route in its metadata
+      (e.g. hourly, daily, monthly, quarterly, annual). An invalid value returns HTTP 400 naming
+      the valid frequencies.
+- target: $.components.parameters.start
+  update:
+    description: 'Inclusive lower bound, in the route''s dateFormat. Compared lexically against
+      the period stamp: for monthly data start=2008-02-01 EXCLUDES 2008-02, so use 2008-01-31.
+      Since v2.1.11 identical start and end values on a lower-periodicity series return the full
+      inclusive range.'
+- target: $.components.parameters.end
+  update:
+    description: Inclusive upper bound, in the route's dateFormat.
+- target: $.components.parameters.sort
+  update:
+    description: 'Sort array, e.g. sort[0][column]=period&sort[0][direction]=desc. Since v2.1.9
+      a deterministic default sort is applied when none is supplied.'
+- target: $.components.parameters.length
+  update:
+    description: Maximum rows to return. Hard ceiling is 5,000 in JSON and 300 in XML,
+      regardless of the value supplied.
+- target: $.components.parameters.offset
+  update:
+    description: Rows to skip before returning. Combine with length to page; response.total
+      always reports the full responsive row count.
+- target: $.components.schemas.DataResponse.properties.data
+  update:
+    description: Array of observation objects. Columns vary per route - period plus the route's
+      facet columns plus each requested measure and its <measure>-units companion. Values are
+      JSON strings, not numbers, since v2.1.6 (January 2024).
+- target: $.components.schemas.DataResponseContainer.properties.apiVersion
+  update:
+    description: The live API release that served the response, e.g. "2.1.12". Pair it with the
+      matching technical documentation.

@@ -1,0 +1,74 @@
+generated: '2026-07-27'
+method: searched
+source: https://www.eia.gov/opendata/documentation.php, https://www.eia.gov/opendata/faqs.php
+summary: |
+  EIA versions APIv2 in the URI path and publishes a dated patch-note list on its technical
+  documentation page, running from the February 2022 community release through v2.1.12 in
+  March 2026. It communicated the deprecation of APIv1 in the documentation and the FAQ, with
+  a target sunset of January 2023 and named backward-compatibility affordances, but it has
+  never published a general deprecation POLICY, a Sunset/Deprecation header contract
+  (RFC 8594), an SLA, or a status page. No operation in the OpenAPI is marked deprecated.
+versioning:
+  scheme: uri-path
+  current_major: v2
+  current_release: 2.1.12
+  release_date: '2026-03'
+  spec_version_published: 2.1.0
+  spec_note: The downloadable OpenAPI at https://www.eia.gov/opendata/eia-api-swagger.zip
+    declares info.version 2.1.0 and was last modified 2022-12-01, so it trails the live
+    release by ten patch versions. Since v2.1.9 EIA states the YAML "will now automatically
+    reflect any additions/changes to the API".
+  default_without_version: A request with no version node is treated as v1.
+  response_field: apiVersion, echoed at the top level of every response
+  docs: https://www.eia.gov/opendata/documentation.php
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  communicated:
+  - version: APIv1
+    status: deprecated
+    announced_in: https://www.eia.gov/opendata/documentation.php
+    target_sunset: '2023-01'
+    exact_date_published: false
+    stated_reason: Cost-prohibitive to run APIv2 and APIv1 in parallel; APIv2 improves data
+      consistency, cybersecurity and machine discoverability.
+    backward_compatibility:
+    - GET https://api.eia.gov/v2/seriesid/{APIv1-SERIESID} translates a legacy series ID
+    - https://www.eia.gov/opendata/#translate converts an APIv1 seriesID to an APIv2 query
+    - The Excel add-in converts workbook APIv1 seriesIDs automatically
+    caveat: EIA warns there is no perfect 1:1 mapping, so row counts may differ.
+    faq: https://www.eia.gov/opendata/faqs.php
+  - feature: APIv1 update query (last-update per category)
+    status: removed
+    stated_reason: Removed from APIv2 for performance reasons.
+  - feature: Embedded chart widget without a key
+    status: changed
+    stated_reason: Embeds now require an API key because high-traffic sites were degrading
+      service.
+deprecated_operations: []
+notification:
+  channel: email
+  mechanism: The registration form carries a "Please notify me via email of any API changes"
+    option and states "You will be notified by email of any API changes or usage restrictions."
+  url: https://www.eia.gov/opendata/register.php
+sla:
+  url: null
+  uptime_target: null
+  note: 'The API Terms of Service disclaim all warranties and state the API is provided "as
+    is" and "as-available", with no warranty that access will be continuous or uninterrupted.'
+  terms: https://www.eia.gov/opendata/register.php
+status_page: null
+status_page_note: EIA publishes no API status page. https://www.eia.gov/opendata/status.php
+  returns 404. The closest surface is the information release server https://ir.eia.gov/
+  (HTTP 200), which is a to-the-second data release mirror for the WPSR and WNGSR - a data
+  distribution host, not an availability dashboard.
+data_update_cadence:
+  api: Continuous - APIv2 reads the public-facing databases directly and is not updated on a
+    fixed interval.
+  sensitive_releases: WPSR and WNGSR data appear in the API within two hours of the 10:30 a.m.
+    release.
+  bulk: Twice daily, 5 a.m. and 3 p.m. Eastern (https://www.eia.gov/opendata/bulkfiles.php)
+changelog: changelog/eia-changelog.yml

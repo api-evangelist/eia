@@ -1,0 +1,158 @@
+generated: '2026-07-27'
+method: searched
+source: https://www.eia.gov/opendata/documentation.php
+summary: |
+  Worked request/response examples transcribed verbatim from EIA's own API technical
+  documentation, which builds one running use case - retail sales of electricity in Colorado -
+  from a bare route walk up to a fully filtered, sorted, paginated data query. Response
+  snippets are EIA's published illustrations (EIA notes they added whitespace for clarity and
+  elided rows with ellipses), not live captures. api_key is left as EIA's own xxxxxx
+  placeholder; register at https://www.eia.gov/opendata/register.php for a real key.
+examples:
+- name: Walk the tree from a parent node
+  operation: 'GET /v2/electricity'
+  request: https://api.eia.gov/v2/electricity?api_key=xxxxxx
+  purpose: Discover the child routes of a family. Returns metadata, not data, because the
+    route does not end in /data.
+  response_excerpt: |
+    response: {
+      id: "electricity",
+      name: "Electricity",
+      description: "EIA electricity survey data",
+      routes: [
+        { id: "retail-sales", name: "Electricity Sales to Ultimate Customers",
+          description: "Electricity sales to ultimate customer by state and sector (number of
+          customers, average price, revenue, and megawatthours of sales). Sources: Forms
+          EIA-826, EIA-861, EIA-861M" },
+        { id: "electricity-power-operational-data", name: "Electric Power Operations (Annual
+          and Monthly)", description: "Monthly and annual electric power operations by state,
+          sector, and energy source. Source: Form EIA-923" },
+        { id: "rto" }, { id: "state-electricity-profiles" },
+        { id: "operating-generator-capacity" }, { id: "facility-fuel" }
+      ]
+    }
+- name: Read a leaf dataset's contract
+  operation: 'GET /v2/electricity/retail-sales'
+  request: https://api.eia.gov/v2/electricity/retail-sales?api_key=xxxxxx
+  purpose: Get the frequencies, facets, data columns with units, and period range before
+    querying data.
+  response_excerpt: |
+    response: {
+      id: "retail-sales",
+      name: "Electricity Sales to Ultimate Customers",
+      frequency: [ { id: "monthly", description: "one data point for each month.",
+                     query: "M", format: "YYYY-MM" }, { id: "quarterly" }, { id: "yearly" } ],
+      facets: [ { id: "stateid", description: "State / Census Region" },
+                { id: "sectorid", description: "Sector" } ],
+      data: {
+        revenue:   { alias: "Revenue from Sales to Ultimate Customers", units: "million dollars" },
+        sales:     { alias: "Megawatthours Sold to Ultimate Customers", units: "million kilowatthours" },
+        price:     { alias: "Average Price of Electricity to Ultimate Customers", units: "cents per kilowatthour" },
+        customers: { alias: "Number of Ultimate Customers", units: "Number of customers" }
+      },
+      startPeriod: "2001-01", endPeriod: "2022-07",
+      defaultDateFormat: "YYYY-MM", defaultFrequency: "frequency"
+    }
+- name: List the valid values of a facet
+  operation: 'GET /v2/electricity/retail-sales/facet/{facet_id}'
+  request: https://api.eia.gov/v2/electricity/retail-sales/facet/sectorid/?api_key=xxxxxx
+  response_excerpt: |
+    response: {
+      totalFacets: "6",
+      facets: [ { id: "COM", name: "commercial", alias: "(COM) commercial" },
+                { id: "RES", name: "residential", alias: "(RES) residential" },
+                { id: "ALL", name: "all sectors", alias: "(ALL) all sectors" },
+                { id: "OTH", name: "other", alias: "(OTH) other" },
+                { id: "TRA", name: "transportation", alias: "(TRA) transportation" },
+                { id: "IND", name: "industrial", alias: "(IND) industrial" } ]
+    }
+- name: Query data without selecting columns (the classic no-data trap)
+  operation: 'GET /v2/electricity/retail-sales/data'
+  request: https://api.eia.gov/v2/electricity/retail-sales/data?api_key=xxxxxx
+  purpose: Shows why data[] is required - dimension columns come back with no measured values.
+  response_excerpt: |
+    response: { total: "7440", dateFormat: "YYYY", frequency: "annual",
+      data: [ { period: "2001", stateid: "AL", stateDescription: "Alabama",
+                sectorid: "ALL", sectorName: "all sectors" }, ... ] }
+- name: Select one measured column
+  operation: 'GET /v2/electricity/retail-sales/data'
+  request: https://api.eia.gov/v2/electricity/retail-sales/data/?api_key=XXXXXX&data[]=price
+  response_excerpt: |
+    response: { total: "7440", dateFormat: "YYYY", frequency: "annual",
+      data: [ { period: "2010", stateid: "AZ", stateDescription: "Arizona",
+                sectorid: "TRA", sectorName: "transportation",
+                price: "0", price-units: "cents per kilowatthour" }, ... ] }
+- name: Select multiple measured columns
+  operation: 'GET /v2/electricity/retail-sales/data'
+  request: https://api.eia.gov/v2/electricity/retail-sales/data/?api_key=XXXXXX&data[0]=price&data[1]=revenue
+  equivalent: https://api.eia.gov/v2/electricity/retail-sales/data/?api_key=XXXXXX&data[]=price&data[]=revenue
+- name: Filter with facets
+  operation: 'GET /v2/electricity/retail-sales/data'
+  request: https://api.eia.gov/v2/electricity/retail-sales/data?api_key=xxxxxx&data[]=price&facets[sectorid][]=RES&facets[stateid][]=CO
+  response_excerpt: |
+    response: { total: "20", dateFormat: "YYYY", frequency: "yearly",
+      data: [ { period: "2001", stateid: "CO", stateDescription: "Colorado",
+                sectorid: "RES", sectorName: "residential",
+                price: "7.47", price-units: "cents per kilowatthour" }, ... ] }
+- name: Choose a periodicity
+  operation: 'GET /v2/electricity/retail-sales/data'
+  request: https://api.eia.gov/v2/electricity/retail-sales/data?api_key=xxxxxx&data[]=price&facets[sectorid][]=RES&facets[stateid][]=CO&frequency=monthly
+  note: response.dateFormat switches to YYYY-MM and total changes to 251.
+- name: Constrain a date range (with the off-by-one gotcha)
+  operation: 'GET /v2/electricity/retail-sales/data'
+  request: https://api.eia.gov/v2/electricity/retail-sales/data?api_key=xxxxxx&data[]=price&facets[sectorid][]=RES&facets[stateid][]=CO&frequency=monthly&start=2008-01-31&end=2008-03-01
+  note: Returns February and March 2008. start=2008-02-01 would EXCLUDE February, because the
+    monthly stamp 2008-02 sorts before 2008-02-01 - which is why EIA's example uses 2008-01-31.
+- name: Sort newest first
+  operation: 'GET /v2/electricity/retail-sales/data'
+  request: https://api.eia.gov/v2/electricity/retail-sales/data?api_key=xxxxxx&data[]=price&facets[sectorid][]=RES&facets[stateid][]=CO&frequency=monthly&sort[0][column]=period&sort[0][direction]=desc
+- name: Paginate
+  operation: 'GET /v2/electricity/retail-sales/data'
+  request: https://api.eia.gov/v2/electricity/retail-sales/data?api_key=xxxxxx&data[]=price&facets[sectorid][]=RES&facets[stateid][]=CO&frequency=monthly&sort[0][column]=period&sort[0][direction]=desc&offset=24&length=12
+  note: Skips the most recent 24 months and returns the following 12. response.total still
+    reports the full 251 responsive rows.
+- name: Request XML output
+  operation: 'GET /v2/electricity/retail-sales/data'
+  request: https://api.eia.gov/v2/electricity/retail-sales/data?api_key=xxxxxx&data[]=price&facets[sectorid][]=RES&facets[stateid][]=CO&out=xml
+  response_excerpt: |
+    <eia_api><response>
+      <row><period>2009</period><stateid>CO</stateid><stateDescription>Colorado</stateDescription>
+      <sectorid>RES</sectorid><sectorName>residential</sectorName>
+      <price>10</price><price-units>cents per kilowatthour</price-units></row>
+    </response></eia_api>
+  note: XML responses are capped at 300 rows.
+- name: Send parameters in the request body
+  operation: 'GET /v2/electricity/retail-sales/data'
+  request: https://api.eia.gov/v2/electricity/retail-sales/data?Api_key=xxxxxx
+  headers:
+    Content-Type: application/x-www-form-urlencoded
+  body: 'facets[stateid][]=CO&facets[sectorid][]=RES&frequency=monthly'
+  note: For clients that hit URL length limits. The api_key must still be in the URL - EIA
+    states it will not be detected in the headers.
+- name: Resolve a legacy APIv1 series ID
+  operation: 'GET /v2/seriesid/{APIv1-SERIESID}'
+  request: https://api.eia.gov/v2/seriesid/ELEC.SALES.CO-RES.A?api_key=xxxxxx
+  note: Documented backward-compatibility route. It is NOT present in the published OpenAPI -
+    see mcp/eia-tool-crosswalk.yml. EIA warns the v1-to-v2 mapping is not exactly 1:1.
+- name: Bulk manifest (no key)
+  operation: 'GET /bulk/manifest.txt'
+  request: https://api.eia.gov/bulk/manifest.txt
+  note: Verified HTTP 200 anonymously on 2026-07-27. Project Open Data style catalog of every
+    bulk dataset; each dataset then downloads as a zip of newline-delimited JSON, e.g.
+    https://api.eia.gov/bulk/ELEC.zip.
+error_examples:
+- name: No key supplied
+  request: https://api.eia.gov/v2/
+  status: 403
+  response: '{"error":{"code":"API_KEY_MISSING","message":"No api_key was supplied.  Please
+    register for one at https://www.eia.gov/opendata/register.php"}}'
+  verified: live 2026-07-27
+- name: Invalid frequency
+  status: 400
+  response: '{ error: "Invalid frequency ''millenially'' provided. The only valid frequencies
+    are ''monthly'', ''quarterly'', and ''annual''.", code: 400 }'
+- name: Truncated result warning
+  status: 200
+  response: '{ warning: "parameter out of range", description: "The API can only return 5000
+    rows in JSON format. Please consider constraining your request with facet, start, or end,
+    or using offset to paginate results." }'

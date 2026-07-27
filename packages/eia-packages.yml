@@ -1,0 +1,82 @@
+generated: '2026-07-27'
+method: searched
+source: https://pypi.org/, https://www.npmjs.com/, https://cran.r-project.org/, https://github.com/EIAgov
+summary: |
+  EIA publishes NO first-party client library on any public package registry. Its GitHub
+  presence (https://github.com/EIAgov) is a user account with four public repositories -
+  NEMS (Fortran), BlueSky (Python), dash-benchmark (Python), and the EIAgov profile repo -
+  none of which is an API client. The first-party clients EIA does ship are not registry
+  packages: the EIA & FRED Excel Data Add-In (eia.xlam, v2.1.0, released 2023-03-30) and a
+  Google Sheets add-on that EIA's own page currently lists as suspended. Those are catalogued
+  in components/eia-components.yml. Everything below is COMMUNITY-maintained and marked
+  official: false - verified live on the registry on 2026-07-27.
+packages:
+- language: python
+  registry: pypi
+  name: EIA-python
+  version: '1.22'
+  url: https://pypi.org/project/EIA-python/
+  source: https://github.com/mra1385/eia-python
+  install: pip install EIA-python
+  description: Python wrapper for the EIA API (community, targets the legacy APIv1 series interface).
+  author: Mike Azar
+  official: false
+- language: python
+  registry: pypi
+  name: myeia
+  version: 0.4.8
+  url: https://pypi.org/project/myeia/
+  source: https://github.com/philsv/myeia
+  install: pip install myeia
+  description: Python wrapper for the EIA APIv2, returns pandas DataFrames.
+  author: philsv
+  official: false
+- language: python
+  registry: pypi
+  name: eiapy
+  version: 0.1.6
+  url: https://pypi.org/project/eiapy/
+  source: https://github.com/systemcatch/eiapy
+  install: pip install eiapy
+  description: Simple wrapper for the EIA API.
+  author: Chris Brown
+  official: false
+- language: r
+  registry: cran
+  name: eia
+  url: https://cran.r-project.org/package=eia
+  install: install.packages("eia")
+  description: R interface to the EIA API.
+  official: false
+- language: javascript
+  registry: npm
+  name: "@cyanheads/eia-energy-mcp-server"
+  version: 0.2.8
+  url: https://www.npmjs.com/package/@cyanheads/eia-energy-mcp-server
+  source: https://github.com/cyanheads/eia-energy-mcp-server
+  install: npx @cyanheads/eia-energy-mcp-server
+  description: Community MCP server over EIA APIv2 - see mcp/eia-mcp.yml.
+  official: false
+- language: javascript
+  registry: npm
+  name: "@missionsquad/mcp-eia"
+  version: 1.0.6
+  url: https://www.npmjs.com/package/@missionsquad/mcp-eia
+  source: https://github.com/missionsquad/mcp-eia
+  install: npm install @missionsquad/mcp-eia
+  description: Community MCP server over EIA APIv2 electricity datasets - see mcp/eia-mcp.yml.
+  official: false
+first_party_clients:
+- name: EIA & FRED Excel Data Add-In
+  url: https://www.eia.gov/opendata/excel/
+  artifact: /opendata/excel/eia.xlam
+  version: 2.1.0
+  released: '2023-03-30'
+  registry: none
+  official: true
+- name: Google Sheets add-on
+  url: https://www.eia.gov/opendata/excel/
+  registry: none
+  status: suspended
+  note: EIA's page states "We hope to restore our Google Sheets add-on as soon as possible."
+  official: true

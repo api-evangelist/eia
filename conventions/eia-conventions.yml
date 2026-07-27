@@ -1,0 +1,141 @@
+generated: '2026-07-27'
+method: searched
+source: https://www.eia.gov/opendata/documentation.php, https://www.eia.gov/opendata/faqs.php
+summary: |
+  Cross-cutting request/response semantics for EIA APIv2, taken from EIA's own technical
+  documentation and FAQ and cross-checked against openapi/eia-api-v2-openapi.yml. APIv2 is a
+  read-only statistical API: every route is a projection of published survey data, there is
+  no resource creation, and therefore no idempotency contract, no ETag/conditional request
+  support, and no request-id tracing header. What it does have is an unusually explicit
+  self-describing discovery model, a documented pagination contract with an in-payload
+  warning when it truncates, and published throttle guidance.
+authentication:
+  style: api-key
+  location: query
+  parameter: api_key
+  note: The key must be in the URL. EIA states explicitly that it will NOT be read from HTTP
+    headers, even though other parameters may be sent in the body.
+  free: true
+  docs: https://www.eia.gov/opendata/register.php
+  detail: authentication/eia-authentication.yml
+parameter_locations:
+  url_query: supported
+  request_body: supported
+  note: 'Parameters may be sent as application/x-www-form-urlencoded in the GET request body,
+    or as a JSON body on the POST form of any /data route (components/requestBodies/dataParams,
+    schema DataParams), to work around URL length limits. The POST form is a READ - it returns
+    the same data response as GET.'
+discovery:
+  model: self-describing hierarchical route tree
+  behaviour: A request for a route node without a trailing /data returns metadata - child
+    routes, available frequencies and periodicities, facets, data column names with aliases
+    and units, startPeriod, endPeriod, defaultDateFormat and defaultFrequency.
+  facet_values: GET <route>/facet/{facet_id} returns the valid values for a facet, with
+    totalFacets and per-value id/name/alias.
+  note: An unknown facet value is not an error; it returns zero rows.
+field_selection:
+  style: explicit column selection
+  parameter: 'data[]'
+  forms:
+  - 'data[]=price&data[]=revenue'
+  - 'data[0]=price&data[1]=revenue'
+  required_for_values: true
+  note: Without data[] the API returns dimension columns only and no measured values. Each
+    selected column is accompanied by a <column>-units field in the response.
+filtering:
+  parameter: 'facets[<facetId>][]'
+  example: 'facets[stateid][]=CO&facets[sectorid][]=RES'
+  multiple: true
+frequency:
+  parameter: frequency
+  values_per_route: true
+  note: Valid values come from the route's own metadata (e.g. monthly, quarterly, annual);
+    an invalid value returns HTTP 400 with a message naming the valid frequencies.
+date_range:
+  parameters:
+  - start
+  - end
+  format: matches the route's dateFormat (YYYY, YYYY-MM, YYYY-MM-DD, ...)
+  gotcha: 'Bounds are compared lexically against the period stamp: for monthly data,
+    start=2008-02-01 excludes the 2008-02 point, so EIA documents using start=2008-01-31.
+    Since v2.1.11 (January 2026) identical start and end values on a lower-periodicity series
+    return the full inclusive range instead of zero rows.'
+sorting:
+  parameter: 'sort[<precedence>][column] and sort[<precedence>][direction]'
+  example: 'sort[0][column]=period&sort[0][direction]=desc'
+  directions:
+  - asc
+  - desc
+  default: Since v2.1.9 (September 2025) every response has a deterministic default sort even
+    when none is specified; previously paginated requests without a sort could return rows in
+    an unpredictable sequence.
+pagination:
+  style: offset-limit
+  parameters:
+  - offset
+  - length
+  max_rows_json: 5000
+  max_rows_xml: 300
+  total_field: response.total
+  truncation_signal: 'In-payload warning object: {"warning":"parameter out of range",
+    "description":"The API can only return 5000 rows in JSON format. Please consider
+    constraining your request with facet, start, or end, or using offset to paginate results."}
+    Since v2.1 a warning header is also returned alongside the data.'
+  note: total always reports the full responsive row count regardless of offset/length.
+content_negotiation:
+  default: JSON
+  parameter: out
+  values:
+  - json
+  - xml
+  note: out=xml wraps rows in <eia_api><response><row>; XML responses are capped at 300 rows.
+versioning:
+  scheme: uri-path
+  current_major: v2
+  current_release: 2.1.12
+  release_date: '2026-03'
+  default_without_version: 'A request with no version node is treated as v1 (deprecated).'
+  response_field: apiVersion is echoed at the top level of every response.
+  detail: lifecycle/eia-lifecycle.yml
+request_echo:
+  present: true
+  note: Every response echoes a request object containing the command (the route) and the
+    params it parsed, which is the documented debugging affordance.
+error_envelope:
+  shape: '{"error": {"code": "<STRING_CODE>", "message": "<text>"}} for gate errors, and
+    {"error": "<text>", "code": <int>} for parameter errors'
+  problem_json: false
+  rfc9457: false
+  http_status_alignment: 'Since v2.1.10 (October 2025) the HTTP status code is guaranteed to
+    match the error in the body; before that a body carrying error 400 could be returned with
+    HTTP 200 or 404.'
+  detail: errors/eia-problem-types.yml
+rate_limiting:
+  published_guidance: sustained under ~9,000 requests per hour and burst under 5 per second
+  headers: none documented
+  enforcement: The API key is automatically and temporarily suspended on breach and
+    automatically reactivated after a cool-down of seconds to minutes.
+  note: EIA declines to publish exact firewall rules, citing cybersecurity.
+  detail: rate-limits/eia-rate-limits.yml
+idempotency:
+  supported: false
+  reason: Read-only API - all 278 operations are reads (225 GET, 53 POST /data query forms).
+    No idempotency key header or parameter is documented or present in the OpenAPI, and none
+    is needed.
+request_tracing:
+  request_id_header: none
+  note: The echoed request object is the documented substitute for correlation.
+caching:
+  etag: not documented
+  conditional_requests: not documented
+  update_cadence: 'APIv2 reads the public-facing databases directly and is updated
+    continuously rather than on a schedule; there is no update field (it existed in APIv1 and
+    was removed for performance). WPSR and WNGSR releases appear within two hours.'
+  bulk_alternative: https://api.eia.gov/bulk/manifest.txt (twice daily, 5 a.m. and 3 p.m. ET,
+    no key required)
+backward_compatibility:
+  v1_series_ids: 'GET https://api.eia.gov/v2/seriesid/{APIv1-SERIESID} translates a legacy
+    series ID (documented, but not present in the OpenAPI).'
+  translator: https://www.eia.gov/opendata/#translate
+  caveat: EIA warns there is no perfect 1:1 mapping between an APIv1 seriesID and APIv2
+    routes, so row counts may differ.

@@ -1,0 +1,98 @@
+generated: '2026-07-27'
+method: searched
+source: openapi/eia-api-v2-openapi.yml + https://www.eia.gov/opendata/documentation.php + live
+  probes of https://api.eia.gov/v2/ on 2026-07-27
+format: custom-json
+rfc9457: false
+summary: |
+  EIA APIv2 does not use RFC 9457 problem+json. It returns two distinct JSON error shapes and,
+  separately, an in-payload warning object on a successful-but-truncated response. The OpenAPI
+  declares 400, 404 and 405 responses but describes them only as "Invalid input" with no
+  schema, so the concrete codes below were captured from EIA's documentation and from live
+  requests rather than from the spec. Since v2.1.10 (October 2025) the HTTP status code is
+  guaranteed to agree with the error carried in the body.
+envelopes:
+- name: gate error
+  shape: '{"error": {"code": "<STRING_CODE>", "message": "<human text>"}}'
+  used_for: API key admission errors
+- name: parameter error
+  shape: '{"error": "<human text>", "code": <int http status>}'
+  used_for: syntax and parameter validation errors
+- name: not-found error
+  shape: '{"error": "Not found.", "code": 404}'
+  used_for: unrouted paths on api.eia.gov
+- name: warning (not an error)
+  shape: '{"warning": "<short>", "description": "<remediation>"}'
+  used_for: truncated but successful data responses; returned alongside the data, and since
+    v2.1 also signalled in a response header
+problems:
+- status: 403
+  code: API_KEY_MISSING
+  title: No api_key was supplied
+  message: 'No api_key was supplied.  Please register for one at
+    https://www.eia.gov/opendata/register.php'
+  remediation: Append api_key=<your key> to the URL. The key is never read from HTTP headers.
+  verified: 'GET https://api.eia.gov/v2/ returned HTTP 403 with this body on 2026-07-27'
+  source: live probe
+- status: 403
+  code: API_KEY_INVALID
+  title: Invalid API key
+  remediation: Re-register or use the Forgot API Key flow at https://www.eia.gov/opendata/.
+  verified: 'GET https://api.eia.gov/v2/electricity/retail-sales with a 40-character bogus key
+    returned HTTP 403 with this code on 2026-07-27'
+  source: live probe
+- status: 403
+  code: null
+  title: API key temporarily suspended (throttle)
+  remediation: Reduce request rate below ~9,000/hour sustained and 5/second burst; the key is
+    reactivated automatically after a cool-down of seconds to minutes.
+  source: https://www.eia.gov/opendata/faqs.php
+- status: 400
+  code: 400
+  title: Invalid input
+  example_message: "Invalid frequency 'millenially' provided. The only valid frequencies are
+    'monthly', 'quarterly', and 'annual'."
+  remediation: Read the route's metadata (request the route without /data) to get its valid
+    frequencies, facets and data columns.
+  source_operation: 'openapi/eia-api-v2-openapi.yml#400 (declared on every /data, /facet and
+    /facet/{facet_id} operation)'
+  source: https://www.eia.gov/opendata/documentation.php
+- status: 404
+  code: 404
+  title: Not found
+  message: '{"error":"Not found.","code":404}'
+  remediation: Check the route path against the tree; unknown routes and unrouted paths on
+    api.eia.gov return this.
+  note: Since v2.1.9 (September 2025) an APIv1 seriesID that does not resolve also returns 404
+    rather than an empty success.
+  verified: 'GET https://api.eia.gov/swagger.json returned HTTP 404 with this body on 2026-07-27'
+  source: live probe
+- status: 405
+  code: 405
+  title: Method not allowed
+  source_operation: 'openapi/eia-api-v2-openapi.yml#405'
+  note: Declared in the spec on a small number of operations; not documented in the technical
+    documentation.
+  source: openapi/eia-api-v2-openapi.yml
+warnings:
+- code: parameter out of range
+  description: 'The API can only return 5000 rows in JSON format. Please consider constraining
+    your request with facet, start, or end, or using offset to paginate results.'
+  status: 200
+  remediation: Use offset and length to paginate, or narrow with facets/start/end. response.total
+    always reports the full responsive row count.
+  source: https://www.eia.gov/opendata/documentation.php
+silent_conditions:
+- condition: A facet value that does not exist (e.g. sectorid=xxx)
+  behaviour: HTTP 200 with zero data rows and no error - EIA documents this explicitly as a
+    valid query.
+- condition: A data request without the data[] parameter
+  behaviour: HTTP 200 with dimension columns and no measured values; the FAQ lists this as the
+    most common "no errors but no data" cause.
+gaps:
+- The OpenAPI declares 400/404/405 with no response schema, so error bodies are not
+  machine-describable from the spec alone.
+- No 401/403 response is declared in the spec at all, even though the API key gate is the most
+  common failure an integrator hits.
+- No error reference page exists on eia.gov; the codes above are scattered across the technical
+  documentation and the FAQ.

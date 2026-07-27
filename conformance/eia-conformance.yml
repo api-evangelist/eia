@@ -1,0 +1,118 @@
+generated: '2026-07-27'
+method: derived
+source: openapi/eia-api-v2-openapi.yml, https://www.eia.gov/opendata/documentation.php,
+  https://www.energy.gov/data.json
+summary: |
+  EIA APIv2 conforms to OpenAPI 3.0 and to the U.S. federal open-data regime it exists to
+  discharge, but to essentially none of the cross-cutting HTTP/API conventions that scoring
+  usually looks for - no OAuth, no OIDC, no RFC 9457 problem details, no RFC 8594 sunset
+  headers, no JSON:API, no OData, no cursor pagination, no idempotency. Its transport-layer
+  and domain conformance is strong; its API-convention conformance is thin. Entries marked
+  derived come from the spec; entries marked searched come from EIA/DOE published pages.
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: openapi/eia-api-v2-openapi.yml declares openapi 3.0.0 with 225 paths, 278
+    operations, 16 tags and 18 component schemas; published by EIA as
+    https://www.eia.gov/opendata/eia-api-swagger.zip
+  method: searched
+- id: openapi-3.1
+  conforms: false
+- id: rest
+  conforms: true
+  evidence: Resource-oriented hierarchical routes, GET for reads, self-describing metadata at
+    every node; EIA describes it as "a fully RESTful implementation".
+  method: searched
+- id: api-key-auth
+  conforms: true
+  evidence: components.securitySchemes.api_key - type apiKey, in query, name api_key; applied
+    globally via the root security requirement.
+  method: derived
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 security scheme in the spec and no OAuth documentation; probes of
+    /.well-known/oauth-authorization-server returned no document.
+- id: oidc
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors are returned as {"error":{"code","message"}} or {"error","code"}; no
+    application/problem+json media type appears anywhere in the spec.
+  method: derived
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on www.eia.gov and the API-key gate on
+    api.eia.gov.
+  method: derived
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header is documented; APIv1 deprecation was communicated
+    in prose only.
+- id: json
+  conforms: true
+  evidence: Default response media type is application/json on every operation.
+  method: derived
+- id: xml
+  conforms: true
+  evidence: out=xml returns an <eia_api> document, capped at 300 rows.
+  method: searched
+- id: json-api
+  conforms: false
+- id: odata
+  conforms: false
+- id: graphql
+  conforms: false
+- id: asyncapi
+  conforms: false
+  evidence: EIA publishes no event, streaming or webhook surface.
+- id: offset-limit-pagination
+  conforms: true
+  evidence: offset and length parameters with response.total; documented and present in the
+    spec's components.parameters.
+  method: derived
+- id: cursor-pagination
+  conforms: false
+- id: idempotency-key
+  conforms: false
+  evidence: Read-only API; no idempotency header or parameter in the spec or docs.
+  method: derived
+- id: tls-1.2-plus
+  conforms: true
+  evidence: api.eia.gov and www.eia.gov both negotiate TLSv1.3 (probed 2026-07-27); APIv2 is
+    HTTPS-only, unlike APIv1 which also served http.
+  method: derived
+- id: dnssec
+  conforms: true
+  evidence: 'security/eia-domain-security.yml: eia.gov is DNSSEC-signed, with SPF and a DMARC
+    policy of reject.'
+  method: derived
+- id: project-open-data-v1.1
+  conforms: true
+  evidence: https://www.energy.gov/data.json is a Project Open Data catalog (873,897 bytes,
+    483 datasets, 342 of them published by the U.S. Energy Information Administration). The
+    bulk manifest at https://api.eia.gov/bulk/manifest.txt carries the same style of metadata -
+    identifier, title, description, keyword, publisher, person, mbox, accessLevel, accessURL,
+    last_updated.
+  method: searched
+- id: open-government-data-act-2018
+  conforms: true
+  evidence: Title II of the Foundations for Evidence-Based Policymaking Act requires federal
+    agencies to publish data as open and machine-readable by default; APIv2, the bulk facility
+    and the data.json catalog entry are how EIA discharges it.
+  method: searched
+- id: cisa-bod-20-01-vdp
+  conforms: true
+  evidence: Covered by the DOE Vulnerability Disclosure Program (DOE O 205.1D Attachment 2),
+    published to meet OMB M-20-32 and CISA BOD 20-01, and linked from the footer of every
+    eia.gov page. See security/eia-vulnerability-disclosure.yml.
+  method: searched
+- id: section-508-accessibility
+  conforms: true
+  evidence: EIA publishes an Accessibility policy in the site footer alongside Privacy/Security,
+    Copyright & Reuse, Information Quality and FOIA.
+  method: searched
+certifications: []
+certifications_note: EIA is a federal statistical agency and publishes no commercial security
+  certifications (no SOC 2, ISO 27001, PCI DSS, HIPAA or FedRAMP attestation is published for
+  the Open Data API), and operates no trust center. Its assurance posture is federal policy
+  compliance, recorded above.

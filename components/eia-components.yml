@@ -1,0 +1,77 @@
+generated: '2026-07-27'
+method: searched
+source: https://www.eia.gov/opendata/embed.php, https://www.eia.gov/opendata/excel/,
+  https://www.eia.gov/opendata/browser/
+summary: |
+  EIA ships no JavaScript element library or web-component package, but it does publish three
+  genuinely first-party client-side surfaces over APIv2: an embeddable chart widget delivered
+  as an iframe, a spreadsheet add-in for Excel (with a Google Sheets sibling currently
+  suspended), and the hosted Opendata Query Browser. All three consume the same api_key.
+components:
+- family: Embeddable visualization
+  name: EIA Chart Widget
+  type: iframe embed
+  url: https://www.eia.gov/opendata/embed.php
+  loader: '<iframe id="eia_widget" src="//www.eia.gov/opendata/v1/embed/iframe.php?api_key=YOUR_KEY_HERE&series_id="></iframe>'
+  api_key_required: true
+  api_key_note: Embeds used to work without a key; EIA changed this because high-traffic sites
+    were degrading service. Unkeyed embeds now render API_KEY_MISSING.
+  configuration:
+  - Chart visualization - line or stacked area (pie degrades to bar, area degrades to line
+    where data is missing or the relationship is not additive)
+  - 'Analysis - none, growth absolute, growth percent'
+  - Series IDs - semicolon-separated list (APIv1 series ID form)
+  - 'Date range - all dates, recent X periods, or a defined range'
+  - Width and height set through the iframe style attribute
+  caveat: Defining an end date makes the embed a snapshot that will not show newly released
+    data.
+  source_code: https://github.com/eiagov
+  licensing: EIA's visualization JavaScript library plus several free open-source libraries
+    and one commercial open-source library; embedding via the iframe is covered by EIA's own
+    licenses.
+  official: true
+- family: Spreadsheet add-in
+  name: EIA & FRED Excel Data Add-In
+  type: Microsoft Excel add-in
+  url: https://www.eia.gov/opendata/excel/
+  artifact: /opendata/excel/eia.xlam
+  version: 2.1.0
+  released: '2023-03-30'
+  api_key_required: true
+  capabilities:
+  - Download Tools - Get Data fetches and refreshes every EIA and FRED series in the workbook
+  - EIA Data - browse or search EIA series IDs
+  - FRED Data - browse or search St. Louis Fed FRED series IDs
+  - Data tools - frequency conversion and a quick graphing tool
+  - Support - links to instructions
+  behaviour: Series ID goes in row 1; Get Data returns title, units, frequency and observations
+    in reverse chronological order.
+  migration: The add-in converts APIv1 seriesIDs in existing workbooks to their APIv2
+    equivalents automatically.
+  requires_https: true
+  official: true
+- family: Spreadsheet add-in
+  name: Google Sheets add-on
+  type: Google Workspace add-on
+  url: https://www.eia.gov/opendata/excel/
+  status: suspended
+  note: EIA's page states "We hope to restore our Google Sheets add-on as soon as possible."
+  official: true
+- family: Hosted console
+  name: Opendata Query Browser
+  type: hosted web console
+  url: https://www.eia.gov/opendata/browser/
+  api_key_required: false
+  note: Point-and-click builder over the APIv2 route tree that emits the equivalent API URL;
+    also reachable as https://www.eia.gov/opendata/qb.php.
+  official: true
+- family: Hosted data application
+  name: Hourly Electric Grid Monitor
+  type: hosted web application
+  url: https://www.eia.gov/electricity/gridmonitor/
+  note: EIA's own front end over the /v2/electricity/rto routes - not an embeddable component,
+    listed here as the reference consumer of that route family.
+  official: true
+related:
+  packages: packages/eia-packages.yml
+  conventions: conventions/eia-conventions.yml

@@ -1,0 +1,75 @@
+generated: '2026-07-27'
+method: searched
+source: openapi/eia-api-v2-openapi.yml
+docs: https://www.eia.gov/opendata/documentation.php
+registration: https://www.eia.gov/opendata/register.php
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+  oauth2_flows: []
+  free: true
+  self_serve: true
+  approval_required: false
+schemes:
+- name: api_key
+  type: apiKey
+  in: query
+  parameter: api_key
+  applied: globally, via the root-level security requirement in the spec
+  sources:
+  - openapi/eia-api-v2-openapi.yml
+model: |
+  A single free API key, passed as the api_key query parameter on every APIv2 request. EIA
+  states explicitly that the key must appear in the URL and will NOT be detected in HTTP
+  headers, even though other query parameters MAY be sent in the request body
+  (application/x-www-form-urlencoded on GET, or a JSON DataParams body on the POST form of a
+  /data route) to work around URL length limits. There is no OAuth, no OIDC, no bearer token,
+  no mutual TLS, no scopes and no per-resource authorization - every key sees the same public
+  statistical data.
+issuance:
+  form: https://www.eia.gov/opendata/register.php
+  fields:
+  - First Name (required)
+  - Last Name (required)
+  - Email (required)
+  - Category that best describes you/your organization (required)
+  - Reason to use this API
+  - Agreement to the API Terms of Service (required)
+  - Optional opt-in for email notification of API changes
+  delivery: Emailed automatically to the address supplied; no human review, no accreditation,
+    no licence to sign.
+  sender: developer@eia.gov - EIA asks that this address be whitelisted in spam filters.
+  recovery: '"Forgot API Key" flow linked from https://www.eia.gov/opendata/'
+  cost: free
+unauthenticated_surface:
+  bulk_download: https://api.eia.gov/bulk/manifest.txt and every /bulk/*.zip dataset are
+    retrievable with NO key at all.
+  spec_download: https://www.eia.gov/opendata/eia-api-swagger.zip is anonymous.
+  console: https://www.eia.gov/opendata/browser/ is anonymous.
+enforcement:
+  missing_key: HTTP 403 with {"error":{"code":"API_KEY_MISSING","message":"No api_key was
+    supplied.  Please register for one at https://www.eia.gov/opendata/register.php"}} -
+    verified live 2026-07-27.
+  invalid_key: HTTP 403 with {"error":{"code":"API_KEY_INVALID", ...}} - verified live
+    2026-07-27 with a 40-character bogus key.
+  throttled_key: The key is automatically and temporarily suspended above the published
+    thresholds and automatically reactivated. See rate-limits/eia-rate-limits.yml.
+  embeds: The chart-widget embed now also requires a key; unkeyed embeds render
+    API_KEY_MISSING.
+transport:
+  https_only: true
+  note: APIv2 is HTTPS-only. APIv1 also served plain http; EIA flagged that http would "end
+    soon" as part of the v2 migration.
+key_handling_risk: Because the key travels in the query string it is exposed in browser
+  history, referrer headers, proxy logs and server access logs, and the documented embed
+  pattern places a live key in public page HTML. There is no key rotation UI - recovery is via
+  the Forgot API Key flow.
+terms_of_service: https://www.eia.gov/opendata/register.php
+scopes: none
+scopes_note: No OAuth scopes exist; scopes/ is deliberately absent for this provider.
+related:
+  conventions: conventions/eia-conventions.yml
+  errors: errors/eia-problem-types.yml
+  rate_limits: rate-limits/eia-rate-limits.yml

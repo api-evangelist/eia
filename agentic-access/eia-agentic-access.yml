@@ -1,0 +1,2690 @@
+generated: '2026-07-27'
+method: generated
+source: openapi/eia-api-v2-openapi.yml + https://www.eia.gov/opendata/documentation.php
+description: 'Recommended x-agentic-access execution contracts for EIA APIv2. Machine-classified from
+  the OpenAPI, then CURATED: the heuristic pass raised the 53 POST /data operations to acting/write (and,
+  on keyword matches such as shipments, sales, price and outages, to physical or safety-critical with
+  human-in-the-loop). That is wrong for this API. EIA APIv2 is entirely read-only - the POST form of a
+  /data route is a query whose parameters travel in a DataParams JSON body instead of the URL, and it
+  returns the same DataResponse as the GET form. All 278 operations are therefore connected/read. Verified
+  against the spec (components/requestBodies/dataParams) and EIA''s technical documentation.'
+summary:
+  operations: 278
+  by_action_class:
+    connected: 278
+  by_consequence:
+    read: 278
+  human_in_the_loop_required: 0
+  writes: 0
+  note: No operation in EIA APIv2 creates, updates or deletes anything. The only real agent risks are
+    throttle exhaustion (see rate-limits/) and API-key leakage, because the key travels in the query string.
+operations:
+- path: /v2/aeo/{route1}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aeo/{route1}/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aeo/{route1}/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aeo/{route1}/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aeo/{route1}/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/ieo/{route1}
+  method: get
+  operationId: EIA\API\Controllers\Dataset\AeoIeo\IeoController::__construct
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/ieo/{route1}/facet
+  method: get
+  operationId: EIA\API\Controllers\Dataset\AeoIeo\IeoController::route_facet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/ieo/{route1}/facet/{facet_id}
+  method: get
+  operationId: EIA\API\Controllers\Dataset\AeoIeo\IeoController::route_facetId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/ieo/{route1}/data
+  method: get
+  operationId: EIA\API\Controllers\Dataset\AeoIeo\IeoController::get_data
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/ieo/{route1}/data
+  method: post
+  operationId: EIA\API\Controllers\Dataset\AeoIeo\IeoController::post_data
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/co2-emissions/co2-emissions-aggregates/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/co2-emissions/co2-emissions-and-carbon-coefficients/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/aggregate-production/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/consumption-and-quality/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/exports-imports-quantity-price/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/market-sales-price/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/mine-production/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/price-by-rank/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/reserves-capacity/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/by-mine-by-plant/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/mine-aggregates/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/mine-state-aggregates/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/plant-aggregates/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/plant-state-aggregates/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/receipts/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/crude-oil-imports/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/capacity-by-region/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/characteristics-by-region/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/export-sales-and-price/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/feedstocks-and-cost/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/inventories-by-region/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/production-by-region/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/sales-and-price-by-region/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/wood-pellet-plants/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/facility-fuel/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/electric-power-operational-data/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/operating-generator-capacity/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/retail-sales/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/capability/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/emissions-by-state-by-fuel/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/energy-efficiency/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/meters/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/net-metering/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/source-disposition/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/summary/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-interchange-data/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-fuel-type-data/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-region-sub-ba-data/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-region-data/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/interchange-data/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/fuel-type-data/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/region-sub-ba-data/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/region-data/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/international/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/nuclear-outages/facility-nuclear-outages/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/nuclear-outages/generator-nuclear-outages/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/nuclear-outages/us-nuclear-outages/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/natural-gas/{route1}/{route2}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/natural-gas/{route1}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/natural-gas/{route1}/{route2}/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/natural-gas/{route1}/{route2}/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/natural-gas/{route1}/{route2}/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/natural-gas/{route1}/{route2}/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/total-energy/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/seds
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/seds/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/seds/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/seds/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/seds/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/steo
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/steo/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/steo/facet/{facet_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/steo/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/steo/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/aeo
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/ieo
+  method: get
+  operationId: EIA\API\Controllers\Dataset\AeoIeo\IeoController::ieo
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/co2-emissions/co2-emissions-aggregates
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/co2-emissions/co2-emissions-aggregates/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/co2-emissions/co2-emissions-aggregates/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/co2-emissions/co2-emissions-aggregates/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/co2-emissions/co2-emissions-and-carbon-coefficients
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/co2-emissions/co2-emissions-and-carbon-coefficients/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/co2-emissions/co2-emissions-and-carbon-coefficients/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/co2-emissions/co2-emissions-and-carbon-coefficients/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/co2-emissions
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/aggregate-production
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/aggregate-production/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/aggregate-production/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/aggregate-production/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/coal
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/consumption-and-quality
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/consumption-and-quality/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/consumption-and-quality/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/consumption-and-quality/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/coal/exports-imports-quantity-price
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/exports-imports-quantity-price/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/exports-imports-quantity-price/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/exports-imports-quantity-price/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/coal/market-sales-price
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/market-sales-price/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/market-sales-price/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/market-sales-price/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/coal/mine-production
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/mine-production/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/mine-production/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/mine-production/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/coal/price-by-rank
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/price-by-rank/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/price-by-rank/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/price-by-rank/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/coal/reserves-capacity
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/reserves-capacity/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/reserves-capacity/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/reserves-capacity/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/coal/shipments/by-mine-by-plant
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/by-mine-by-plant/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/by-mine-by-plant/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/by-mine-by-plant/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/coal/shipments/mine-aggregates
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/mine-aggregates/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/mine-aggregates/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/mine-aggregates/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/coal/shipments/mine-state-aggregates
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/mine-state-aggregates/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/mine-state-aggregates/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/mine-state-aggregates/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/coal/shipments/plant-aggregates
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/plant-aggregates/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/plant-aggregates/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/plant-aggregates/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/coal/shipments/plant-state-aggregates
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/plant-state-aggregates/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/plant-state-aggregates/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/plant-state-aggregates/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/coal/shipments/receipts
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/receipts/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/receipts/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/coal/shipments/receipts/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/coal/shipments
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/crude-oil-imports
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/crude-oil-imports/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/crude-oil-imports/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/crude-oil-imports/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/densified-biomass/capacity-by-region
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/capacity-by-region/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/capacity-by-region/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/capacity-by-region/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/densified-biomass/characteristics-by-region
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/characteristics-by-region/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/characteristics-by-region/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/characteristics-by-region/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/densified-biomass
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/export-sales-and-price
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/export-sales-and-price/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/export-sales-and-price/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/export-sales-and-price/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/densified-biomass/feedstocks-and-cost
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/feedstocks-and-cost/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/feedstocks-and-cost/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/feedstocks-and-cost/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/densified-biomass/inventories-by-region
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/inventories-by-region/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/inventories-by-region/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/inventories-by-region/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/densified-biomass/production-by-region
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/production-by-region/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/production-by-region/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/production-by-region/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/densified-biomass/sales-and-price-by-region
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/sales-and-price-by-region/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/sales-and-price-by-region/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/sales-and-price-by-region/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/densified-biomass/wood-pellet-plants
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/wood-pellet-plants/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/wood-pellet-plants/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/densified-biomass/wood-pellet-plants/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/facility-fuel
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/facility-fuel/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/facility-fuel/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/facility-fuel/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/electric-power-operational-data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/electric-power-operational-data/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/electric-power-operational-data/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/electric-power-operational-data/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/operating-generator-capacity
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/operating-generator-capacity/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/operating-generator-capacity/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/operating-generator-capacity/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/retail-sales
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/retail-sales/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/retail-sales/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/retail-sales/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/state-electricity-profiles/capability
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/capability/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/capability/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/capability/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/state-electricity-profiles/emissions-by-state-by-fuel
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/emissions-by-state-by-fuel/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/emissions-by-state-by-fuel/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/emissions-by-state-by-fuel/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/state-electricity-profiles/energy-efficiency
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/energy-efficiency/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/energy-efficiency/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/energy-efficiency/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/state-electricity-profiles/meters
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/meters/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/meters/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/meters/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/state-electricity-profiles/net-metering
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/net-metering/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/net-metering/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/net-metering/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/sep
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/source-disposition
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/source-disposition/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/source-disposition/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/source-disposition/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/state-electricity-profiles/summary
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/summary/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/summary/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/state-electricity-profiles/summary/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/rto/daily-interchange-data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-interchange-data/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-interchange-data/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-interchange-data/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/rto/daily-fuel-type-data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-fuel-type-data/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-fuel-type-data/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-fuel-type-data/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/rto/daily-region-sub-ba-data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-region-sub-ba-data/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-region-sub-ba-data/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-region-sub-ba-data/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/rto/daily-region-data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-region-data/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-region-data/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/daily-region-data/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/rto/interchange-data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/interchange-data/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/interchange-data/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/interchange-data/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/rto
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/fuel-type-data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/fuel-type-data/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/fuel-type-data/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/fuel-type-data/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/rto/region-sub-ba-data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/region-sub-ba-data/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/region-sub-ba-data/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/region-sub-ba-data/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/electricity/rto/region-data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/region-data/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/region-data/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/electricity/rto/region-data/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/international
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/international/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/international/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/international/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/nuclear-outages/facility-nuclear-outages
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/nuclear-outages/facility-nuclear-outages/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/nuclear-outages/facility-nuclear-outages/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/nuclear-outages/facility-nuclear-outages/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/nuclear-outages/generator-nuclear-outages
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/nuclear-outages/generator-nuclear-outages/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/nuclear-outages/generator-nuclear-outages/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/nuclear-outages/generator-nuclear-outages/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/nuclear-outages
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/nuclear-outages/us-nuclear-outages
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/nuclear-outages/us-nuclear-outages/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/nuclear-outages/us-nuclear-outages/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/nuclear-outages/us-nuclear-outages/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2/natural-gas
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/total-energy
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/total-energy/facet
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/total-energy/data
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/total-energy/data
+  method: post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    audience: null
+    token:
+      max-ttl: 3600
+    audit: none
+    note: POST on a /data route is a READ query - the request body is the DataParams schema (data, facets,
+      frequency, start, end, sort, length, offset) used to avoid URL length limits. It creates nothing.
+- path: /v2
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+curated: true
+curated_date: '2026-07-27'
