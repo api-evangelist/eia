@@ -1,6 +1,7 @@
 generated: '2026-07-27'
 method: searched
-status: community
+status: third-party
+status_raw: community
 source: https://www.npmjs.com/package/@cyanheads/eia-energy-mcp-server, https://www.npmjs.com/package/@missionsquad/mcp-eia
 summary: |
   EIA publishes NO first-party MCP server, and no hosted/remote MCP endpoint exists on
