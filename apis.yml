@@ -44,7 +44,7 @@ tags:
 - Energy Statistics
 created: '2026-07-27'
 modified: '2026-07-27'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: eia:eia-open-data-api-v2
   name: EIA Open Data API (APIv2)
