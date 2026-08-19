@@ -3,21 +3,29 @@ method: searched
 status: third-party
 status_raw: community
 source: https://www.npmjs.com/package/@cyanheads/eia-energy-mcp-server, https://www.npmjs.com/package/@missionsquad/mcp-eia
-summary: |
-  EIA publishes NO first-party MCP server, and no hosted/remote MCP endpoint exists on
+summary: 'EIA publishes NO first-party MCP server, and no hosted/remote MCP endpoint exists on
+
   api.eia.gov or www.eia.gov. What does exist is a real community MCP layer over APIv2:
+
   two independently maintained stdio servers on npm, both of which take a user-supplied
+
   free EIA API key and proxy to https://api.eia.gov/v2. Both were verified on the npm
+
   registry on 2026-07-27. Their tool lists below are transcribed verbatim from their
+
   published READMEs - no tool was invented, and none is endorsed by EIA. The candidate
+
   section is what a first-party server would most naturally expose, derived directly from
-  the OpenAPI's three repeating route shapes.
+
+  the OpenAPI''s three repeating route shapes.
+
+  '
 servers:
 - name: eia-energy-mcp-server
   publisher: cyanheads (community)
   official: false
   transport: stdio
-  package: "@cyanheads/eia-energy-mcp-server"
+  package: '@cyanheads/eia-energy-mcp-server'
   version: 0.2.8
   registry: https://www.npmjs.com/package/@cyanheads/eia-energy-mcp-server
   source: https://github.com/cyanheads/eia-energy-mcp-server
@@ -27,13 +35,13 @@ servers:
   - name: eia_browse_routes
     description: Lists child routes under a given path in the EIA dataset taxonomy.
   - name: eia_describe_route
-    description: Returns full metadata for a leaf route - facets and valid values, data column
-      names, frequency options, units, date range.
+    description: Returns full metadata for a leaf route - facets and valid values, data column names,
+      frequency options, units, date range.
   - name: eia_search_routes
     description: Fuzzy text search across route names, descriptions and category labels.
   - name: eia_query_route
-    description: Fetches data from a leaf route with optional facet filters, date range,
-      frequency and column selection.
+    description: Fetches data from a leaf route with optional facet filters, date range, frequency and
+      column selection.
   - name: eia_dataframe_describe
     description: Lists active DataCanvas dataframes created by prior eia_query_route calls.
     server_side: true
@@ -47,17 +55,17 @@ servers:
   publisher: missionsquad (community)
   official: false
   transport: stdio
-  package: "@missionsquad/mcp-eia"
+  package: '@missionsquad/mcp-eia'
   version: 1.0.6
   registry: https://www.npmjs.com/package/@missionsquad/mcp-eia
   source: https://github.com/missionsquad/mcp-eia
-  auth: EIA_API_KEY environment variable or per-request context.extraArgs.apiKey (deliberately
-    not part of the tool inputSchema, so it does not appear in tools/list)
+  auth: EIA_API_KEY environment variable or per-request context.extraArgs.apiKey (deliberately not part
+    of the tool inputSchema, so it does not appear in tools/list)
   scope: EIA electricity datasets only
   tools:
   - name: findHighPotentialEnergyStorageAreas
-    description: Composite analysis ranking states for energy-storage siting; optional hourly
-      RTO demand analysis.
+    description: Composite analysis ranking states for energy-storage siting; optional hourly RTO demand
+      analysis.
   - name: getStateElectricityProfileSummary
     description: State electricity profile summary by two-letter state code.
   - name: getGenerationMixByState
@@ -71,10 +79,13 @@ servers:
 candidate_tools:
   method: derived
   source: openapi/eia-api-v2-openapi.yml
-  note: |
-    The APIv2 contract is three repeating operation shapes across 225 paths and 16 route
+  note: 'The APIv2 contract is three repeating operation shapes across 225 paths and 16 route
+
     families, so a faithful first-party MCP server needs four generic tools rather than 278
+
     per-operation tools. Derived from the spec, not published by EIA.
+
+    '
   tools:
   - name: browse_routes
     description: Return the child routes, frequencies, facets and data columns for a route node.
@@ -83,13 +94,18 @@ candidate_tools:
     description: Return the valid values for a facet on a route.
     source_operation: openapi/eia-api-v2-openapi.yml#GET /v2/{route...}/facet/{facet_id}
   - name: query_data
-    description: Return data rows for a route with data[], facets[], frequency, start, end,
-      sort, offset and length.
+    description: Return data rows for a route with data[], facets[], frequency, start, end, sort, offset
+      and length.
     source_operation: openapi/eia-api-v2-openapi.yml#GET|POST /v2/{route...}/data
   - name: get_series_by_v1_id
     description: Resolve a legacy APIv1 series ID to APIv2 data.
     source_operation: null
     source_docs: https://www.eia.gov/opendata/documentation.php
-    note: 'GET https://api.eia.gov/v2/seriesid/{APIv1-SERIESID} is documented in the technical
-      documentation and the FAQ, but the route is absent from the published OpenAPI - a real
-      docs-vs-spec divergence, recorded rather than papered over.'
+    note: GET https://api.eia.gov/v2/seriesid/{APIv1-SERIESID} is documented in the technical documentation
+      and the FAQ, but the route is absent from the published OpenAPI - a real docs-vs-spec divergence,
+      recorded rather than papered over.
+deployment:
+  mode: third-party
+  verified: searched
+  checked: '2026-08-12'
+  source: catalog MCP census
