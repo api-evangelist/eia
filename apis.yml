@@ -46,80 +46,19 @@ created: '2026-07-27'
 modified: '2026-07-27'
 specificationVersion: '0.23'
 apis:
-- aid: eia:eia-open-data-api-v2
-  name: EIA Open Data API (APIv2)
-  description: EIA's public, fully RESTful open data API covering more than two million energy time
-    series. Datasets are arranged in a discoverable tree - request a parent route such as /v2/electricity
-    and the API returns its child routes, available frequencies, facets, and data columns as metadata;
-    append /data to retrieve values, with facets, column selection, date range, sort, offset, and
-    length all expressed as query parameters. Route families cover electricity (including hourly
-    RTO and balancing-authority operating data), natural gas, petroleum, coal, nuclear outages, densified
-    biomass, CO2 emissions, international energy, the State Energy Data System, state electricity
-    profiles, and the Short-Term, Annual, and International Energy Outlook projections. Responses
-    are JSON by default or XML with out=xml, capped at 5,000 rows per request with an explicit pagination
-    warning returned in the payload. The legacy APIv1 series interface is deprecated but its identifiers
-    remain reachable through the /v2/seriesid/{id} route. Verified live 2026-07-27 - an unauthenticated
-    GET returns HTTP 403 with API_KEY_MISSING and a bogus key returns HTTP 403 with API_KEY_INVALID.
-    Published API version at the time of review is 2.1.12 (March 2026).
-  humanURL: https://www.eia.gov/opendata/documentation.php
-  baseURL: https://api.eia.gov/v2
-  tags:
-  - Open Data
-  - Electricity
-  - Natural Gas
-  - Petroleum
-  - Coal
-  - Nuclear
-  - Emissions
-  - Energy Statistics
-  - Time Series
-  properties:
-  - type: OpenAPI
-    url: openapi/eia-api-v2-openapi.yml
-  - type: Documentation
-    url: https://www.eia.gov/opendata/documentation.php
-  - type: APIReference
-    url: https://www.eia.gov/opendata/browser/
-  - type: Portal
-    url: https://www.eia.gov/opendata/
-  - type: SignUp
-    url: https://www.eia.gov/opendata/register.php
-  - type: Authentication
-    url: https://www.eia.gov/opendata/register.php
-  - type: TermsOfService
-    url: https://www.eia.gov/opendata/register.php
-  - type: Console
-    url: https://www.eia.gov/opendata/browser/
-  - type: Documentation
-    url: https://www.eia.gov/opendata/qb.php
-  - type: PrivacyPolicy
-    url: https://www.eia.gov/about/privacy_security_policy.php
-  - type: Overlay
-    url: overlays/eia-api-v2-overlay.yaml
-  - type: Examples
-    url: examples/eia-api-v2-examples.yml
-    name: Worked request/response examples from EIA technical documentation
-  - type: DataModel
-    url: data-model/eia-data-model.yml
-  - type: GettingStarted
-    url: https://www.eia.gov/opendata/documentation.php
-    name: API Technical Documentation - step-by-step guide from first call to paginated query
-  - type: RateLimits
-    url: rate-limits/eia-rate-limits.yml
-    name: Published throttle guidance - ~9,000/hour sustained, 5/second burst
 - aid: eia:eia-bulk-download-facility
   name: EIA Bulk Download Facility
-  description: EIA's bulk data distribution surface, served from the same api.eia.gov host as APIv2
-    but requiring no API key whatsoever. A single manifest at /bulk/manifest.txt returns a JSON catalog
-    of every bulk dataset with Project Open Data style metadata - identifier, title, description,
-    keyword, publisher, person, mbox, accessLevel, accessURL, and last_updated - and each dataset
-    is then downloadable as a zip archive of newline-delimited JSON, for example /bulk/ELEC.zip.
-    Datasets include U.S. Electric System Operating Data (661,461 series), Electricity (285,080),
-    Petroleum (53,464), Annual Energy Outlook releases back to 2014, International, SEDS, STEO, Coal,
-    Natural Gas, CO2 Emissions, Crude Oil Imports, Nuclear Outages, and Total Energy. Updated twice
-    daily at 5 a.m. and 3 p.m. Eastern. Verified live 2026-07-27 - GET /bulk/manifest.txt returned
-    HTTP 200 anonymously and GET /bulk/ELEC.zip returned HTTP 200 with a 291,920,911-byte zip payload,
-    both without a key.
+  description: >-
+    EIA's bulk data distribution surface, served from the same api.eia.gov host as APIv2 but requiring
+    no API key whatsoever. A single manifest at /bulk/manifest.txt returns a JSON catalog of every bulk
+    dataset with Project Open Data style metadata - identifier, title, description, keyword, publisher,
+    person, mbox, accessLevel, accessURL, and last_updated - and each dataset is then downloadable as
+    a zip archive of newline-delimited JSON, for example /bulk/ELEC.zip. Datasets include U.S. Electric
+    System Operating Data (661,461 series), Electricity (285,080), Petroleum (53,464), Annual Energy Outlook
+    releases back to 2014, International, SEDS, STEO, Coal, Natural Gas, CO2 Emissions, Crude Oil Imports,
+    Nuclear Outages, and Total Energy. Updated twice daily at 5 a.m. and 3 p.m. Eastern. Verified live
+    2026-07-27 - GET /bulk/manifest.txt returned HTTP 200 anonymously and GET /bulk/ELEC.zip returned
+    HTTP 200 with a 291,920,911-byte zip payload, both without a key.
   humanURL: https://www.eia.gov/opendata/bulkfiles.php
   baseURL: https://www.eia.gov/opendata/bulk
   tags:
@@ -142,6 +81,582 @@ apis:
   - type: AgentSkill
     url: skills/eia-bulk-download.md
     name: Bulk-download EIA datasets without an API key
+- aid: eia:eia-aeo-api
+  name: EIA AEO API
+  description: Access to Annual Energy Outlook Data
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - AEO
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-aeo-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-coal-api
+  name: EIA COAL API
+  description: Access to Coal Data
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - COAL
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-coal-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-crud-imports-api
+  name: EIA CRUD IMPORTS API
+  description: Access to Crude Oil Imports Data
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - CRUD_IMPORTS
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-crud-imports-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-dbf-api
+  name: EIA DBF API
+  description: Access to Densified Biomass Data
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - DBF
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-dbf-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-elec-api
+  name: EIA ELEC API
+  description: Access to Electricity Data
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - ELEC
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-elec-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-emiss-api
+  name: EIA EMISS API
+  description: Access to CO2 Emissions Data
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - EMISS
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-emiss-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-ieo-api
+  name: EIA IEO API
+  description: Access to International Energy Outlook Data
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - IEO
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-ieo-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-intl-api
+  name: EIA INTL API
+  description: Access to International Data
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - INTL
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-intl-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-ng-api
+  name: EIA NG API
+  description: Access to Natural Gas Data
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - NG
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-ng-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-nuc-status-api
+  name: EIA NUC STATUS API
+  description: Access to Nuclear Outages Data
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - NUC_STATUS
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-nuc-status-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-root-api
+  name: EIA Root API
+  description: Available EIA API Datasets
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - Root
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-root-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-rto-api
+  name: EIA RTO API
+  description: Access to Daily Electricity Data
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - RTO
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-rto-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-seds-api
+  name: EIA SEDS API
+  description: Access to State Energy Data Systems (SEDS) Data
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - SEDS
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-seds-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-sep-api
+  name: EIA SEP API
+  description: Access to State Electricity Profiles
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - SEP
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-sep-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-steo-api
+  name: EIA STEO API
+  description: Access to Short Term Energy Outlook Data
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - STEO
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-steo-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
+- aid: eia:eia-total-api
+  name: EIA TOTAL API
+  description: Access to Total Energy Data
+  humanURL: https://www.eia.gov/opendata/documentation.php
+  baseURL: https://api.eia.gov/v2
+  tags:
+  - TOTAL
+  properties:
+  - type: OpenAPI
+    url: openapi/eia-total-api-openapi.yml
+  - type: Documentation
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: APIReference
+    url: https://www.eia.gov/opendata/browser/
+  - type: Portal
+    url: https://www.eia.gov/opendata/
+  - type: SignUp
+    url: https://www.eia.gov/opendata/register.php
+  - type: Authentication
+    url: https://www.eia.gov/opendata/register.php
+  - type: TermsOfService
+    url: https://www.eia.gov/opendata/register.php
+  - type: Console
+    url: https://www.eia.gov/opendata/browser/
+  - type: Documentation
+    url: https://www.eia.gov/opendata/qb.php
+  - type: PrivacyPolicy
+    url: https://www.eia.gov/about/privacy_security_policy.php
+  - type: Examples
+    url: examples/eia-api-v2-examples.yml
+  - type: DataModel
+    url: data-model/eia-data-model.yml
+  - type: GettingStarted
+    url: https://www.eia.gov/opendata/documentation.php
+  - type: RateLimits
+    url: rate-limits/eia-rate-limits.yml
 common:
 - type: AgenticAccess
   url: agentic-access/eia-agentic-access.yml
