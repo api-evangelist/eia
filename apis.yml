@@ -26,6 +26,18 @@ description: The U.S. Energy Information Administration (EIA) is the independent
   the clearest instance of the recurring finding in this series - a federal data agency that publishes
   a far better documented, far more accessible API than the regulated utilities whose numbers it
   reports.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.eia.gov/global/images/logos/eia_logo_print.png
 tags:
 - Energy
