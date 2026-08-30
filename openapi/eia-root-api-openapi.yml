@@ -1,0 +1,78 @@
+openapi: 3.2.0
+info:
+  title: EIA APIv2 Root API
+  description: Swagger UI interface for EIA's APIv2.  You can also explore EIA's API using the [Opendata Query Browser](https://www.eia.gov/opendata/browser/).  For this UI, you must use your EIA `api key` to apply filters and return data. You can register for an API Key at [https://www.eia.gov/opendata/](https://www.eia.gov/opendata/)
+  version: 2.1.0
+servers:
+- url: https://api.eia.gov
+security:
+- api_key: []
+tags:
+- name: Root
+  description: Available EIA API Datasets
+paths:
+  /v2:
+    get:
+      tags:
+      - Root
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/route'
+components:
+  schemas:
+    Routes:
+      properties:
+        routes:
+          type: array
+          items:
+            type: string
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+      type: object
+    RouteResponseContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/RouteResponse'
+      type: object
+    RouteRequest:
+      properties:
+        command:
+          type: array
+          items:
+            type: string
+        params: {}
+      type: object
+    RouteResponse:
+      properties:
+        response:
+          $ref: '#/components/schemas/Routes'
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+      type: object
+  responses:
+    route:
+      description: List of API data sets
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RouteResponseContainer'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+externalDocs:
+  description: EIA's API Technical Documentation
+  url: https://www.eia.gov/opendata/documentation.php

@@ -1,0 +1,1384 @@
+openapi: 3.2.0
+info:
+  title: EIA APIv2 COAL API
+  description: Swagger UI interface for EIA's APIv2.  You can also explore EIA's API using the [Opendata Query Browser](https://www.eia.gov/opendata/browser/).  For this UI, you must use your EIA `api key` to apply filters and return data. You can register for an API Key at [https://www.eia.gov/opendata/](https://www.eia.gov/opendata/)
+  version: 2.1.0
+servers:
+- url: https://api.eia.gov
+security:
+- api_key: []
+tags:
+- name: COAL
+  description: Access to Coal Data
+paths:
+  /v2/coal/aggregate-production/facet/{facet_id}:
+    parameters:
+    - $ref: '#/components/parameters/facetId'
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facet'
+  /v2/coal/consumption-and-quality/facet/{facet_id}:
+    parameters:
+    - $ref: '#/components/parameters/facetId'
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facet'
+  /v2/coal/exports-imports-quantity-price/facet/{facet_id}:
+    parameters:
+    - $ref: '#/components/parameters/facetId'
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facet'
+  /v2/coal/market-sales-price/facet/{facet_id}:
+    parameters:
+    - $ref: '#/components/parameters/facetId'
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facet'
+  /v2/coal/mine-production/facet/{facet_id}:
+    parameters:
+    - $ref: '#/components/parameters/facetId'
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facet'
+  /v2/coal/price-by-rank/facet/{facet_id}:
+    parameters:
+    - $ref: '#/components/parameters/facetId'
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facet'
+  /v2/coal/reserves-capacity/facet/{facet_id}:
+    parameters:
+    - $ref: '#/components/parameters/facetId'
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facet'
+  /v2/coal/shipments/by-mine-by-plant/facet/{facet_id}:
+    parameters:
+    - $ref: '#/components/parameters/facetId'
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facet'
+  /v2/coal/shipments/mine-aggregates/facet/{facet_id}:
+    parameters:
+    - $ref: '#/components/parameters/facetId'
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facet'
+  /v2/coal/shipments/mine-state-aggregates/facet/{facet_id}:
+    parameters:
+    - $ref: '#/components/parameters/facetId'
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facet'
+  /v2/coal/shipments/plant-aggregates/facet/{facet_id}:
+    parameters:
+    - $ref: '#/components/parameters/facetId'
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facet'
+  /v2/coal/shipments/plant-state-aggregates/facet/{facet_id}:
+    parameters:
+    - $ref: '#/components/parameters/facetId'
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facet'
+  /v2/coal/shipments/receipts/facet/{facet_id}:
+    parameters:
+    - $ref: '#/components/parameters/facetId'
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facet'
+  /v2/coal/aggregate-production:
+    get:
+      tags:
+      - COAL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/final-route'
+  /v2/coal/aggregate-production/facet:
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facets'
+  /v2/coal/aggregate-production/data:
+    get:
+      tags:
+      - COAL
+      description: API data with query params
+      parameters:
+      - $ref: '#/components/parameters/data'
+      - $ref: '#/components/parameters/facets'
+      - $ref: '#/components/parameters/frequency'
+      - $ref: '#/components/parameters/start'
+      - $ref: '#/components/parameters/end'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/length'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+    post:
+      tags:
+      - COAL
+      summary: Return aggregate-production Data
+      description: 'Class AggregateProductionController
+
+
+        Aggregate Production data set top-level controller.'
+      requestBody:
+        $ref: '#/components/requestBodies/dataParams'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+  /v2/coal:
+    get:
+      tags:
+      - COAL
+      summary: Class CoalController
+      description: Coal data set top-level controller.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/route'
+  /v2/coal/consumption-and-quality:
+    get:
+      tags:
+      - COAL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/final-route'
+  /v2/coal/consumption-and-quality/facet:
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facets'
+  /v2/coal/consumption-and-quality/data:
+    get:
+      tags:
+      - COAL
+      description: API data with query params
+      parameters:
+      - $ref: '#/components/parameters/data'
+      - $ref: '#/components/parameters/facets'
+      - $ref: '#/components/parameters/frequency'
+      - $ref: '#/components/parameters/start'
+      - $ref: '#/components/parameters/end'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/length'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+    post:
+      tags:
+      - COAL
+      summary: Return consumption-and-quality Data
+      requestBody:
+        $ref: '#/components/requestBodies/dataParams'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+  /v2/coal/exports-imports-quantity-price:
+    get:
+      tags:
+      - COAL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/final-route'
+  /v2/coal/exports-imports-quantity-price/facet:
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facets'
+  /v2/coal/exports-imports-quantity-price/data:
+    get:
+      tags:
+      - COAL
+      description: API data with query params
+      parameters:
+      - $ref: '#/components/parameters/data'
+      - $ref: '#/components/parameters/facets'
+      - $ref: '#/components/parameters/frequency'
+      - $ref: '#/components/parameters/start'
+      - $ref: '#/components/parameters/end'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/length'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+    post:
+      tags:
+      - COAL
+      summary: Return exports-imports-quantity-price Data
+      description: 'Class ExportsImportsQuantityPriceController
+
+
+        Exports\Imports Quantity\Price data set top-level controller.'
+      requestBody:
+        $ref: '#/components/requestBodies/dataParams'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+  /v2/coal/market-sales-price:
+    get:
+      tags:
+      - COAL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/final-route'
+  /v2/coal/market-sales-price/facet:
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facets'
+  /v2/coal/market-sales-price/data:
+    get:
+      tags:
+      - COAL
+      description: API data with query params
+      parameters:
+      - $ref: '#/components/parameters/data'
+      - $ref: '#/components/parameters/facets'
+      - $ref: '#/components/parameters/frequency'
+      - $ref: '#/components/parameters/start'
+      - $ref: '#/components/parameters/end'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/length'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+    post:
+      tags:
+      - COAL
+      summary: Return market-sales-price Data
+      description: 'Class MarketSalesPriceController
+
+
+        Market Sales Price data set top-level controller.'
+      requestBody:
+        $ref: '#/components/requestBodies/dataParams'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+  /v2/coal/mine-production:
+    get:
+      tags:
+      - COAL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/final-route'
+  /v2/coal/mine-production/facet:
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facets'
+  /v2/coal/mine-production/data:
+    get:
+      tags:
+      - COAL
+      description: API data with query params
+      parameters:
+      - $ref: '#/components/parameters/data'
+      - $ref: '#/components/parameters/facets'
+      - $ref: '#/components/parameters/frequency'
+      - $ref: '#/components/parameters/start'
+      - $ref: '#/components/parameters/end'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/length'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+    post:
+      tags:
+      - COAL
+      summary: Return mine-production Data
+      description: 'Class MinProductionController
+
+
+        Mine Production data set top-level controller.'
+      requestBody:
+        $ref: '#/components/requestBodies/dataParams'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+  /v2/coal/price-by-rank:
+    get:
+      tags:
+      - COAL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/final-route'
+  /v2/coal/price-by-rank/facet:
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facets'
+  /v2/coal/price-by-rank/data:
+    get:
+      tags:
+      - COAL
+      description: API data with query params
+      parameters:
+      - $ref: '#/components/parameters/data'
+      - $ref: '#/components/parameters/facets'
+      - $ref: '#/components/parameters/frequency'
+      - $ref: '#/components/parameters/start'
+      - $ref: '#/components/parameters/end'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/length'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+    post:
+      tags:
+      - COAL
+      summary: Return price-by-rank Data
+      description: 'Class PriceByRankController
+
+
+        Price By Rank data set top-level controller.'
+      requestBody:
+        $ref: '#/components/requestBodies/dataParams'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+  /v2/coal/reserves-capacity:
+    get:
+      tags:
+      - COAL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/final-route'
+  /v2/coal/reserves-capacity/facet:
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facets'
+  /v2/coal/reserves-capacity/data:
+    get:
+      tags:
+      - COAL
+      description: API data with query params
+      parameters:
+      - $ref: '#/components/parameters/data'
+      - $ref: '#/components/parameters/facets'
+      - $ref: '#/components/parameters/frequency'
+      - $ref: '#/components/parameters/start'
+      - $ref: '#/components/parameters/end'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/length'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+    post:
+      tags:
+      - COAL
+      summary: Return reserves-capacity data
+      description: 'Class ReservesCapacityController
+
+
+        Reserves Capacity data set top-level controller.'
+      requestBody:
+        $ref: '#/components/requestBodies/dataParams'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+  /v2/coal/shipments/by-mine-by-plant:
+    get:
+      tags:
+      - COAL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/final-route'
+  /v2/coal/shipments/by-mine-by-plant/facet:
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facets'
+  /v2/coal/shipments/by-mine-by-plant/data:
+    get:
+      tags:
+      - COAL
+      description: API data with query params
+      parameters:
+      - $ref: '#/components/parameters/data'
+      - $ref: '#/components/parameters/facets'
+      - $ref: '#/components/parameters/frequency'
+      - $ref: '#/components/parameters/start'
+      - $ref: '#/components/parameters/end'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/length'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+    post:
+      tags:
+      - COAL
+      summary: Return shipments by-mine-by-plant data
+      requestBody:
+        $ref: '#/components/requestBodies/dataParams'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+  /v2/coal/shipments/mine-aggregates:
+    get:
+      tags:
+      - COAL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/final-route'
+  /v2/coal/shipments/mine-aggregates/facet:
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facets'
+  /v2/coal/shipments/mine-aggregates/data:
+    get:
+      tags:
+      - COAL
+      description: API data with query params
+      parameters:
+      - $ref: '#/components/parameters/data'
+      - $ref: '#/components/parameters/facets'
+      - $ref: '#/components/parameters/frequency'
+      - $ref: '#/components/parameters/start'
+      - $ref: '#/components/parameters/end'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/length'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+    post:
+      tags:
+      - COAL
+      summary: Return shipments mine-aggregates data
+      requestBody:
+        $ref: '#/components/requestBodies/dataParams'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+  /v2/coal/shipments/mine-state-aggregates:
+    get:
+      tags:
+      - COAL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/final-route'
+  /v2/coal/shipments/mine-state-aggregates/facet:
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facets'
+  /v2/coal/shipments/mine-state-aggregates/data:
+    get:
+      tags:
+      - COAL
+      description: API data with query params
+      parameters:
+      - $ref: '#/components/parameters/data'
+      - $ref: '#/components/parameters/facets'
+      - $ref: '#/components/parameters/frequency'
+      - $ref: '#/components/parameters/start'
+      - $ref: '#/components/parameters/end'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/length'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+    post:
+      tags:
+      - COAL
+      summary: Return shipments mine-state-aggregates data
+      requestBody:
+        $ref: '#/components/requestBodies/dataParams'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+  /v2/coal/shipments/plant-aggregates:
+    get:
+      tags:
+      - COAL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/final-route'
+  /v2/coal/shipments/plant-aggregates/facet:
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facets'
+  /v2/coal/shipments/plant-aggregates/data:
+    get:
+      tags:
+      - COAL
+      description: API data with query params
+      parameters:
+      - $ref: '#/components/parameters/data'
+      - $ref: '#/components/parameters/facets'
+      - $ref: '#/components/parameters/frequency'
+      - $ref: '#/components/parameters/start'
+      - $ref: '#/components/parameters/end'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/length'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+    post:
+      tags:
+      - COAL
+      summary: Return shipments plant-aggregates data
+      description: 'Class PlantAggregateController
+
+
+        Coal\Shipments dataset controller.'
+      requestBody:
+        $ref: '#/components/requestBodies/dataParams'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+  /v2/coal/shipments/plant-state-aggregates:
+    get:
+      tags:
+      - COAL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/final-route'
+  /v2/coal/shipments/plant-state-aggregates/facet:
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facets'
+  /v2/coal/shipments/plant-state-aggregates/data:
+    get:
+      tags:
+      - COAL
+      description: API data with query params
+      parameters:
+      - $ref: '#/components/parameters/data'
+      - $ref: '#/components/parameters/facets'
+      - $ref: '#/components/parameters/frequency'
+      - $ref: '#/components/parameters/start'
+      - $ref: '#/components/parameters/end'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/length'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+    post:
+      tags:
+      - COAL
+      summary: Return shipments plant-state-aggregates data
+      description: 'Class PlantStateAggregateController
+
+
+        Coal\Shipments dataset controller.'
+      requestBody:
+        $ref: '#/components/requestBodies/dataParams'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+  /v2/coal/shipments/receipts:
+    get:
+      tags:
+      - COAL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/final-route'
+  /v2/coal/shipments/receipts/facet:
+    get:
+      tags:
+      - COAL
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/facets'
+  /v2/coal/shipments/receipts/data:
+    get:
+      tags:
+      - COAL
+      description: API data with query params
+      parameters:
+      - $ref: '#/components/parameters/data'
+      - $ref: '#/components/parameters/facets'
+      - $ref: '#/components/parameters/frequency'
+      - $ref: '#/components/parameters/start'
+      - $ref: '#/components/parameters/end'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/length'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+    post:
+      tags:
+      - COAL
+      summary: Return shipments receipts data
+      description: 'Class ReceiptsController
+
+
+        Coal\Shipments dataset controller.'
+      requestBody:
+        $ref: '#/components/requestBodies/dataParams'
+      responses:
+        '400':
+          description: Invalid input
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/data'
+  /v2/coal/shipments:
+    get:
+      tags:
+      - COAL
+      summary: Class CoalController
+      description: Coal data set top-level controller.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/route'
+components:
+  responses:
+    route:
+      description: List of API data sets
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RouteResponseContainer'
+    facets:
+      description: List of facet options
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FacetOptionListContainer'
+    final-route:
+      description: List of API data sets
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FinalRouteResponseContainer'
+    facet:
+      description: Facet details
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FacetDetailsContainer'
+    data:
+      description: API Data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DataResponseContainer'
+  schemas:
+    DataResponseContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/DataResponse'
+      type: object
+    FacetDetails:
+      properties:
+        totalFacets:
+          type: integer
+        facets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Facet'
+      type: object
+    FacetDetailsContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/FacetDetails'
+      type: object
+    Frequency:
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        format:
+          type: string
+        query:
+          type: string
+      type: object
+    RouteResponseContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/RouteResponse'
+      type: object
+    DataParams:
+      properties:
+        data:
+          type: array
+          items:
+            type: string
+        facets:
+          type: object
+        frequency:
+          type: string
+        start:
+          type: string
+        end:
+          type: string
+        sort:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sort'
+        length:
+          type: integer
+        offset:
+          type: integer
+      type: object
+    FacetOptionListContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/FacetOptionList'
+      type: object
+    FinalRoute:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        frequency:
+          type: array
+          items:
+            $ref: '#/components/schemas/Frequency'
+        facets:
+          type: array
+          items:
+            $ref: '#/components/schemas/FacetMetaData'
+        data: {}
+        startPeriod:
+          type: string
+        endPeriod:
+          type: string
+        defaultDateFormat:
+          type: string
+        defaultFrequency:
+          type: string
+      type: object
+    DataResponse:
+      properties:
+        data: {}
+        dateFormat:
+          type: string
+        description:
+          type: string
+        frequency:
+          type: string
+        total:
+          type: integer
+      type: object
+    Sort:
+      properties:
+        column:
+          type: string
+        direction:
+          type: string
+      type: object
+    FacetMetaData:
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+      type: object
+    RouteResponse:
+      properties:
+        response:
+          $ref: '#/components/schemas/Routes'
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+      type: object
+    Routes:
+      properties:
+        routes:
+          type: array
+          items:
+            type: string
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+      type: object
+    FinalRouteResponseContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/FinalRouteResponse'
+      type: object
+    FacetOptionList:
+      properties:
+        totalFacetOptions:
+          type: integer
+        facetOptions:
+          type: array
+          items:
+            type: string
+      type: object
+    Facet:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        alias:
+          type: string
+      type: object
+    RouteRequest:
+      properties:
+        command:
+          type: array
+          items:
+            type: string
+        params: {}
+      type: object
+    FinalRouteResponse:
+      properties:
+        response:
+          $ref: '#/components/schemas/FinalRoute'
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+      type: object
+  parameters:
+    end:
+      name: end
+      in: query
+      description: End date to filter by
+      required: false
+      schema:
+        type: string
+    facets:
+      name: facets
+      in: query
+      description: Facets to filter by
+      required: false
+      schema:
+        type: object
+    length:
+      name: length
+      in: query
+      description: Max length of returned data
+      required: false
+      schema:
+        type: integer
+    facetId:
+      name: facet_id
+      in: path
+      description: Facet ID
+      required: true
+      schema:
+        type: string
+    data:
+      name: data
+      in: query
+      description: Data columns to filter by
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    offset:
+      name: offset
+      in: query
+      description: Offset of returned data
+      required: false
+      schema:
+        type: integer
+    start:
+      name: start
+      in: query
+      description: Start date to filter by
+      required: false
+      schema:
+        type: string
+    frequency:
+      name: frequency
+      in: query
+      description: Frequency to filter by
+      required: false
+      schema:
+        type: string
+    sort:
+      name: sort
+      in: query
+      description: How to sort returned data
+      required: false
+      schema:
+        $ref: '#/components/schemas/Sort'
+  requestBodies:
+    dataParams:
+      description: Parameters for data call
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DataParams'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+externalDocs:
+  description: EIA's API Technical Documentation
+  url: https://www.eia.gov/opendata/documentation.php
