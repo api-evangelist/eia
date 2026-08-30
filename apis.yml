@@ -135,6 +135,8 @@ apis:
   humanURL: https://www.eia.gov/opendata/documentation.php
   baseURL: https://api.eia.gov/v2
   tags:
+  - Coal
+  tags_raw:
   - COAL
   properties:
   - type: OpenAPI
