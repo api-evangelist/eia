@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: EIA APIv2 SEDS API
-  description: Swagger UI interface for EIA's APIv2.  You can also explore EIA's API using the [Opendata Query Browser](https://www.eia.gov/opendata/browser/).  For this UI, you must use your EIA `api key` to apply filters and return data. You can register for an API Key at [https://www.eia.gov/opendata/](https://www.eia.gov/opendata/)
+  description: Swagger UI interface for EIA's APIv2. You can also explore EIA's API using the Opendata Query Browser. For this UI, you must use your EIA `api key` to apply filters and return data. You can register for an API Key at https://www.eia.gov/opendata/
   version: 2.1.0
 servers:
 - url: https://api.eia.gov
@@ -22,6 +22,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/final-route'
+      summary: Get seds
+      x-summary-source: derived
+      operationId: getV2Seds
+      x-operation-id-source: derived
   /v2/seds/facet:
     get:
       tags:
@@ -35,6 +39,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facets'
+      summary: Get seds facet
+      x-summary-source: derived
+      operationId: getV2SedsFacet
+      x-operation-id-source: derived
   /v2/seds/facet/{facet_id}:
     get:
       tags:
@@ -55,6 +63,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facet'
+      summary: Get seds facet by facet id
+      x-summary-source: derived
+      operationId: getV2SedsFacetByFacetId
+      x-operation-id-source: derived
   /v2/seds/data:
     get:
       tags:
@@ -80,6 +92,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      summary: Get seds data
+      x-summary-source: derived
+      operationId: getV2SedsData
+      x-operation-id-source: derived
     post:
       tags:
       - SEDS
@@ -99,17 +115,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      operationId: postV2SedsData
+      x-operation-id-source: derived
 components:
   schemas:
-    DataResponseContainer:
-      properties:
-        apiVersion:
-          type: string
-        request:
-          $ref: '#/components/schemas/RouteRequest'
-        response:
-          $ref: '#/components/schemas/DataResponse'
-      type: object
     FacetDetails:
       properties:
         totalFacets:
@@ -119,25 +128,14 @@ components:
           items:
             $ref: '#/components/schemas/Facet'
       type: object
-    FacetDetailsContainer:
+    FacetOptionList:
       properties:
-        apiVersion:
-          type: string
-        request:
-          $ref: '#/components/schemas/RouteRequest'
-        response:
-          $ref: '#/components/schemas/FacetDetails'
-      type: object
-    Frequency:
-      properties:
-        id:
-          type: string
-        description:
-          type: string
-        format:
-          type: string
-        query:
-          type: string
+        totalFacetOptions:
+          type: integer
+        facetOptions:
+          type: array
+          items:
+            type: string
       type: object
     DataParams:
       properties:
@@ -162,14 +160,29 @@ components:
         offset:
           type: integer
       type: object
-    FacetOptionListContainer:
+    FacetMetaData:
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+      type: object
+    FacetDetailsContainer:
       properties:
         apiVersion:
           type: string
         request:
           $ref: '#/components/schemas/RouteRequest'
         response:
-          $ref: '#/components/schemas/FacetOptionList'
+          $ref: '#/components/schemas/FacetDetails'
+      type: object
+    RouteRequest:
+      properties:
+        command:
+          type: array
+          items:
+            type: string
+        params: {}
       type: object
     FinalRoute:
       properties:
@@ -197,6 +210,67 @@ components:
         defaultFrequency:
           type: string
       type: object
+    Frequency:
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        format:
+          type: string
+        query:
+          type: string
+      type: object
+    DataResponseContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/DataResponse'
+      type: object
+    FinalRouteResponseContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/FinalRouteResponse'
+      type: object
+    FacetOptionListContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/FacetOptionList'
+      type: object
+    Facet:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        alias:
+          type: string
+      type: object
+    Sort:
+      properties:
+        column:
+          type: string
+        direction:
+          type: string
+      type: object
+    FinalRouteResponse:
+      properties:
+        response:
+          $ref: '#/components/schemas/FinalRoute'
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+      type: object
     DataResponse:
       properties:
         data: {}
@@ -209,128 +283,7 @@ components:
         total:
           type: integer
       type: object
-    Sort:
-      properties:
-        column:
-          type: string
-        direction:
-          type: string
-      type: object
-    FacetMetaData:
-      properties:
-        id:
-          type: string
-        description:
-          type: string
-      type: object
-    FinalRouteResponseContainer:
-      properties:
-        apiVersion:
-          type: string
-        request:
-          $ref: '#/components/schemas/RouteRequest'
-        response:
-          $ref: '#/components/schemas/FinalRouteResponse'
-      type: object
-    FacetOptionList:
-      properties:
-        totalFacetOptions:
-          type: integer
-        facetOptions:
-          type: array
-          items:
-            type: string
-      type: object
-    Facet:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        alias:
-          type: string
-      type: object
-    RouteRequest:
-      properties:
-        command:
-          type: array
-          items:
-            type: string
-        params: {}
-      type: object
-    FinalRouteResponse:
-      properties:
-        response:
-          $ref: '#/components/schemas/FinalRoute'
-        request:
-          $ref: '#/components/schemas/RouteRequest'
-      type: object
-  parameters:
-    end:
-      name: end
-      in: query
-      description: End date to filter by
-      required: false
-      schema:
-        type: string
-    facets:
-      name: facets
-      in: query
-      description: Facets to filter by
-      required: false
-      schema:
-        type: object
-    length:
-      name: length
-      in: query
-      description: Max length of returned data
-      required: false
-      schema:
-        type: integer
-    data:
-      name: data
-      in: query
-      description: Data columns to filter by
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
-    offset:
-      name: offset
-      in: query
-      description: Offset of returned data
-      required: false
-      schema:
-        type: integer
-    start:
-      name: start
-      in: query
-      description: Start date to filter by
-      required: false
-      schema:
-        type: string
-    frequency:
-      name: frequency
-      in: query
-      description: Frequency to filter by
-      required: false
-      schema:
-        type: string
-    sort:
-      name: sort
-      in: query
-      description: How to sort returned data
-      required: false
-      schema:
-        $ref: '#/components/schemas/Sort'
   responses:
-    facets:
-      description: List of facet options
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FacetOptionListContainer'
     final-route:
       description: List of API data sets
       content:
@@ -349,6 +302,71 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/DataResponseContainer'
+    facets:
+      description: List of facet options
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FacetOptionListContainer'
+  parameters:
+    length:
+      name: length
+      in: query
+      description: Max length of returned data
+      required: false
+      schema:
+        type: integer
+    offset:
+      name: offset
+      in: query
+      description: Offset of returned data
+      required: false
+      schema:
+        type: integer
+    sort:
+      name: sort
+      in: query
+      description: How to sort returned data
+      required: false
+      schema:
+        $ref: '#/components/schemas/Sort'
+    facets:
+      name: facets
+      in: query
+      description: Facets to filter by
+      required: false
+      schema:
+        type: object
+    end:
+      name: end
+      in: query
+      description: End date to filter by
+      required: false
+      schema:
+        type: string
+    frequency:
+      name: frequency
+      in: query
+      description: Frequency to filter by
+      required: false
+      schema:
+        type: string
+    start:
+      name: start
+      in: query
+      description: Start date to filter by
+      required: false
+      schema:
+        type: string
+    data:
+      name: data
+      in: query
+      description: Data columns to filter by
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
   requestBodies:
     dataParams:
       description: Parameters for data call

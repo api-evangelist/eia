@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: EIA APIv2 DBF API
-  description: Swagger UI interface for EIA's APIv2.  You can also explore EIA's API using the [Opendata Query Browser](https://www.eia.gov/opendata/browser/).  For this UI, you must use your EIA `api key` to apply filters and return data. You can register for an API Key at [https://www.eia.gov/opendata/](https://www.eia.gov/opendata/)
+  description: Swagger UI interface for EIA's APIv2. You can also explore EIA's API using the Opendata Query Browser. For this UI, you must use your EIA `api key` to apply filters and return data. You can register for an API Key at https://www.eia.gov/opendata/
   version: 2.1.0
 servers:
 - url: https://api.eia.gov
@@ -26,6 +26,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facet'
+      summary: Get densified biomass capacity by region facet by facet id
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassCapacityByRegionFacetByFacetId
+      x-operation-id-source: derived
   /v2/densified-biomass/characteristics-by-region/facet/{facet_id}:
     parameters:
     - $ref: '#/components/parameters/facetId'
@@ -41,6 +45,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facet'
+      summary: Get densified biomass characteristics by region facet by facet id
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassCharacteristicsByRegionFacetByFacetId
+      x-operation-id-source: derived
   /v2/densified-biomass/export-sales-and-price/facet/{facet_id}:
     parameters:
     - $ref: '#/components/parameters/facetId'
@@ -56,6 +64,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facet'
+      summary: Get densified biomass export sales and price facet by facet id
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassExportSalesAndPriceFacetByFacetId
+      x-operation-id-source: derived
   /v2/densified-biomass/feedstocks-and-cost/facet/{facet_id}:
     parameters:
     - $ref: '#/components/parameters/facetId'
@@ -71,6 +83,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facet'
+      summary: Get densified biomass feedstocks and cost facet by facet id
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassFeedstocksAndCostFacetByFacetId
+      x-operation-id-source: derived
   /v2/densified-biomass/inventories-by-region/facet/{facet_id}:
     parameters:
     - $ref: '#/components/parameters/facetId'
@@ -86,6 +102,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facet'
+      summary: Get densified biomass inventories by region facet by facet id
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassInventoriesByRegionFacetByFacetId
+      x-operation-id-source: derived
   /v2/densified-biomass/production-by-region/facet/{facet_id}:
     parameters:
     - $ref: '#/components/parameters/facetId'
@@ -101,6 +121,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facet'
+      summary: Get densified biomass production by region facet by facet id
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassProductionByRegionFacetByFacetId
+      x-operation-id-source: derived
   /v2/densified-biomass/sales-and-price-by-region/facet/{facet_id}:
     parameters:
     - $ref: '#/components/parameters/facetId'
@@ -116,6 +140,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facet'
+      summary: Get densified biomass sales and price by region facet by facet id
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassSalesAndPriceByRegionFacetByFacetId
+      x-operation-id-source: derived
   /v2/densified-biomass/wood-pellet-plants/facet/{facet_id}:
     parameters:
     - $ref: '#/components/parameters/facetId'
@@ -131,6 +159,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facet'
+      summary: Get densified biomass wood pellet plants facet by facet id
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassWoodPelletPlantsFacetByFacetId
+      x-operation-id-source: derived
   /v2/densified-biomass/capacity-by-region:
     get:
       tags:
@@ -142,6 +174,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/final-route'
+      summary: Get densified biomass capacity by region
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassCapacityByRegion
+      x-operation-id-source: derived
   /v2/densified-biomass/capacity-by-region/facet:
     get:
       tags:
@@ -155,6 +191,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facets'
+      summary: Get densified biomass capacity by region facet
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassCapacityByRegionFacet
+      x-operation-id-source: derived
   /v2/densified-biomass/capacity-by-region/data:
     get:
       tags:
@@ -178,6 +218,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      summary: Get densified biomass capacity by region data
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassCapacityByRegionData
+      x-operation-id-source: derived
     post:
       tags:
       - DBF
@@ -197,6 +241,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      operationId: postV2DensifiedBiomassCapacityByRegionData
+      x-operation-id-source: derived
   /v2/densified-biomass/characteristics-by-region:
     get:
       tags:
@@ -208,6 +254,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/final-route'
+      summary: Get densified biomass characteristics by region
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassCharacteristicsByRegion
+      x-operation-id-source: derived
   /v2/densified-biomass/characteristics-by-region/facet:
     get:
       tags:
@@ -221,6 +271,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facets'
+      summary: Get densified biomass characteristics by region facet
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassCharacteristicsByRegionFacet
+      x-operation-id-source: derived
   /v2/densified-biomass/characteristics-by-region/data:
     get:
       tags:
@@ -244,6 +298,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      summary: Get densified biomass characteristics by region data
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassCharacteristicsByRegionData
+      x-operation-id-source: derived
     post:
       tags:
       - DBF
@@ -263,11 +321,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      operationId: postV2DensifiedBiomassCharacteristicsByRegionData
+      x-operation-id-source: derived
   /v2/densified-biomass:
     get:
       tags:
       - DBF
-      summary: Class  Controller
+      summary: Class Controller
       description: Densified Biomass data set top-level controller.
       responses:
         '200':
@@ -276,6 +336,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/route'
+      operationId: getV2DensifiedBiomass
+      x-operation-id-source: derived
   /v2/densified-biomass/export-sales-and-price:
     get:
       tags:
@@ -287,6 +349,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/final-route'
+      summary: Get densified biomass export sales and price
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassExportSalesAndPrice
+      x-operation-id-source: derived
   /v2/densified-biomass/export-sales-and-price/facet:
     get:
       tags:
@@ -300,6 +366,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facets'
+      summary: Get densified biomass export sales and price facet
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassExportSalesAndPriceFacet
+      x-operation-id-source: derived
   /v2/densified-biomass/export-sales-and-price/data:
     get:
       tags:
@@ -323,6 +393,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      summary: Get densified biomass export sales and price data
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassExportSalesAndPriceData
+      x-operation-id-source: derived
     post:
       tags:
       - DBF
@@ -342,6 +416,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      operationId: postV2DensifiedBiomassExportSalesAndPriceData
+      x-operation-id-source: derived
   /v2/densified-biomass/feedstocks-and-cost:
     get:
       tags:
@@ -353,6 +429,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/final-route'
+      summary: Get densified biomass feedstocks and cost
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassFeedstocksAndCost
+      x-operation-id-source: derived
   /v2/densified-biomass/feedstocks-and-cost/facet:
     get:
       tags:
@@ -366,6 +446,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facets'
+      summary: Get densified biomass feedstocks and cost facet
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassFeedstocksAndCostFacet
+      x-operation-id-source: derived
   /v2/densified-biomass/feedstocks-and-cost/data:
     get:
       tags:
@@ -389,6 +473,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      summary: Get densified biomass feedstocks and cost data
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassFeedstocksAndCostData
+      x-operation-id-source: derived
     post:
       tags:
       - DBF
@@ -408,6 +496,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      operationId: postV2DensifiedBiomassFeedstocksAndCostData
+      x-operation-id-source: derived
   /v2/densified-biomass/inventories-by-region:
     get:
       tags:
@@ -419,6 +509,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/final-route'
+      summary: Get densified biomass inventories by region
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassInventoriesByRegion
+      x-operation-id-source: derived
   /v2/densified-biomass/inventories-by-region/facet:
     get:
       tags:
@@ -432,6 +526,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facets'
+      summary: Get densified biomass inventories by region facet
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassInventoriesByRegionFacet
+      x-operation-id-source: derived
   /v2/densified-biomass/inventories-by-region/data:
     get:
       tags:
@@ -455,6 +553,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      summary: Get densified biomass inventories by region data
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassInventoriesByRegionData
+      x-operation-id-source: derived
     post:
       tags:
       - DBF
@@ -474,6 +576,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      operationId: postV2DensifiedBiomassInventoriesByRegionData
+      x-operation-id-source: derived
   /v2/densified-biomass/production-by-region:
     get:
       tags:
@@ -485,6 +589,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/final-route'
+      summary: Get densified biomass production by region
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassProductionByRegion
+      x-operation-id-source: derived
   /v2/densified-biomass/production-by-region/facet:
     get:
       tags:
@@ -498,6 +606,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facets'
+      summary: Get densified biomass production by region facet
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassProductionByRegionFacet
+      x-operation-id-source: derived
   /v2/densified-biomass/production-by-region/data:
     get:
       tags:
@@ -521,6 +633,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      summary: Get densified biomass production by region data
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassProductionByRegionData
+      x-operation-id-source: derived
     post:
       tags:
       - DBF
@@ -540,6 +656,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      operationId: postV2DensifiedBiomassProductionByRegionData
+      x-operation-id-source: derived
   /v2/densified-biomass/sales-and-price-by-region:
     get:
       tags:
@@ -551,6 +669,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/final-route'
+      summary: Get densified biomass sales and price by region
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassSalesAndPriceByRegion
+      x-operation-id-source: derived
   /v2/densified-biomass/sales-and-price-by-region/facet:
     get:
       tags:
@@ -564,6 +686,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facets'
+      summary: Get densified biomass sales and price by region facet
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassSalesAndPriceByRegionFacet
+      x-operation-id-source: derived
   /v2/densified-biomass/sales-and-price-by-region/data:
     get:
       tags:
@@ -587,6 +713,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      summary: Get densified biomass sales and price by region data
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassSalesAndPriceByRegionData
+      x-operation-id-source: derived
     post:
       tags:
       - DBF
@@ -606,6 +736,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      operationId: postV2DensifiedBiomassSalesAndPriceByRegionData
+      x-operation-id-source: derived
   /v2/densified-biomass/wood-pellet-plants:
     get:
       tags:
@@ -617,6 +749,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/final-route'
+      summary: Get densified biomass wood pellet plants
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassWoodPelletPlants
+      x-operation-id-source: derived
   /v2/densified-biomass/wood-pellet-plants/facet:
     get:
       tags:
@@ -630,6 +766,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facets'
+      summary: Get densified biomass wood pellet plants facet
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassWoodPelletPlantsFacet
+      x-operation-id-source: derived
   /v2/densified-biomass/wood-pellet-plants/data:
     get:
       tags:
@@ -653,6 +793,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      summary: Get densified biomass wood pellet plants data
+      x-summary-source: derived
+      operationId: getV2DensifiedBiomassWoodPelletPlantsData
+      x-operation-id-source: derived
     post:
       tags:
       - DBF
@@ -672,48 +816,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      operationId: postV2DensifiedBiomassWoodPelletPlantsData
+      x-operation-id-source: derived
 components:
-  responses:
-    route:
-      description: List of API data sets
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RouteResponseContainer'
-    facets:
-      description: List of facet options
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FacetOptionListContainer'
-    final-route:
-      description: List of API data sets
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FinalRouteResponseContainer'
-    facet:
-      description: Facet details
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FacetDetailsContainer'
-    data:
-      description: API Data
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DataResponseContainer'
   schemas:
-    DataResponseContainer:
-      properties:
-        apiVersion:
-          type: string
-        request:
-          $ref: '#/components/schemas/RouteRequest'
-        response:
-          $ref: '#/components/schemas/DataResponse'
-      type: object
     FacetDetails:
       properties:
         totalFacets:
@@ -723,34 +829,14 @@ components:
           items:
             $ref: '#/components/schemas/Facet'
       type: object
-    FacetDetailsContainer:
+    FacetOptionList:
       properties:
-        apiVersion:
-          type: string
-        request:
-          $ref: '#/components/schemas/RouteRequest'
-        response:
-          $ref: '#/components/schemas/FacetDetails'
-      type: object
-    Frequency:
-      properties:
-        id:
-          type: string
-        description:
-          type: string
-        format:
-          type: string
-        query:
-          type: string
-      type: object
-    RouteResponseContainer:
-      properties:
-        apiVersion:
-          type: string
-        request:
-          $ref: '#/components/schemas/RouteRequest'
-        response:
-          $ref: '#/components/schemas/RouteResponse'
+        totalFacetOptions:
+          type: integer
+        facetOptions:
+          type: array
+          items:
+            type: string
       type: object
     DataParams:
       properties:
@@ -775,14 +861,36 @@ components:
         offset:
           type: integer
       type: object
-    FacetOptionListContainer:
+    FacetMetaData:
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+      type: object
+    RouteResponse:
+      properties:
+        response:
+          $ref: '#/components/schemas/Routes'
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+      type: object
+    FacetDetailsContainer:
       properties:
         apiVersion:
           type: string
         request:
           $ref: '#/components/schemas/RouteRequest'
         response:
-          $ref: '#/components/schemas/FacetOptionList'
+          $ref: '#/components/schemas/FacetDetails'
+      type: object
+    RouteRequest:
+      properties:
+        command:
+          type: array
+          items:
+            type: string
+        params: {}
       type: object
     FinalRoute:
       properties:
@@ -810,17 +918,61 @@ components:
         defaultFrequency:
           type: string
       type: object
-    DataResponse:
+    Frequency:
       properties:
-        data: {}
-        dateFormat:
+        id:
           type: string
         description:
           type: string
-        frequency:
+        format:
           type: string
-        total:
-          type: integer
+        query:
+          type: string
+      type: object
+    RouteResponseContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/RouteResponse'
+      type: object
+    DataResponseContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/DataResponse'
+      type: object
+    FinalRouteResponseContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/FinalRouteResponse'
+      type: object
+    FacetOptionListContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/FacetOptionList'
+      type: object
+    Facet:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        alias:
+          type: string
       type: object
     Sort:
       properties:
@@ -828,20 +980,6 @@ components:
           type: string
         direction:
           type: string
-      type: object
-    FacetMetaData:
-      properties:
-        id:
-          type: string
-        description:
-          type: string
-      type: object
-    RouteResponse:
-      properties:
-        response:
-          $ref: '#/components/schemas/Routes'
-        request:
-          $ref: '#/components/schemas/RouteRequest'
       type: object
     Routes:
       properties:
@@ -856,41 +994,6 @@ components:
         description:
           type: string
       type: object
-    FinalRouteResponseContainer:
-      properties:
-        apiVersion:
-          type: string
-        request:
-          $ref: '#/components/schemas/RouteRequest'
-        response:
-          $ref: '#/components/schemas/FinalRouteResponse'
-      type: object
-    FacetOptionList:
-      properties:
-        totalFacetOptions:
-          type: integer
-        facetOptions:
-          type: array
-          items:
-            type: string
-      type: object
-    Facet:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        alias:
-          type: string
-      type: object
-    RouteRequest:
-      properties:
-        command:
-          type: array
-          items:
-            type: string
-        params: {}
-      type: object
     FinalRouteResponse:
       properties:
         response:
@@ -898,12 +1001,76 @@ components:
         request:
           $ref: '#/components/schemas/RouteRequest'
       type: object
+    DataResponse:
+      properties:
+        data: {}
+        dateFormat:
+          type: string
+        description:
+          type: string
+        frequency:
+          type: string
+        total:
+          type: integer
+      type: object
+  responses:
+    final-route:
+      description: List of API data sets
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FinalRouteResponseContainer'
+    facet:
+      description: Facet details
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FacetDetailsContainer'
+    data:
+      description: API Data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DataResponseContainer'
+    facets:
+      description: List of facet options
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FacetOptionListContainer'
+    route:
+      description: List of API data sets
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RouteResponseContainer'
   parameters:
-    end:
-      name: end
+    length:
+      name: length
       in: query
-      description: End date to filter by
+      description: Max length of returned data
       required: false
+      schema:
+        type: integer
+    offset:
+      name: offset
+      in: query
+      description: Offset of returned data
+      required: false
+      schema:
+        type: integer
+    sort:
+      name: sort
+      in: query
+      description: How to sort returned data
+      required: false
+      schema:
+        $ref: '#/components/schemas/Sort'
+    facetId:
+      name: facet_id
+      in: path
+      description: Facet ID
+      required: true
       schema:
         type: string
     facets:
@@ -913,18 +1080,25 @@ components:
       required: false
       schema:
         type: object
-    length:
-      name: length
+    end:
+      name: end
       in: query
-      description: Max length of returned data
+      description: End date to filter by
       required: false
       schema:
-        type: integer
-    facetId:
-      name: facet_id
-      in: path
-      description: Facet ID
-      required: true
+        type: string
+    frequency:
+      name: frequency
+      in: query
+      description: Frequency to filter by
+      required: false
+      schema:
+        type: string
+    start:
+      name: start
+      in: query
+      description: Start date to filter by
+      required: false
       schema:
         type: string
     data:
@@ -936,34 +1110,6 @@ components:
         type: array
         items:
           type: string
-    offset:
-      name: offset
-      in: query
-      description: Offset of returned data
-      required: false
-      schema:
-        type: integer
-    start:
-      name: start
-      in: query
-      description: Start date to filter by
-      required: false
-      schema:
-        type: string
-    frequency:
-      name: frequency
-      in: query
-      description: Frequency to filter by
-      required: false
-      schema:
-        type: string
-    sort:
-      name: sort
-      in: query
-      description: How to sort returned data
-      required: false
-      schema:
-        $ref: '#/components/schemas/Sort'
   requestBodies:
     dataParams:
       description: Parameters for data call

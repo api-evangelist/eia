@@ -1,0 +1,50 @@
+{
+  "provider": "eia",
+  "sources": [
+    "_original/eia-api-v2-openapi.yml"
+  ],
+  "outputs": [
+    "eia-aeo-api-openapi.yml",
+    "eia-coal-api-openapi.yml",
+    "eia-crud-imports-api-openapi.yml",
+    "eia-dbf-api-openapi.yml",
+    "eia-elec-api-openapi.yml",
+    "eia-emiss-api-openapi.yml",
+    "eia-ieo-api-openapi.yml",
+    "eia-intl-api-openapi.yml",
+    "eia-ng-api-openapi.yml",
+    "eia-nuc-status-api-openapi.yml",
+    "eia-rto-api-openapi.yml",
+    "eia-root-api-openapi.yml",
+    "eia-seds-api-openapi.yml",
+    "eia-sep-api-openapi.yml",
+    "eia-steo-api-openapi.yml",
+    "eia-total-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "eia-api-v2-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "eia-aeo-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-coal-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-crud-imports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-dbf-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-elec-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-emiss-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-ieo-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-intl-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-ng-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-nuc-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-root-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-rto-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-seds-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-sep-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-steo-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "eia-total-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

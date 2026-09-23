@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: EIA APIv2 ELEC API
-  description: Swagger UI interface for EIA's APIv2.  You can also explore EIA's API using the [Opendata Query Browser](https://www.eia.gov/opendata/browser/).  For this UI, you must use your EIA `api key` to apply filters and return data. You can register for an API Key at [https://www.eia.gov/opendata/](https://www.eia.gov/opendata/)
+  description: Swagger UI interface for EIA's APIv2. You can also explore EIA's API using the Opendata Query Browser. For this UI, you must use your EIA `api key` to apply filters and return data. You can register for an API Key at https://www.eia.gov/opendata/
   version: 2.1.0
 servers:
 - url: https://api.eia.gov
@@ -26,6 +26,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facet'
+      summary: Get electricity facility fuel facet by facet id
+      x-summary-source: derived
+      operationId: getV2ElectricityFacilityFuelFacetByFacetId
+      x-operation-id-source: derived
   /v2/electricity/electric-power-operational-data/facet/{facet_id}:
     parameters:
     - $ref: '#/components/parameters/facetId'
@@ -41,6 +45,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facet'
+      summary: Get electricity electric power operational data facet by facet id
+      x-summary-source: derived
+      operationId: getV2ElectricityElectricPowerOperationalDataFacetByFacetId
+      x-operation-id-source: derived
   /v2/electricity/operating-generator-capacity/facet/{facet_id}:
     parameters:
     - $ref: '#/components/parameters/facetId'
@@ -56,6 +64,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facet'
+      summary: Get electricity operating generator capacity facet by facet id
+      x-summary-source: derived
+      operationId: getV2ElectricityOperatingGeneratorCapacityFacetByFacetId
+      x-operation-id-source: derived
   /v2/electricity/retail-sales/facet/{facet_id}:
     parameters:
     - $ref: '#/components/parameters/facetId'
@@ -71,6 +83,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facet'
+      summary: Get electricity retail sales facet by facet id
+      x-summary-source: derived
+      operationId: getV2ElectricityRetailSalesFacetByFacetId
+      x-operation-id-source: derived
   /v2/electricity:
     get:
       tags:
@@ -84,6 +100,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/route'
+      operationId: getV2Electricity
+      x-operation-id-source: derived
   /v2/electricity/facility-fuel:
     get:
       tags:
@@ -95,6 +113,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/final-route'
+      summary: Get electricity facility fuel
+      x-summary-source: derived
+      operationId: getV2ElectricityFacilityFuel
+      x-operation-id-source: derived
   /v2/electricity/facility-fuel/facet:
     get:
       tags:
@@ -108,6 +130,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facets'
+      summary: Get electricity facility fuel facet
+      x-summary-source: derived
+      operationId: getV2ElectricityFacilityFuelFacet
+      x-operation-id-source: derived
   /v2/electricity/facility-fuel/data:
     get:
       tags:
@@ -131,6 +157,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      summary: Get electricity facility fuel data
+      x-summary-source: derived
+      operationId: getV2ElectricityFacilityFuelData
+      x-operation-id-source: derived
     post:
       tags:
       - ELEC
@@ -147,6 +177,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      operationId: postV2ElectricityFacilityFuelData
+      x-operation-id-source: derived
   /v2/electricity/electric-power-operational-data:
     get:
       tags:
@@ -158,6 +190,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/final-route'
+      summary: Get electricity electric power operational data
+      x-summary-source: derived
+      operationId: getV2ElectricityElectricPowerOperationalData
+      x-operation-id-source: derived
   /v2/electricity/electric-power-operational-data/facet:
     get:
       tags:
@@ -171,6 +207,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facets'
+      summary: Get electricity electric power operational data facet
+      x-summary-source: derived
+      operationId: getV2ElectricityElectricPowerOperationalDataFacet
+      x-operation-id-source: derived
   /v2/electricity/electric-power-operational-data/data:
     get:
       tags:
@@ -194,6 +234,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      summary: Get electricity electric power operational data data
+      x-summary-source: derived
+      operationId: getV2ElectricityElectricPowerOperationalDataData
+      x-operation-id-source: derived
     post:
       tags:
       - ELEC
@@ -213,6 +257,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      operationId: postV2ElectricityElectricPowerOperationalDataData
+      x-operation-id-source: derived
   /v2/electricity/operating-generator-capacity:
     get:
       tags:
@@ -224,6 +270,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/final-route'
+      summary: Get electricity operating generator capacity
+      x-summary-source: derived
+      operationId: getV2ElectricityOperatingGeneratorCapacity
+      x-operation-id-source: derived
   /v2/electricity/operating-generator-capacity/facet:
     get:
       tags:
@@ -237,6 +287,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facets'
+      summary: Get electricity operating generator capacity facet
+      x-summary-source: derived
+      operationId: getV2ElectricityOperatingGeneratorCapacityFacet
+      x-operation-id-source: derived
   /v2/electricity/operating-generator-capacity/data:
     get:
       tags:
@@ -260,6 +314,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      summary: Get electricity operating generator capacity data
+      x-summary-source: derived
+      operationId: getV2ElectricityOperatingGeneratorCapacityData
+      x-operation-id-source: derived
     post:
       tags:
       - ELEC
@@ -279,6 +337,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      operationId: postV2ElectricityOperatingGeneratorCapacityData
+      x-operation-id-source: derived
   /v2/electricity/retail-sales:
     get:
       tags:
@@ -290,6 +350,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/final-route'
+      summary: Get electricity retail sales
+      x-summary-source: derived
+      operationId: getV2ElectricityRetailSales
+      x-operation-id-source: derived
   /v2/electricity/retail-sales/facet:
     get:
       tags:
@@ -303,6 +367,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/facets'
+      summary: Get electricity retail sales facet
+      x-summary-source: derived
+      operationId: getV2ElectricityRetailSalesFacet
+      x-operation-id-source: derived
   /v2/electricity/retail-sales/data:
     get:
       tags:
@@ -326,6 +394,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      summary: Get electricity retail sales data
+      x-summary-source: derived
+      operationId: getV2ElectricityRetailSalesData
+      x-operation-id-source: derived
     post:
       tags:
       - ELEC
@@ -345,48 +417,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/data'
+      operationId: postV2ElectricityRetailSalesData
+      x-operation-id-source: derived
 components:
-  responses:
-    route:
-      description: List of API data sets
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RouteResponseContainer'
-    facets:
-      description: List of facet options
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FacetOptionListContainer'
-    final-route:
-      description: List of API data sets
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FinalRouteResponseContainer'
-    facet:
-      description: Facet details
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FacetDetailsContainer'
-    data:
-      description: API Data
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DataResponseContainer'
   schemas:
-    DataResponseContainer:
-      properties:
-        apiVersion:
-          type: string
-        request:
-          $ref: '#/components/schemas/RouteRequest'
-        response:
-          $ref: '#/components/schemas/DataResponse'
-      type: object
     FacetDetails:
       properties:
         totalFacets:
@@ -396,34 +430,14 @@ components:
           items:
             $ref: '#/components/schemas/Facet'
       type: object
-    FacetDetailsContainer:
+    FacetOptionList:
       properties:
-        apiVersion:
-          type: string
-        request:
-          $ref: '#/components/schemas/RouteRequest'
-        response:
-          $ref: '#/components/schemas/FacetDetails'
-      type: object
-    Frequency:
-      properties:
-        id:
-          type: string
-        description:
-          type: string
-        format:
-          type: string
-        query:
-          type: string
-      type: object
-    RouteResponseContainer:
-      properties:
-        apiVersion:
-          type: string
-        request:
-          $ref: '#/components/schemas/RouteRequest'
-        response:
-          $ref: '#/components/schemas/RouteResponse'
+        totalFacetOptions:
+          type: integer
+        facetOptions:
+          type: array
+          items:
+            type: string
       type: object
     DataParams:
       properties:
@@ -448,14 +462,36 @@ components:
         offset:
           type: integer
       type: object
-    FacetOptionListContainer:
+    FacetMetaData:
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+      type: object
+    RouteResponse:
+      properties:
+        response:
+          $ref: '#/components/schemas/Routes'
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+      type: object
+    FacetDetailsContainer:
       properties:
         apiVersion:
           type: string
         request:
           $ref: '#/components/schemas/RouteRequest'
         response:
-          $ref: '#/components/schemas/FacetOptionList'
+          $ref: '#/components/schemas/FacetDetails'
+      type: object
+    RouteRequest:
+      properties:
+        command:
+          type: array
+          items:
+            type: string
+        params: {}
       type: object
     FinalRoute:
       properties:
@@ -483,17 +519,61 @@ components:
         defaultFrequency:
           type: string
       type: object
-    DataResponse:
+    Frequency:
       properties:
-        data: {}
-        dateFormat:
+        id:
           type: string
         description:
           type: string
-        frequency:
+        format:
           type: string
-        total:
-          type: integer
+        query:
+          type: string
+      type: object
+    RouteResponseContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/RouteResponse'
+      type: object
+    DataResponseContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/DataResponse'
+      type: object
+    FinalRouteResponseContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/FinalRouteResponse'
+      type: object
+    FacetOptionListContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/FacetOptionList'
+      type: object
+    Facet:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        alias:
+          type: string
       type: object
     Sort:
       properties:
@@ -501,20 +581,6 @@ components:
           type: string
         direction:
           type: string
-      type: object
-    FacetMetaData:
-      properties:
-        id:
-          type: string
-        description:
-          type: string
-      type: object
-    RouteResponse:
-      properties:
-        response:
-          $ref: '#/components/schemas/Routes'
-        request:
-          $ref: '#/components/schemas/RouteRequest'
       type: object
     Routes:
       properties:
@@ -529,41 +595,6 @@ components:
         description:
           type: string
       type: object
-    FinalRouteResponseContainer:
-      properties:
-        apiVersion:
-          type: string
-        request:
-          $ref: '#/components/schemas/RouteRequest'
-        response:
-          $ref: '#/components/schemas/FinalRouteResponse'
-      type: object
-    FacetOptionList:
-      properties:
-        totalFacetOptions:
-          type: integer
-        facetOptions:
-          type: array
-          items:
-            type: string
-      type: object
-    Facet:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        alias:
-          type: string
-      type: object
-    RouteRequest:
-      properties:
-        command:
-          type: array
-          items:
-            type: string
-        params: {}
-      type: object
     FinalRouteResponse:
       properties:
         response:
@@ -571,12 +602,76 @@ components:
         request:
           $ref: '#/components/schemas/RouteRequest'
       type: object
+    DataResponse:
+      properties:
+        data: {}
+        dateFormat:
+          type: string
+        description:
+          type: string
+        frequency:
+          type: string
+        total:
+          type: integer
+      type: object
+  responses:
+    final-route:
+      description: List of API data sets
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FinalRouteResponseContainer'
+    facet:
+      description: Facet details
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FacetDetailsContainer'
+    data:
+      description: API Data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DataResponseContainer'
+    facets:
+      description: List of facet options
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FacetOptionListContainer'
+    route:
+      description: List of API data sets
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RouteResponseContainer'
   parameters:
-    end:
-      name: end
+    length:
+      name: length
       in: query
-      description: End date to filter by
+      description: Max length of returned data
       required: false
+      schema:
+        type: integer
+    offset:
+      name: offset
+      in: query
+      description: Offset of returned data
+      required: false
+      schema:
+        type: integer
+    sort:
+      name: sort
+      in: query
+      description: How to sort returned data
+      required: false
+      schema:
+        $ref: '#/components/schemas/Sort'
+    facetId:
+      name: facet_id
+      in: path
+      description: Facet ID
+      required: true
       schema:
         type: string
     facets:
@@ -586,18 +681,25 @@ components:
       required: false
       schema:
         type: object
-    length:
-      name: length
+    end:
+      name: end
       in: query
-      description: Max length of returned data
+      description: End date to filter by
       required: false
       schema:
-        type: integer
-    facetId:
-      name: facet_id
-      in: path
-      description: Facet ID
-      required: true
+        type: string
+    frequency:
+      name: frequency
+      in: query
+      description: Frequency to filter by
+      required: false
+      schema:
+        type: string
+    start:
+      name: start
+      in: query
+      description: Start date to filter by
+      required: false
       schema:
         type: string
     data:
@@ -609,34 +711,6 @@ components:
         type: array
         items:
           type: string
-    offset:
-      name: offset
-      in: query
-      description: Offset of returned data
-      required: false
-      schema:
-        type: integer
-    start:
-      name: start
-      in: query
-      description: Start date to filter by
-      required: false
-      schema:
-        type: string
-    frequency:
-      name: frequency
-      in: query
-      description: Frequency to filter by
-      required: false
-      schema:
-        type: string
-    sort:
-      name: sort
-      in: query
-      description: How to sort returned data
-      required: false
-      schema:
-        $ref: '#/components/schemas/Sort'
   requestBodies:
     dataParams:
       description: Parameters for data call

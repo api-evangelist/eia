@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: EIA APIv2 Root API
-  description: Swagger UI interface for EIA's APIv2.  You can also explore EIA's API using the [Opendata Query Browser](https://www.eia.gov/opendata/browser/).  For this UI, you must use your EIA `api key` to apply filters and return data. You can register for an API Key at [https://www.eia.gov/opendata/](https://www.eia.gov/opendata/)
+  description: Swagger UI interface for EIA's APIv2. You can also explore EIA's API using the Opendata Query Browser. For this UI, you must use your EIA `api key` to apply filters and return data. You can register for an API Key at https://www.eia.gov/opendata/
   version: 2.1.0
 servers:
 - url: https://api.eia.gov
@@ -22,8 +22,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/route'
+      summary: Get
+      x-summary-source: derived
+      operationId: getV2
+      x-operation-id-source: derived
 components:
   schemas:
+    RouteRequest:
+      properties:
+        command:
+          type: array
+          items:
+            type: string
+        params: {}
+      type: object
     Routes:
       properties:
         routes:
@@ -45,14 +57,6 @@ components:
           $ref: '#/components/schemas/RouteRequest'
         response:
           $ref: '#/components/schemas/RouteResponse'
-      type: object
-    RouteRequest:
-      properties:
-        command:
-          type: array
-          items:
-            type: string
-        params: {}
       type: object
     RouteResponse:
       properties:
