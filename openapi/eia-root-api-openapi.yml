@@ -42,15 +42,6 @@ components:
         request:
           $ref: '#/components/schemas/RouteRequest'
       type: object
-    RouteResponseContainer:
-      properties:
-        apiVersion:
-          type: string
-        request:
-          $ref: '#/components/schemas/RouteRequest'
-        response:
-          $ref: '#/components/schemas/RouteResponse'
-      type: object
     Routes:
       properties:
         routes:
@@ -63,6 +54,15 @@ components:
           type: string
         description:
           type: string
+      type: object
+    RouteResponseContainer:
+      properties:
+        apiVersion:
+          type: string
+        request:
+          $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/RouteResponse'
       type: object
     RouteRequest:
       properties:
