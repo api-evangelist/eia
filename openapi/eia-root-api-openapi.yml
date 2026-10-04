@@ -27,20 +27,23 @@ paths:
       operationId: getV2
       x-operation-id-source: derived
 components:
-  responses:
-    route:
-      description: List of API data sets
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RouteResponseContainer'
   schemas:
-    RouteResponse:
+    RouteRequest:
       properties:
-        response:
-          $ref: '#/components/schemas/Routes'
+        command:
+          type: array
+          items:
+            type: string
+        params: {}
+      type: object
+    RouteResponseContainer:
+      properties:
+        apiVersion:
+          type: string
         request:
           $ref: '#/components/schemas/RouteRequest'
+        response:
+          $ref: '#/components/schemas/RouteResponse'
       type: object
     Routes:
       properties:
@@ -55,23 +58,20 @@ components:
         description:
           type: string
       type: object
-    RouteResponseContainer:
+    RouteResponse:
       properties:
-        apiVersion:
-          type: string
+        response:
+          $ref: '#/components/schemas/Routes'
         request:
           $ref: '#/components/schemas/RouteRequest'
-        response:
-          $ref: '#/components/schemas/RouteResponse'
       type: object
-    RouteRequest:
-      properties:
-        command:
-          type: array
-          items:
-            type: string
-        params: {}
-      type: object
+  responses:
+    route:
+      description: List of API data sets
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RouteResponseContainer'
   securitySchemes:
     api_key:
       type: apiKey
