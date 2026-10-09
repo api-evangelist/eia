@@ -11,9 +11,13 @@ front_door_ai:
   owner: eia
   shares_host_with:
   - energy-information-administration
+  - thermal-power
   inherited_from: null
+  alias_of: null
   verdict: silent
   score: 0
+  band: 1
+  band_label: silent
   host_score: 0
   density: 0.0
   words: 722
