@@ -1,4 +1,4 @@
-# EIA (eia)
+# EIA
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,113 +64,144 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-The U.S. Energy Information Administration (EIA) is the independent statistical and analytical agency within the U.S. Department of Energy, created by the Department of Energy Organization Act of 1977, that collects, analyzes, and disseminates energy information for the United States. EIA sits at the measurement layer of the American energy value chain rather than the operating layer — it does not generate, transmit, distribute, or retail energy, and it does not regulate anyone. Instead it compels the industry to report through mandatory survey forms (EIA-860, EIA-861, EIA-923, EIA-176, EIA-914, EIA-930 and dozens more) and then publishes the result as the reference statistics for electricity, natural gas, petroleum, coal, nuclear, renewables, emissions, and international energy. EIA's API posture is the strongest of any organization in this sector and a genuine benchmark for government data anywhere. The Open Data APIv2 at api.eia.gov/v2 is a fully RESTful, self-documenting, hierarchically routed API covering more than two million time series, described by a real downloadable OpenAPI 3.0.0 contract carrying 225 paths and 278 operations, opened by a free API key that is emailed automatically from a public registration form with no review, no accreditation, and no licence to sign. A companion bulk download facility at api.eia.gov/bulk serves the same data as manifest-indexed zip archives and requires no key at all. The split that defines this sector is absolute here. EIA's market, system, and grid data is wide open — hourly balancing-authority demand and interchange, wholesale and spot prices, generator-level capacity and operations — while EIA publishes no consumer energy data API of any kind. There is no Green Button, no ESPI, no Download My Data, no Connect My Data, no consent flow, and no customer usage or billing endpoint, because individual customer data is never collected by EIA in the first place.
+The U.S. Energy Information Administration (EIA) is the independent statistical and analytical agency within the U.S. Department of Energy, created by the Department of Energy Organization Act of 1977, that collects, analyzes, and disseminates energy information for the United States. EIA sits at the measurement layer of the American energy value chain rather than the operating layer - it does not generate, transmit, distribute, or retail energy, and it does not regulate anyone. Instead it compels the industry to report through mandatory survey forms (EIA-860, EIA-861, EIA-923, EIA-176, EIA-914, EIA-930 and dozens more) and then publishes the result as the reference statistics for electricity, natural gas, petroleum, coal, nuclear, renewables, emissions, and international energy. EIA's API posture is the strongest of any organization in this sector and a genuine benchmark for government data anywhere. The Open Data APIv2 at api.eia.gov/v2 is a fully RESTful, self-documenting, hierarchically routed API covering more than two million time series, described by a real downloadable OpenAPI 3.0.0 contract carrying 225 paths and 278 operations, opened by a free API key that is emailed automatically from a public registration form with no review, no accreditation, and no licence to sign. A companion bulk download facility at api.eia.gov/bulk serves the same data as manifest-indexed zip archives and requires no key at all. The split that defines this sector is absolute here. EIA's market, system, and grid data is wide open - hourly balancing-authority demand and interchange, wholesale and spot prices, generator-level capacity and operations - while EIA publishes no consumer energy data API of any kind. There is no Green Button, no ESPI, no Download My Data, no Connect My Data, no consent flow, and no customer usage or billing endpoint, because individual customer data is never collected by EIA in the first place; its surveys arrive already aggregated from utilities and are further protected by statutory confidentiality. EIA is therefore the clearest instance of the recurring finding in this series - a federal data agency that publishes a far better documented, far more accessible API than the regulated utilities whose numbers it reports.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/eia/refs/heads/main/apis.yml)
+**Areas:** Energy · United States · Energy Markets · Electricity · Natural Gas · Petroleum · Coal · Nuclear · Renewables · Grid · Emissions · Government
 
-## Tags
+## EIA on APIs.io
 
-- Energy
-- United States
-- Energy Markets
-- Electricity
-- Natural Gas
-- Petroleum
-- Coal
-- Nuclear
-- Renewables
-- Grid
-- Emissions
-- Government
-- Open Data
-- Energy Statistics
+Everything profiled for EIA is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/eia/](https://apis.io/providers/eia/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (17)
 
-- **Created:** 2026-07-27
-- **Modified:** 2026-07-27
+- [EIA Bulk Download Facility](https://apis.io/apis/eia/eia-bulk-download-facility/) — EIA's bulk data distribution surface, served from the same api.eia.gov host as APIv2 but requiring no API key whatsoever. A single manifest at…
+- [EIA AEO API](https://apis.io/apis/eia/eia-aeo-api/) — Access to Annual Energy Outlook Data
+- [EIA COAL API](https://apis.io/apis/eia/eia-coal-api/) — Access to Coal Data
+- [EIA CRUD IMPORTS API](https://apis.io/apis/eia/eia-crud-imports-api/) — Access to Crude Oil Imports Data
+- [EIA DBF API](https://apis.io/apis/eia/eia-dbf-api/) — Access to Densified Biomass Data
+- [EIA ELEC API](https://apis.io/apis/eia/eia-elec-api/) — Access to Electricity Data
+- [EIA EMISS API](https://apis.io/apis/eia/eia-emiss-api/) — Access to CO2 Emissions Data
+- [EIA IEO API](https://apis.io/apis/eia/eia-ieo-api/) — Access to International Energy Outlook Data
+- [EIA INTL API](https://apis.io/apis/eia/eia-intl-api/) — Access to International Data
+- [EIA NG API](https://apis.io/apis/eia/eia-ng-api/) — Access to Natural Gas Data
+- [EIA NUC STATUS API](https://apis.io/apis/eia/eia-nuc-status-api/) — Access to Nuclear Outages Data
+- [EIA Root API](https://apis.io/apis/eia/eia-root-api/) — Available EIA API Datasets
+- [EIA RTO API](https://apis.io/apis/eia/eia-rto-api/) — Access to Daily Electricity Data
+- [EIA SEDS API](https://apis.io/apis/eia/eia-seds-api/) — Access to State Energy Data Systems (SEDS) Data
+- [EIA SEP API](https://apis.io/apis/eia/eia-sep-api/) — Access to State Electricity Profiles
+- [EIA STEO API](https://apis.io/apis/eia/eia-steo-api/) — Access to Short Term Energy Outlook Data
+- [EIA TOTAL API](https://apis.io/apis/eia/eia-total-api/) — Access to Total Energy Data
 
-## APIs
+### Published properties
 
-### EIA Open Data API (APIv2)
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-EIA's public, fully RESTful open data API covering more than two million energy time series. Datasets are arranged in a discoverable tree — request a parent route such as `/v2/electricity` and the API returns its child routes, available frequencies, facets, and data columns as metadata; append `/data` to retrieve values, with facets, column selection, date range, sort, offset, and length all expressed as query parameters. Route families cover electricity (including hourly RTO and balancing-authority operating data), natural gas, petroleum, coal, nuclear outages, densified biomass, CO2 emissions, international energy, the State Energy Data System, state electricity profiles, and the Short-Term, Annual, and International Energy Outlook projections. Responses are JSON by default or XML with `out=xml`, capped at 5,000 rows per request with an explicit pagination warning returned in the payload. The legacy APIv1 series interface is deprecated but its identifiers remain reachable through the `/v2/seriesid/{id}` route. Verified live 2026-07-27 — an unauthenticated GET returns HTTP 403 with `API_KEY_MISSING` and a bogus key returns HTTP 403 with `API_KEY_INVALID`. Published API version at the time of review is 2.1.12 (March 2026).
+#### MCP servers (1)
 
-- **Human URL:** [https://www.eia.gov/opendata/documentation.php](https://www.eia.gov/opendata/documentation.php)
-- **Base URL:** `https://api.eia.gov/v2`
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags
+- [No first-party MCP server; two community stdio servers over APIv2, plus a derived candidate tool set](https://apis.io/servers/eia/no-first-party-mcp-server-two-community-stdio-servers-over-apiv2-plus-a-derived-candidate-tool-set/)
 
-- Open Data
-- Electricity
-- Natural Gas
-- Petroleum
-- Coal
-- Nuclear
-- Emissions
-- Energy Statistics
-- Time Series
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [OpenAPI](openapi/eia-api-v2-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Documentation](https://www.eia.gov/opendata/documentation.php)
-- [API Reference](https://www.eia.gov/opendata/browser/)
-- [Portal](https://www.eia.gov/opendata/)
-- [Signup](https://www.eia.gov/opendata/register.php)
-- [Authentication](https://www.eia.gov/opendata/register.php)
-- [Terms of Service](https://www.eia.gov/opendata/register.php)
-- [Console](https://www.eia.gov/opendata/browser/)
-- [Documentation](https://www.eia.gov/opendata/qb.php)
-- [Privacy Policy](https://www.eia.gov/about/privacy_security_policy.php)
+- [Eia Agentic Access](https://apis.io/agentic-access/eia/eia-agentic-access/)
 
-### EIA Bulk Download Facility
+#### Collections (1)
 
-EIA's bulk data distribution surface, served from the same api.eia.gov host as APIv2 but requiring no API key whatsoever. A single manifest at `/bulk/manifest.txt` returns a JSON catalog of every bulk dataset with Project Open Data style metadata — identifier, title, description, keyword, publisher, person, mbox, accessLevel, accessURL, and last_updated — and each dataset is then downloadable as a zip archive of newline-delimited JSON, for example `/bulk/ELEC.zip`. Datasets include U.S. Electric System Operating Data (661,461 series), Electricity (285,080), Petroleum (53,464), Annual Energy Outlook releases back to 2014, International, SEDS, STEO, Coal, Natural Gas, CO2 Emissions, Crude Oil Imports, Nuclear Outages, and Total Energy. Updated twice daily at 5 a.m. and 3 p.m. Eastern. Verified live 2026-07-27 — `GET /bulk/manifest.txt` returned HTTP 200 anonymously and `GET /bulk/ELEC.zip` returned HTTP 200 with a 291,920,911-byte zip payload, both without a key.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://www.eia.gov/opendata/bulkfiles.php](https://www.eia.gov/opendata/bulkfiles.php)
-- **Base URL:** `https://api.eia.gov/bulk`
+- [EIA APIv2](https://apis.io/collections/eia/open-eia-api-v2/)
 
-#### Tags
+#### Overlays (1)
 
-- Open Data
-- Bulk Data
-- Energy Statistics
-- Electricity
-- Time Series
+OpenAPI overlays, including conversational phrasing for each operation.
 
-#### Properties
+- [Eia Api V2 Overlay](https://apis.io/overlays/eia/eia-api-v2-overlay/)
 
-- [Documentation](https://www.eia.gov/opendata/bulkfiles.php)
-- [Data Catalog](https://api.eia.gov/bulk/manifest.txt)
-- [Portal](https://www.eia.gov/opendata/)
+#### Security (3)
 
-## Common Properties
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Eia Authentication](https://apis.io/security/eia/eia-authentication/)
+- [Eia Domain Security](https://apis.io/security/eia/eia-domain-security/)
+- [Eia Vulnerability Disclosure](https://apis.io/security/eia/eia-vulnerability-disclosure/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Eia Rate Limits](https://apis.io/rate-limits/eia/eia-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.eia.gov)
-- [Portal](https://www.eia.gov/opendata/)
 - [Documentation](https://www.eia.gov/opendata/documentation.php)
-- [Signup](https://www.eia.gov/opendata/register.php)
-- [Console](https://www.eia.gov/opendata/browser/)
-- [Privacy Policy](https://www.eia.gov/about/privacy_security_policy.php)
-- [GitHub — EIAgov (a USER account, not an organization; 4 public repos, no SDKs)](https://github.com/EIAgov)
-- [DOE Project Open Data catalog — 342 of its 483 datasets are published by EIA](https://www.energy.gov/data.json)
-- [Tools](https://www.eia.gov/tools/)
-- [EIA Excel Add-in — spreadsheet client for APIv2](https://www.eia.gov/opendata/excel/)
-- [Hourly Electric Grid Monitor — web tool over the /v2/electricity/rto routes](https://www.eia.gov/electricity/gridmonitor/)
-- [Wholesale Electricity Markets — link hub to the seven ISO/RTO data surfaces, not an EIA API](https://www.eia.gov/electricity/wholesalemarkets/)
-- [EIA survey forms — the mandatory industry reporting that feeds every API route](https://www.eia.gov/survey/)
+- [Getting started](https://www.eia.gov/opendata/documentation.php)
+- [API reference](https://www.eia.gov/opendata/browser/)
+- [Sign up](https://www.eia.gov/opendata/register.php)
+- [Support](https://www.eia.gov/opendata/faqs.php)
+- [Changelog](https://www.eia.gov/opendata/documentation.php)
+- [Blog](https://www.eia.gov/todayinenergy/)
+- [Security](https://www.energy.gov/cio/articles/vulnerability-disclosure-policy)
+- [Terms of service](https://www.eia.gov/opendata/register.php)
+- [Privacy policy](https://www.eia.gov/about/privacy_security_policy.php)
+- [GitHub](https://github.com/EIAgov)
 
-## Mandate Posture
+## API Evangelist rating
 
-- **Mandate regime:** `other` — no consumer energy data mandate applies to EIA. Not `cdr-energy`, not `green-button-ontario`, not `green-button-voluntary` (there is no Green Button or ESPI reference anywhere on eia.gov), not `smart-meter-infrastructure`. Two different obligations do apply: EIA's own statutory collection mandate compelling the industry to file mandatory survey forms (EIA-860, EIA-861, EIA-923, EIA-176, EIA-914, EIA-930) under the Federal Energy Administration Act of 1974 and the DOE Organization Act of 1977; and the federal open-data obligation under the OPEN Government Data Act that the API and bulk catalog discharge.
-- **Mandate status:** `live-implemented` — verified against live endpoints, not press releases. `api.eia.gov/v2` returns `API_KEY_MISSING`, a bogus key returns `API_KEY_INVALID`, the OpenAPI zip returns HTTP 200 and parses, `/bulk/manifest.txt` and `/bulk/ELEC.zip` both return HTTP 200 anonymously, and `energy.gov/data.json` carries 342 EIA-published datasets.
-- **Consumer data API:** none — no Green Button, no ESPI, no consent flow, no customer-level route in 225 paths. **Market data:** wide open, including hourly balancing-authority demand, generation, and interchange.
-- **Data standard:** no energy data standard implemented. OpenAPI 3.0.0 as the API contract; Project Open Data style catalog metadata on the bulk manifest; a proprietary route/frequency/facet/data shape otherwise.
-- **Access gate:** `self-serve` — complete a short form and the key arrives by email automatically, with no review, no accreditation, no licence, and no fee. The bulk facility needs no key at all.
-- **Auth model:** API key in the `api_key` query parameter only (EIA documents that it will not be read from a header). No OAuth2, no OIDC, no mTLS. No numeric rate limits published; the only documented hard limit is the 5,000-row response cap.
+**Kin Score 48.2** — developing · rubric 0.25.0 · scored 2026-10-23
 
-## Maintainers
+| Facet | Score |
+|---|---|
+| Discoverability | 71.7 |
+| Contract quality | 47.1 |
+| Contract governance | 4.5 |
+| Operational transparency | 57.9 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 34.2 |
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Agent readiness 27.5** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 25.4** — Energy & Utilities
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/eia/](https://apis.io/providers/eia/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for EIA: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/eia/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
